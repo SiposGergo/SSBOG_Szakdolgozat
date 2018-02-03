@@ -8,31 +8,20 @@ using SSBO5G__Szakdolgozat.Models;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
-    public class HomeController : Controller
+    [Route("[Controller]/")]
+    public class HikeController : Controller
     {
         private ApplicationContext context;
-        public HomeController(ApplicationContext context)
+        public HikeController(ApplicationContext context)
         {
             this.context = context;
         }
-        public IActionResult Index()
+
+        [HttpGet("all")]
+        public IActionResult All()
         {
             var hikes = context.Hikes.ToList();
             return new JsonResult(hikes);
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
         }
     }
 }
