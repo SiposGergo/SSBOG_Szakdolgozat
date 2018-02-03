@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SSBO5G__Szakdolgozat.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SSBO5G__Szakdolgozat
 {
@@ -22,10 +24,11 @@ namespace SSBO5G__Szakdolgozat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase("myDatabse"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationContext context)
         {
             if (env.IsDevelopment())
             {
@@ -45,6 +48,7 @@ namespace SSBO5G__Szakdolgozat
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            DbSeeder.FillWithTestData(context);
         }
     }
 }

@@ -10,9 +10,15 @@ namespace SSBO5G__Szakdolgozat.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationContext context;
+        public HomeController(ApplicationContext context)
+        {
+            this.context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            var hikes = context.Hikes.ToList();
+            return new JsonResult(hikes);
         }
 
         public IActionResult About()
@@ -27,11 +33,6 @@ namespace SSBO5G__Szakdolgozat.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
