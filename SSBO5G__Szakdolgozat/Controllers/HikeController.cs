@@ -21,7 +21,9 @@ namespace SSBO5G__Szakdolgozat.Controllers
         [HttpGet("all")]
         public IActionResult All()
         {
-            var hikes = context.Hikes.ToListAsync();
+            var hikes = context.Hikes
+                .Include(x=>x.Courses)
+                .ToListAsync();
             return new JsonResult(hikes);
         }
     }

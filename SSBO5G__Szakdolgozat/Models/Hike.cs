@@ -18,7 +18,9 @@ namespace SSBO5G__Szakdolgozat.Models
 
         // segítők
         public virtual ICollection<HikeHelper> Staff { get; set; }
-        public virtual ICollection<Comment> Coments { get; set; }
+        // kommentek
+        public virtual ICollection<Comment> Comments { get; set; }
+        // távok
         public virtual ICollection<HikeCourse> Courses { get; set; }
     }
 }

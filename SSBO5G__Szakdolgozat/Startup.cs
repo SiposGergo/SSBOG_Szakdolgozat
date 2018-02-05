@@ -28,10 +28,22 @@ namespace SSBO5G__Szakdolgozat
             });
 
             services.AddMvc();
+
             services.AddDbContext<ApplicationContext>(
                 options => options.UseInMemoryDatabase("myDatabse"));
+
+            services.AddCors();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("x",
+                    builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationContext context)
         {
             app.UseSwagger();
@@ -39,8 +51,14 @@ namespace SSBO5G__Szakdolgozat
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            
+
             app.UseStaticFiles();
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0.1:8080")
+                .AllowAnyHeader().
+                AllowAnyMethod().
+                AllowCredentials());
 
             app.UseMvc();
             DbSeeder.FillWithTestData(context);
