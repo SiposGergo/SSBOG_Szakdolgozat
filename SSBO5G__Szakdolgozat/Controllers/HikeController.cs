@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SSBO5G__Szakdolgozat.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
@@ -20,7 +21,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
         [HttpGet("all")]
         public IActionResult All()
         {
-            var hikes = context.Hikes.ToList();
+            var hikes = context.Hikes.ToListAsync();
             return new JsonResult(hikes);
         }
     }
