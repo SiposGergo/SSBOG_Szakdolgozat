@@ -58,14 +58,14 @@ namespace SSBO5G__Szakdolgozat.Models
                 new Hike
                 {
                     Name = "Mátrahegy",
-                    Website = "http:\\www.kekeste.hu",
+                    Website = "http://kekesturista.hu",
                     Date = new DateTime(2013, 03, 09),
                     Description = "Mátrahegy telejsítménytúra",
                     OrganizerId = 3,
                 }, new Hike
                 {
                     Name = "Patai Mátra",
-                    Website = "http:\\www.alfoldte.hu",
+                    Website = "http://www.alfoldte.hu",
                     Date = new DateTime(2017, 07, 22),
                     Description = "Patai Mátra telejsítménytúra. Túra Gyöngyöspatáról 4 távon.",
                     OrganizerId = 4,
@@ -128,9 +128,26 @@ namespace SSBO5G__Szakdolgozat.Models
                     MaxNumOfHikers = 60,
                     PlaceOfFinish = "Gyöngyöspata, általános iskola",
                     PlaceOfStart = "Gyöngyöspata, általános iskola",
-                    Price = 1500,
+                    Price = 1600,
                     RegisterDeadline = new DateTime(2017, 07, 21, 0, 00, 00),
                     LimitTime = new TimeSpan(12, 00, 00)
+                });
+
+            context.Courses.Add(
+                new HikeCourse
+                {
+                    BeginningOfStart = new DateTime(2017, 07, 22, 6, 00, 00),
+                    EndOfStart = new DateTime(2013, 07, 22, 8, 00, 00),
+                    Distance = 34400,
+                    Elevation = 1338,
+                    Name = "Patai Mátra 35",
+                    HikeId = 2,
+                    MaxNumOfHikers = 100,
+                    PlaceOfFinish = "Gyöngyöspata, általános iskola",
+                    PlaceOfStart = "Gyöngyöspata, általános iskola",
+                    Price = 1400,
+                    RegisterDeadline = new DateTime(2017, 07, 21, 0, 00, 00),
+                    LimitTime = new TimeSpan(10, 00, 00)
                 });
 
             context.SaveChanges();

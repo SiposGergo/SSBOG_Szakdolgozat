@@ -27,7 +27,8 @@ namespace SSBO5G__Szakdolgozat
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(x 
+                => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseInMemoryDatabase("myDatabse"));
