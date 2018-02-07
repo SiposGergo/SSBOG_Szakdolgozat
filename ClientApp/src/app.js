@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore.js";
 
 import 'react-dates/lib/css/_datepicker.css';
+import 'rc-slider/assets/index.css';
 
 
 const store = configureStore();

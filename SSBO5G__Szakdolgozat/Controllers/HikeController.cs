@@ -27,5 +27,20 @@ namespace SSBO5G__Szakdolgozat.Controllers
             var y = new JsonResult(hikes);
             return y;
         }
+
+        [HttpGet("details/{id}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var hike = await context.Hikes
+                .SingleOrDefaultAsync(x => x.Id == id);
+            if (hike == null)
+            {
+                return new StatusCodeResult(404);
+            } 
+            else
+            {
+                return new JsonResult(hike);
+            }
+        }
     }
 }

@@ -23,6 +23,16 @@ export const setEndDate = (value = undefined) => ({
     value
 })
 
+export const setOldHikesVisibility = (bool = false) => ({
+    type: "SET_OLD_HIKES_VISIBILITY",
+    bool
+})
+
+export const setSliderValues = (value ) => ({
+    type: "SET_SLIDER_VALUES",
+    value
+})
+
 // fetch-hez
 
 export function itemsHasErrored(bool) {

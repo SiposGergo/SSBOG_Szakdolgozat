@@ -49,6 +49,16 @@ namespace SSBO5G__Szakdolgozat.Models
                     Town = "Nagyréde",
                     UserName = "laci02",
                     PhoneNumber = "06303084417"
+                },
+                new Hiker
+                {
+                    Name = "Matécz Péter",
+                    Email = "mpn@bthe.hu",
+                    DateOfBirth = new DateTime(1975, 01, 01),
+                    Gender = GenderTypes.Male,
+                    Town = "BörzsönyValami",
+                    UserName = "peti1",
+                    PhoneNumber = "063077111012"
                 }
               );
             context.SaveChanges();
@@ -69,7 +79,17 @@ namespace SSBO5G__Szakdolgozat.Models
                     Date = new DateTime(2018, 07, 22),
                     Description = "Patai Mátra telejsítménytúra. Túra Gyöngyöspatáról 4 távon.",
                     OrganizerId = 4,
-                });
+                },
+                new Hike
+                {
+                    Name = "Andezit",
+                    Website = "http://www.bthe.hu",
+                    Date = new DateTime(2018, 01, 15),
+                    Description = "Andezit 30/15",
+                    OrganizerId = 5,
+                }
+                );
+
             context.SaveChanges();
 
             context.HikeHelpers.AddRange(

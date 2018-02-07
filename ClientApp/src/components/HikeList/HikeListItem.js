@@ -3,8 +3,8 @@ import moment from "moment";
 
 const HikeListItem = (props) => (
     <div>
-        <h1>{props.hike.name}</h1>
-        <a href={props.hike.website}>A Túra oldala</a>
+        <h1><a href={`/hike/${props.hike.id}`}>{props.hike.name}</a></h1>
+        <a href={props.hike.website} target="_blank">A Túra oldala</a>
         <table>
             <tbody>
                 <tr>
@@ -13,8 +13,9 @@ const HikeListItem = (props) => (
                 </tr>
                 <tr>
                     <td>Távok: </td>
-                    <td>{props.hike.courses.map(course =>
-                        course.distance / 1000 + " km, ")}
+                    <td>{props.hike.courses.length == 0 ? "Nincsenek távok"
+                        : props.hike.courses.map(course =>
+                            course.distance / 1000 + " km, ")}
                     </td>
                 </tr>
             </tbody>

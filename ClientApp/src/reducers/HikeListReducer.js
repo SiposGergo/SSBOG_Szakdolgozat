@@ -5,10 +5,12 @@ const filtersReducerDefaultState = {
     hikes: [],
     text: "",
     sortBy: "name",
-    startDate: moment().startOf('month'),
-    endDate: moment().endOf('month'),
+    startDate: moment().startOf('year'),
+    endDate: moment().endOf('year'),
+    isOldHikesVisible: false,
+    slider: [0,100],
     hasErrored: false,
-    isLoading: false
+    isLoading: false,
 }
 
 const filtersReducer = (state = filtersReducerDefaultState, action) => {
@@ -23,8 +25,10 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
             return { ...state, startDate: action.value }
         case "SET_END_DATE":
             return { ...state, endDate: action.value }
-
-
+        case "SET_OLD_HIKES_VISIBILITY":
+            return { ...state, isOldHikesVisible: action.bool }
+        case "SET_SLIDER_VALUES":
+            return { ...state, slider: action.value }
 
         case 'ITEMS_HAS_ERRORED':
             return { ...state, hasErrored: action.hasErrored }
