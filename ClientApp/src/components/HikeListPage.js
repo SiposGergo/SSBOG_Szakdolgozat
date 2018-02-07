@@ -1,25 +1,57 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import HikeListItem from "./HikeListItem.js";
-import ReactLoading from 'react-loading';
-import ApiFetch from "./apiFetch";
+import { connect } from "react-redux";
+import getVisibleHikes from "../selectors/hikes.js";
+import HikeListItem from "./HikeListItem";
+import HikeListFilter from "./HikeListFilter.js";
 
-const API = 'http://localhost:4242/Hike/all';
+import { itemsFetchData } from "../actions/filters"
 
-const App = ({ data, isLoading, error }) => {
-    const hikes = data || [];
-  
-    if (error) {
-      return <p>{error.message}</p>;
+const API = "http://localhost:4242/Hike/all";
+
+class HikeListPage extends React.Component {
+    componentDidMount() {
+        this.props.fetchData(API);
     }
-  
-    if (isLoading) {
-        return <ReactLoading type="spin" color="#000000" height={40} width={40} />
-    }
-  
-    return hikes.map(hike =>
-        (<HikeListItem key={hike.id} hike={hike} />));
-  }
 
-  const AppWithFetch = ApiFetch(API)(App);
-  export default AppWithFetch;
+    render() {
+        if (this.props.hasErrored) {
+            return <p>Sorry! There was an error loading the items</p>;
+        }
+
+        if (this.props.isLoading) {
+            return <p>Loading…</p>;
+        }
+
+        return (
+            <div>
+                <HikeListFilter />
+                {
+                    this.props.hikes.length === 0 ? (
+                        <p>No Hikes</p>
+                    ) : (
+                            this.props.hikes.map((h) => {
+                                return (<HikeListItem key={h.id} hike={h} />)
+                            })
+                        )
+                }
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        hikes: getVisibleHikes(state),
+        hasErrored: state.hasErrored,
+        isLoading: state.isLoading
+
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: (url) => dispatch(itemsFetchData(url))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HikeListPage);

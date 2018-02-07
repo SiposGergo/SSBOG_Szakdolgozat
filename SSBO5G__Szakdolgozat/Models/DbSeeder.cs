@@ -59,14 +59,14 @@ namespace SSBO5G__Szakdolgozat.Models
                 {
                     Name = "Mátrahegy",
                     Website = "http://kekesturista.hu",
-                    Date = new DateTime(2013, 03, 09),
+                    Date = new DateTime(2018, 03, 09),
                     Description = "Mátrahegy telejsítménytúra",
                     OrganizerId = 3,
                 }, new Hike
                 {
                     Name = "Patai Mátra",
                     Website = "http://www.alfoldte.hu",
-                    Date = new DateTime(2017, 07, 22),
+                    Date = new DateTime(2018, 07, 22),
                     Description = "Patai Mátra telejsítménytúra. Túra Gyöngyöspatáról 4 távon.",
                     OrganizerId = 4,
                 });

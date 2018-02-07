@@ -1,10 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import moment from "moment";
 
-
 const HikeListItem = (props) => (
-    <div className="option">
+    <div>
         <h1>{props.hike.name}</h1>
         <a href={props.hike.website}>A Túra oldala</a>
         <table>
@@ -15,11 +13,12 @@ const HikeListItem = (props) => (
                 </tr>
                 <tr>
                     <td>Távok: </td>
-                    <td>{props.hike.courses.map(course => course.distance / 1000 + " km, ")}</td>
+                    <td>{props.hike.courses.map(course =>
+                        course.distance / 1000 + " km, ")}
+                    </td>
                 </tr>
             </tbody>
         </table>
-
     </div>
 );
 
