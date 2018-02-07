@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import getVisibleHikes from "../selectors/hikes.js";
+import getVisibleHikes from "../../selectors/HikeListSelector";
 import HikeListItem from "./HikeListItem";
 import HikeListFilter from "./HikeListFilter.js";
 
-import { itemsFetchData } from "../actions/filters"
+import { itemsFetchData } from "../../actions/HikeListActions"
 
 const API = "http://localhost:4242/Hike/all";
 

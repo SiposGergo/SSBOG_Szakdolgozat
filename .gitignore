@@ -263,3 +263,6 @@ __pycache__/
 # babel kimenet
 /ClientApp/public/bundle.js
 /ClientApp/public/bundle.js.map
+
+/ClientApp/public/styles.css
+/ClientApp/public/styles.css.map

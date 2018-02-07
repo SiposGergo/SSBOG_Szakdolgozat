@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
-import filtersReducer from "../reducers/filters.js"
+import filtersReducer from "../reducers/HikeListReducer"
 import thunk from "redux-thunk";
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
-import HikeListPage from "../components/HikeListPage.js";
+import HikeListPage from "../components/HikeList/HikeListPage.js";
 import Header from "../components/Header.js";
 
 const AppRouter = () => (
