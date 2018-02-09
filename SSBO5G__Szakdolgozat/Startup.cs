@@ -10,6 +10,12 @@ using SSBO5G__Szakdolgozat.Models;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using SSBO5G__Szakdolgozat.Services;
+using AutoMapper;
+using SSBO5G__Szakdolgozat.Helpers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
 
 namespace SSBO5G__Szakdolgozat
 {
@@ -23,7 +29,9 @@ namespace SSBO5G__Szakdolgozat
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
             services.AddScoped<IHikeService, HikeService>();
+            services.AddScoped<IUserService, UserService>();
 
             // Swagger
             services.AddSwaggerGen(c =>
@@ -47,10 +55,38 @@ namespace SSBO5G__Szakdolgozat
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+
+            // Auth & JWT
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, ApplicationContext context)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -61,11 +97,13 @@ namespace SSBO5G__Szakdolgozat
 
             app.UseCors(builder =>
                 builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0.1:8080")
-                .AllowAnyHeader().
-                AllowAnyMethod().
-                AllowCredentials());
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
 
             app.UseMvc();
+            app.UseAuthentication();
+
             DbSeeder.FillWithTestData(context);
         }
     }

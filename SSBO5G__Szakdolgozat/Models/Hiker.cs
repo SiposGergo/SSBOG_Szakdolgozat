@@ -9,13 +9,16 @@ namespace SSBO5G__Szakdolgozat.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }
-        [EmailAddress]
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public GenderTypes Gender { get; set; }
         public string Town { get; set; }
         //Password ???
         public string PhoneNumber { get; set; }
+        
+        // Auth-hoz
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
         // Szervezett túrák ==> főszervező
         public virtual ICollection<Hike> OrganizedHikes { get; set; }

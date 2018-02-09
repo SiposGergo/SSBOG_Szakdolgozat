@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SSBO5G__Szakdolgozat.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SSBO5G__Szakdolgozat.Models
+namespace SSBO5G__Szakdolgozat.Helpers
 {
     public class ApplicationContext : DbContext
     {

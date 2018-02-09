@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SSBO5G__Szakdolgozat.Models;
 
-namespace SSBO5G__Szakdolgozat.Models
+namespace SSBO5G__Szakdolgozat.Helpers
 {
     public class DbSeeder
     {

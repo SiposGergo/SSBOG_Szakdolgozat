@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SSBO5G__Szakdolgozat.Models;
 using Microsoft.EntityFrameworkCore;
 using SSBO5G__Szakdolgozat.Services;
+using SSBO5G__Szakdolgozat.Helpers;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
