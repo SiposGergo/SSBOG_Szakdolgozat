@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SSBO5G__Szakdolgozat.Models;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
+using SSBO5G__Szakdolgozat.Services;
 
 namespace SSBO5G__Szakdolgozat
 {
@@ -22,6 +23,9 @@ namespace SSBO5G__Szakdolgozat
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IHikeService, HikeService>();
+
+            // Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -30,11 +34,11 @@ namespace SSBO5G__Szakdolgozat
             services.AddMvc().AddJsonOptions(x 
                 => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            // Database context
             services.AddDbContext<ApplicationContext>(
                 options => options.UseInMemoryDatabase("myDatabse"));
 
-            services.AddCors();
-
+            // Configure CORS
             services.AddCors(options =>
             {
                 options.AddPolicy("x",

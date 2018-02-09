@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SSBO5G__Szakdolgozat.Models;
 using Microsoft.EntityFrameworkCore;
+using SSBO5G__Szakdolgozat.Services;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
@@ -13,38 +14,38 @@ namespace SSBO5G__Szakdolgozat.Controllers
     public class HikeController : Controller
     {
         private ApplicationContext context;
-        public HikeController(ApplicationContext context)
+        IHikeService hikeService;
+
+        public HikeController(ApplicationContext context, IHikeService service)
         {
             this.context = context;
+            hikeService = service;
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> All()
         {
-            var hikes = await context.Hikes
-                .Include(x => x.Courses)
-                .ToListAsync();
-            var y = new JsonResult(hikes);
-            return y;
+            try
+            {
+                return new JsonResult(await hikeService.GetAllHike());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var selectedHike = await context.Hikes
-                .Include(hike => hike.Organizer)
-                .Include(hike => hike.Courses)
-                .ThenInclude(course => course.CheckPoints)
-                .Include(hike => hike.Comments)
-                .ThenInclude(comments => comments.Author)
-                .SingleOrDefaultAsync(x => x.Id == id);
-            if (selectedHike == null)
+
+            try
             {
-                return new StatusCodeResult(404);
+                return new JsonResult(await hikeService.GetById(id));
             }
-            else
+            catch (Exception ex)
             {
-                return new JsonResult(selectedHike);
+                return BadRequest(ex.Message);
             }
         }
     }
