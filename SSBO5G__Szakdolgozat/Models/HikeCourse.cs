@@ -24,6 +24,7 @@ namespace SSBO5G__Szakdolgozat.Models
         public DateTime BeginningOfStart { get; set; }
         public DateTime EndOfStart { get; set; }
         public TimeSpan LimitTime { get; set; }
+
         public virtual ICollection<CheckPoint> CheckPoints { get; set; }
 
         // ELőnevezések

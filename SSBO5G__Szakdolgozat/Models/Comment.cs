@@ -13,10 +13,10 @@ namespace SSBO5G__Szakdolgozat.Models
 
         // szerző
         public int AuthorId { get; set; }
-        public Hiker Author { get; set; }
+        public virtual Hiker Author { get; set; }
 
         // túra
         public int HikeId { get; set; }
-        public Hike Hike { get; set; }
+        public virtual Hike Hike { get; set; }
     }
 }

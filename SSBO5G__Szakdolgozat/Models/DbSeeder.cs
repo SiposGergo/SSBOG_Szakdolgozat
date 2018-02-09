@@ -84,7 +84,7 @@ namespace SSBO5G__Szakdolgozat.Models
                 {
                     Name = "Andezit",
                     Website = "http://www.bthe.hu",
-                    Date = new DateTime(2018, 01, 15),
+                    Date = new DateTime(2014, 04, 13),
                     Description = "Andezit 30/15",
                     OrganizerId = 5,
                 }
@@ -113,6 +113,20 @@ namespace SSBO5G__Szakdolgozat.Models
                 {
                     AuthorId = 2,
                     HikeId = 1,
+                    CommentText = "lollooll",
+                    TimeStamp = DateTime.Now
+                },
+                new Comment
+                {
+                    AuthorId = 3,
+                    HikeId = 1,
+                    CommentText = ":DDD",
+                    TimeStamp = DateTime.Now
+                },
+                new Comment
+                {
+                    AuthorId = 2,
+                    HikeId = 2,
                     CommentText = "trolololoolo",
                     TimeStamp = DateTime.Now
                 });
@@ -168,6 +182,23 @@ namespace SSBO5G__Szakdolgozat.Models
                     Price = 1400,
                     RegisterDeadline = new DateTime(2018, 07, 21, 0, 00, 00),
                     LimitTime = new TimeSpan(10, 00, 00)
+                });
+
+            context.Courses.Add(
+                new HikeCourse
+                {
+                    BeginningOfStart = new DateTime(2014, 04, 13, 7, 30, 00),
+                    EndOfStart = new DateTime(2014, 04, 13, 9, 00, 00),
+                    Distance = 29750,
+                    Elevation = 915,
+                    Name = "30 kilométeres táv.",
+                    HikeId = 3,
+                    MaxNumOfHikers = 40,
+                    PlaceOfFinish = "Galgaguta, evangélikus templom melletti park",
+                    PlaceOfStart = "Galgaguta, evangélikus templom melletti park",
+                    Price = 1200,
+                    RegisterDeadline = new DateTime(2014, 04, 10, 0, 00, 00),
+                    LimitTime = new TimeSpan(8, 00, 00)
                 });
 
             context.SaveChanges();

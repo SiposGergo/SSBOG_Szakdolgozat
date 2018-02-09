@@ -31,15 +31,20 @@ namespace SSBO5G__Szakdolgozat.Controllers
         [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var hike = await context.Hikes
+            var selectedHike = await context.Hikes
+                .Include(hike => hike.Organizer)
+                .Include(hike => hike.Courses)
+                .ThenInclude(course => course.CheckPoints)
+                .Include(hike => hike.Comments)
+                .ThenInclude(comments => comments.Author)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            if (hike == null)
+            if (selectedHike == null)
             {
                 return new StatusCodeResult(404);
-            } 
+            }
             else
             {
-                return new JsonResult(hike);
+                return new JsonResult(selectedHike);
             }
         }
     }
