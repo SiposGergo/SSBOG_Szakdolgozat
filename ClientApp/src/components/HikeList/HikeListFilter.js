@@ -104,7 +104,7 @@ export class HikeListFilter extends React.Component {
     }
 }
 const mapStateToProps = (state) => ({
-    filters: state
+    filters: state.HikeListReducer
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

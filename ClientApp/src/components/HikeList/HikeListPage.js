@@ -14,6 +14,7 @@ class HikeListPage extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
         }
@@ -22,8 +23,7 @@ class HikeListPage extends React.Component {
             return <p>Loading…</p>;
         }
 
-        return (
-            <div>
+        return ( <div>
                 <HikeListFilter />
                 {
                     this.props.hikes.length === 0 ? (
@@ -41,9 +41,9 @@ class HikeListPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        hikes: getVisibleHikes(state),
-        hasErrored: state.hasErrored,
-        isLoading: state.isLoading
+        hikes: getVisibleHikes(state.HikeListReducer),
+        hasErrored: state.HikeListReducer.hasErrored,
+        isLoading: state.HikeListReducer.isLoading
 
     }
 };

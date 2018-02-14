@@ -1,9 +1,16 @@
 import { createStore, applyMiddleware } from "redux";
-import filtersReducer from "../reducers/HikeListReducer"
-import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
+import { createLogger } from 'redux-logger';
+import rootReducer from '../reducers';
 
+const loggerMiddleware = createLogger();
 
 export default () => {
-    const store =  createStore(filtersReducer,applyMiddleware(thunk));
+    const store = createStore(
+        rootReducer,
+        applyMiddleware(
+            thunkMiddleware,
+            loggerMiddleware
+        ));
     return store;
 }

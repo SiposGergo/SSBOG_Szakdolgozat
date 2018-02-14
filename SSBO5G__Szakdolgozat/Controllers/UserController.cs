@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
-    [Authorize]
+    [Authorize("Bearer")]
     [Route("[controller]")]
     public class UsersController : Controller
     {

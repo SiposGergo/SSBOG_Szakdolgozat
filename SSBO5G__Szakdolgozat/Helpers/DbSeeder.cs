@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SSBO5G__Szakdolgozat.Models;
+using SSBO5G__Szakdolgozat.Services;
 
 namespace SSBO5G__Szakdolgozat.Helpers
 {
@@ -11,58 +12,64 @@ namespace SSBO5G__Szakdolgozat.Helpers
         //////////TÚRÁZÓK//////////
         public static void FillWithTestData(ApplicationContext context)
         {
-            context.Hikers.AddRange(
-                new Hiker
-                {
-                    Name = "Gergő",
-                    Email = "asd@lol.com",
-                    DateOfBirth = new DateTime(1997, 03, 26),
-                    Gender = GenderTypes.Male,
-                    Town = "Nagyréde",
-                    UserName = "prosipinho",
-                    PhoneNumber = "06309119162"
-                },
-                new Hiker
-                {
-                    Name = "Laci",
-                    Email = "asd@bme.com",
-                    DateOfBirth = new DateTime(1997, 01, 01),
-                    Gender = GenderTypes.Male,
-                    Town = "Nagyréde",
-                    UserName = "laci01"
-                },
-                new Hiker
-                {
-                    Name = "György",
-                    Email = "asd@konyvtar.com",
-                    DateOfBirth = new DateTime(1973, 01, 01),
-                    Gender = GenderTypes.Male,
-                    Town = "Nagyréde",
-                    UserName = "gyuri",
-                    PhoneNumber = "06303084317"
-                },
-                new Hiker
-                {
-                    Name = "Erdei László",
-                    Email = "asd@alfold.com",
-                    DateOfBirth = new DateTime(1995, 01, 01),
-                    Gender = GenderTypes.Male,
-                    Town = "Nagyréde",
-                    UserName = "laci02",
-                    PhoneNumber = "06303084417"
-                },
-                new Hiker
-                {
-                    Name = "Matécz Péter",
-                    Email = "mpn@bthe.hu",
-                    DateOfBirth = new DateTime(1975, 01, 01),
-                    Gender = GenderTypes.Male,
-                    Town = "BörzsönyValami",
-                    UserName = "peti1",
-                    PhoneNumber = "063077111012"
-                }
-              );
-            context.SaveChanges();
+            IUserService userService = new UserService(context);
+
+            Hiker h1 = new Hiker
+            {
+                Name = "Gergő",
+                Email = "asd@lol.com",
+                DateOfBirth = new DateTime(1997, 03, 26),
+                Gender = GenderTypes.Male,
+                Town = "Nagyréde",
+                UserName = "prosipinho",
+                PhoneNumber = "06309119162"
+            };
+            Hiker h2 = new Hiker
+            {
+                Name = "Laci",
+                Email = "asd@bme.com",
+                DateOfBirth = new DateTime(1997, 01, 01),
+                Gender = GenderTypes.Male,
+                Town = "Nagyréde",
+                UserName = "laci01"
+            };
+            Hiker h3 = new Hiker
+            {
+                Name = "György",
+                Email = "asd@konyvtar.com",
+                DateOfBirth = new DateTime(1973, 01, 01),
+                Gender = GenderTypes.Male,
+                Town = "Nagyréde",
+                UserName = "gyuri",
+                PhoneNumber = "06303084317"
+            };
+            Hiker h4 = new Hiker
+            {
+                Name = "Erdei László",
+                Email = "asd@alfold.com",
+                DateOfBirth = new DateTime(1995, 01, 01),
+                Gender = GenderTypes.Male,
+                Town = "Nagyréde",
+                UserName = "laci02",
+                PhoneNumber = "06303084417"
+            };
+            Hiker h5 = new Hiker
+            {
+                Name = "Matécz Péter",
+                Email = "mpn@bthe.hu",
+                DateOfBirth = new DateTime(1975, 01, 01),
+                Gender = GenderTypes.Male,
+                Town = "BörzsönyValami",
+                UserName = "peti1",
+                PhoneNumber = "063077111012"
+            };
+
+            // Hozzá is adja
+            Hiker h11 = userService.Create(h1, "abc1");
+            Hiker h21 = userService.Create(h2, "abc2");
+            Hiker h31 = userService.Create(h3, "abc3");
+            Hiker h41 = userService.Create(h4, "abc4");
+            Hiker h51 = userService.Create(h5, "abc5");
 
             //////////TÚRÁK//////////
             context.Hikes.AddRange(
