@@ -5,10 +5,9 @@ import { connect } from 'react-redux';
 import { userActions } from '../actions/UserActions';
 
 class LoginPage extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-        // reset login status
+    constructor(props) {
+        super(props);
+        // kijelentkezés
         this.props.dispatch(userActions.logout());
 
         this.state = {
@@ -16,26 +15,23 @@ class LoginPage extends React.Component {
             password: '',
             submitted: false
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e) {
+    // Mikor változtatok egy értéket
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
+    // ha el akarom küldeni a formot
     handleSubmit(e) {
         e.preventDefault();
-
         this.setState({ submitted: true });
         const { username, password } = this.state;
         const { dispatch } = this.props;
         if (username && password) {
-            dispatch(userActions.login(username, password));
+            dispatch(userActions.login(username, password, this.props.history));
         }
-        this.props.history.push("/home")
     }
 
     render() {

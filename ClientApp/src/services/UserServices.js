@@ -21,9 +21,9 @@ function login(username, password) {
     return fetch(config.apiUrl + '/users/authenticate', requestOptions)
         .then(handleResponse, handleError)
         .then(user => {
-            // login successful if there's a jwt token in the response
+            // sikeres a login ha van jwt
             if (user && user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                // loalstoreban tároljuk el a usert
                 localStorage.setItem('user', JSON.stringify(user));
             }
             return user;
@@ -31,7 +31,7 @@ function login(username, password) {
 }
 
 function logout() {
-    // remove user from local storage to log user out
+    // ha kitöröljük kivan jelentkezve
     localStorage.removeItem('user');
 }
 
@@ -73,7 +73,7 @@ function update(user) {
     return fetch(config.apiUrl + '/users/edit/' + user.id, requestOptions).then(handleResponse, handleError);
 }
 
-// prefixed function name with underscore because delete is a reserved word in javascript
+// prefixum mert foglalt kifejezés a delete
 function _delete(id) {
     const requestOptions = {
         method: 'DELETE',
@@ -86,7 +86,7 @@ function _delete(id) {
 function handleResponse(response) {
     return new Promise((resolve, reject) => {
         if (response.ok) {
-            // return json if it was returned in the response
+            // jsont adunk vissza ha volt a responseban
             var contentType = response.headers.get("content-type");
             if (contentType && contentType.includes("application/json")) {
                 response.json().then(json => resolve(json));
@@ -94,7 +94,7 @@ function handleResponse(response) {
                 resolve();
             }
         } else {
-            // return error message from response body
+            // hibaüzenetet adunk vissza ha hiba történt
             response.text().then(text => reject(text));
         }
     });

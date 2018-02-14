@@ -1,4 +1,4 @@
-export function users(state = {}, action) {
+export const users = (state = {}, action) => {
     switch (action.type) {
       case 'USERS_GETALL_REQUEST':
         return {

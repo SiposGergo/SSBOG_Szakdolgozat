@@ -1,4 +1,4 @@
-export function alert(state = {}, action) {
+export const alert = (state = {}, action) =>{
     switch (action.type) {
       case "ALERT_SUCCESS":
         return {

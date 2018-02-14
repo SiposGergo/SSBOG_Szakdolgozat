@@ -2,36 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from "moment";
-
+import { userActions } from '../actions/UserActions';
+// dátum választó
 import "react-dates/initialize";
 import { SingleDatePicker } from "react-dates";
+// validáció
+import validator from 'validator';
 
-import { userActions } from '../actions/UserActions';
 
 class RegisterPage extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            user: {
-                name: '',
-                userName: '',
-                password: '',
-                email: '',
-                gender: 'Male',
-                phoneNumber: '',
-                town: "",
-                dateOfBirth: moment().startOf('year')
-            },
-            submitted: false,
-            calendarFocused: false
-        };
+    state = {
+        user: {
+            name: '',
+            userName: '',
+            password: '',
+            email: '',
+            gender: 'Male',
+            phoneNumber: '',
+            town: "",
+            dateOfBirth: moment().startOf('year')
+        },
+        submitted: false,
+        calendarFocused: false
+    };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
+    handleChange = (event) => {
         const { name, value } = event.target;
         const { user } = this.state;
         console.log(value);
@@ -51,14 +47,14 @@ class RegisterPage extends React.Component {
         return true;
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
 
         this.setState({ submitted: true });
         const { user } = this.state;
         const { dispatch } = this.props;
         if (this.checkProperties(user)) {
-            dispatch(userActions.register(user));
+            dispatch(userActions.register(user, this.props.history));
         }
     }
 
@@ -70,6 +66,7 @@ class RegisterPage extends React.Component {
                 <h2>Regisztráció</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
 
+                    {/* NÉV */}
                     <div className={'form-group' + (submitted && !user.name ? ' has-error' : '')}>
                         <label htmlFor="name">Név</label>
                         <input type="text" className="form-control" name="name" value={user.name} onChange={this.handleChange} />
@@ -77,6 +74,8 @@ class RegisterPage extends React.Component {
                             <div className="help-block">A név megadása szükséges.</div>
                         }
                     </div>
+
+                    {/* Felhasználónév */}
                     <div className={'form-group' + (submitted && !user.userName ? ' has-error' : '')}>
                         <label htmlFor="userName">Felhasználónév</label>
                         <input type="text" className="form-control" name="userName" value={user.userName} onChange={this.handleChange} />
@@ -85,12 +84,14 @@ class RegisterPage extends React.Component {
                         }
                     </div>
 
+                    {/* Születési dátum */}
                     <div className={'form-group'}>
                         <div>
                             <label htmlFor="dateOfBirth">Születési dátum</label>
                         </div>
                         <SingleDatePicker
                             isOutsideRange={() => false}
+                            displayFormat="YYYY.MM.DD"
                             date={user.dateOfBirth} // momentPropTypes.momentObj or null
                             onDateChange={date => this.setState({ user: { ...user, dateOfBirth: date } })} // PropTypes.func.isRequired
                             focused={this.state.calendarFocused} // PropTypes.bool
@@ -99,6 +100,7 @@ class RegisterPage extends React.Component {
                         />
                     </div>
 
+                    {/* település */}
                     <div className={'form-group' + (submitted && !user.town ? ' has-error' : '')}>
                         <label htmlFor="town">Település</label>
                         <input type="text" className="form-control" name="town" value={user.town} onChange={this.handleChange} />
@@ -106,13 +108,22 @@ class RegisterPage extends React.Component {
                             <div className="help-block">A település megadása szükséges.</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !user.phoneNumber ? ' has-error' : '')}>
+
+                    {/* telefonszám + validator */}
+                    <div className={'form-group' + (submitted && !user.phoneNumber ||
+                        (submitted && user.phoneNumber && !validator.isMobilePhone(user.phoneNumber, "hu-HU")) ? ' has-error' : '')}>
                         <label htmlFor="phoneNumber">Telefonszám</label>
-                        <input type="text" className="form-control" name="phoneNumber" value={user.phoneNumber} onChange={this.handleChange} />
+                        <input type="text" className="form-control" name="phoneNumber" value={user.phoneNumber} onChange={this.handleChange}
+                            placeholder="Pl.: +36301234567" />
                         {submitted && !user.phoneNumber &&
                             <div className="help-block">A telefonszám megadása szükséges, hogy a rendezők veszély esetén el bírjanak érni a túra folyamán.</div>
                         }
+                        {submitted && user.phoneNumber && !validator.isMobilePhone(user.phoneNumber, "hu-HU") &&
+                            <div className="help-block">Érvényes telefonszámot adj meg.</div>
+                        }
                     </div>
+
+                    {/* jelszó */}
                     <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
                         <label htmlFor="password">Jelszó</label>
                         <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
@@ -120,13 +131,21 @@ class RegisterPage extends React.Component {
                             <div className="help-block">A jelszó megadása szükséges.</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
+
+                    {/* email + validator */}
+                    <div className={'form-group' + (submitted && !user.email || (submitted && user.email && !validator.isEmail(user.email)) ?
+                        ' has-error' : '')}>
                         <label htmlFor="email">E-mail cím</label>
                         <input type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} />
                         {submitted && !user.email &&
                             <div className="help-block">Az email cím megadása szükséges.</div>
                         }
+                        {submitted && user.email && !validator.isEmail(user.email) &&
+                            <div className="help-block">Érvényes e-mail címet adj meg!.</div>
+                        }
                     </div>
+
+                    {/* NEM */}
                     <div className={'form-group' + (submitted && !user.gender ? ' has-error' : '')}>
                         <label htmlFor="gender">Nem</label>
                         <div>
@@ -139,6 +158,7 @@ class RegisterPage extends React.Component {
                             <div className="help-block">A nemed megadása kötelező.</div>
                         }
                     </div>
+
                     <div className="form-group">
                         <button className="btn btn-primary">Regisztráció</button>
                         {registering &&

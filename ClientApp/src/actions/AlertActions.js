@@ -4,14 +4,8 @@ export const alertActions = {
     clear
 };
 
-function success(message) {
-    return { type: 'ALERT_SUCCESS', message };
-}
+const success = (message) => ({ type: 'ALERT_SUCCESS', message });
 
-function error(message) {
-    return { type: 'ALERT_ERROR', message };
-}
+const error = (message) => ({ type: 'ALERT_ERROR', message });
 
-function clear() {
-    return { type:'ALERT_CLEAR' };
-}
+const clear = () => ({ type: 'ALERT_CLEAR' });
