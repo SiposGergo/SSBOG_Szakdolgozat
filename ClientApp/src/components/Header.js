@@ -7,7 +7,7 @@ import { userActions } from "../actions/UserActions";
 class Header extends React.Component {
 
     onLogoutClick = () => {
-        this.props.logout(this.props.history);
+        this.props.logout();
     }
 
     render() {
@@ -20,6 +20,7 @@ class Header extends React.Component {
                 {!user && <NavLink exact={true} to="/login" activeClassName="is-active">Bejelentkezés</NavLink>}
                 {!user && <NavLink exact={true} to="/register" activeClassName="is-active">Regisztráció</NavLink>}
                 {user && <button className="btn" onClick={this.onLogoutClick}>Kilépés</button>}
+                {user && <NavLink exact={true} to="/me" activeClassName="is-active">Profilom</NavLink>}
             </header>)
     }
 }

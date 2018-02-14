@@ -1,6 +1,8 @@
 import { userService } from '../services/UserServices';
 import { alertActions } from './AlertActions';
 
+import { history } from "../helpers/history";
+
 export const userActions = {
     login,
     logout,
@@ -10,7 +12,7 @@ export const userActions = {
 };
 
 // Bejelentkezés
-function login(username, password, history) {
+function login(username, password) {
     const request = (user) => ({ type: 'USERS_LOGIN_REQUEST', user })
     const success = (user) => ({ type: 'USERS_LOGIN_SUCCESS', user })
     const failure = (error) => ({ type: 'USERS_LOGIN_FAILURE', error })
@@ -32,7 +34,7 @@ function login(username, password, history) {
 }
 
 // Kijelentkezés
-function logout(history) {
+function logout() {
     userService.logout();
     history.push("/login");
     return { type: 'USERS_LOGOUT' };

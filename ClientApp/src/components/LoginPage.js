@@ -8,7 +8,7 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         // kijelentkezés
-        this.props.dispatch(userActions.logout(this.props.history));
+        this.props.dispatch(userActions.logout());
 
         this.state = {
             username: '',
@@ -30,7 +30,7 @@ class LoginPage extends React.Component {
         const { username, password } = this.state;
         const { dispatch } = this.props;
         if (username && password) {
-            dispatch(userActions.login(username, password, this.props.history));
+            dispatch(userActions.login(username, password));
         }
     }
 

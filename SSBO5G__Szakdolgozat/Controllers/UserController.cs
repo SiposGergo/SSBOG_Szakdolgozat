@@ -62,9 +62,13 @@ namespace SSBO5G__Szakdolgozat.Controllers
             return Ok(new
             {
                 Id = user.Id,
-                Username = user.UserName,
+                UserName = user.UserName,
                 Email = user.Email,
                 Name = user.Name,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Town = user.Town,
+                PhoneNumber = user.PhoneNumber,
                 Token = tokenString
             });
         }
