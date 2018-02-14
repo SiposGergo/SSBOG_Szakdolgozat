@@ -8,7 +8,7 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         // kijelentkezés
-        this.props.dispatch(userActions.logout());
+        this.props.dispatch(userActions.logout(this.props.history));
 
         this.state = {
             username: '',
@@ -24,9 +24,9 @@ class LoginPage extends React.Component {
     }
 
     // ha el akarom küldeni a formot
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({ submitted: true });
+        this.setState(() => ({ submitted: true }));
         const { username, password } = this.state;
         const { dispatch } = this.props;
         if (username && password) {

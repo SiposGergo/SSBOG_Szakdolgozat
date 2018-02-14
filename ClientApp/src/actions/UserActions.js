@@ -32,8 +32,9 @@ function login(username, password, history) {
 }
 
 // Kijelentkezés
-function logout() {
+function logout(history) {
     userService.logout();
+    history.push("/login");
     return { type: 'USERS_LOGOUT' };
 }
 
