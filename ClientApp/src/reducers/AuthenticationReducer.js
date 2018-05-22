@@ -6,7 +6,7 @@ export const authentication = (state = initialState, action) => {
     case 'USERS_LOGIN_REQUEST':
       return {
         loggingIn: true,
-        user: action.user
+        //user: action.user
       };
     case 'USERS_LOGIN_SUCCESS':
       return {

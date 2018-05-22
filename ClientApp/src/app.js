@@ -5,10 +5,7 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore.js";
 import { Notifs } from 'redux-notifications';
 
-import 'semantic-ui-css/semantic.min.css';
-import 'react-dates/lib/css/_datepicker.css';
-import 'rc-slider/assets/index.css';
-import 'redux-notifications/lib/styles.css';
+import "./styles/main.scss";
 
 const store = configureStore();
 
