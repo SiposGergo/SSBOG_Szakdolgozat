@@ -3,15 +3,15 @@ import { combineReducers } from 'redux';
 import { authentication } from './AuthenticationReducer';
 import { registration } from './RegistrationReducer';
 import { users } from './UsersReducer';
-import { alert } from './AlertReducer';
 import HikeListReducer from "./HikeListReducer";
+import { reducer as notifReducer } from 'redux-notifications';
 
 const rootReducer = combineReducers({
     HikeListReducer,
     authentication,
     registration,
     users,
-    alert
+    notifs: notifReducer
 });
 
 export default rootReducer;

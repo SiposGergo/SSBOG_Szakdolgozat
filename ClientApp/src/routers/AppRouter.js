@@ -8,7 +8,6 @@ import { PrivateRoute } from '../components/PrivateRouter';
 import { HomePage } from '../components/HomePage';
 import { LoginPage } from '../components/LoginPage';
 import { RegisterPage } from '../components/RegisterPage';
-import AlertBar from "../components/AlertBar";
 import {UserDetailsPage} from "../components/UserDetailsaPage";
 
 import {history} from "../helpers/history"
@@ -17,7 +16,6 @@ const AppRouter = () => (
     <Router history={history}>
         <div>
             <Header />
-            <AlertBar/>
             <Switch>
                 <Route exact={true} path="/hikes" component={HikeListPage} />
                 <Route exact={true} path="/hike/:id" component={HikeDetailsPage} />

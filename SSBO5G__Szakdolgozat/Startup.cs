@@ -15,7 +15,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization; 
 
 namespace SSBO5G__Szakdolgozat
 {
@@ -36,7 +36,7 @@ namespace SSBO5G__Szakdolgozat
             // Swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "HikeX API", Version = "v1" });
             });
 
             services.AddMvc().AddJsonOptions(x 
@@ -98,7 +98,7 @@ namespace SSBO5G__Szakdolgozat
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "HikeX API");
             });
 
             app.UseStaticFiles();

@@ -6,6 +6,7 @@ class HikeDetailsCompoent extends React.Component {
         const hike = this.props.hike;
         return (
             <div>
+                <br />
                 <p>{hike.name}</p>
                 <p>{hike.description}</p>
                 <p>{moment(hike.date).format('YYYY. MM. DD.')}</p>

@@ -1,5 +1,6 @@
 import { userService } from '../services/UserServices';
-import { alertActions } from './AlertActions';
+
+import { SendDanger, SendSuccess } from "../services/NotificationSender";
 
 import { history } from "../helpers/history";
 
@@ -21,14 +22,15 @@ function login(username, password) {
 
         userService.login(username, password)
             .then(
-            user => {
-                dispatch(success(user));
-                history.push('/home');
-            },
-            error => {
-                dispatch(failure(error));
-                dispatch(alertActions.error(error));
-            }
+                user => {
+                    dispatch(SendSuccess(`Üdv az oldalon, ${user.userName}`));
+                    dispatch(success(user));
+                    history.push('/home');
+                },
+                error => {
+                    dispatch(failure(error));
+                    dispatch(SendDanger("Sikertelen belépés!"));
+                }
             );
     };
 }
@@ -50,15 +52,15 @@ function register(user, history) {
 
         userService.register(user)
             .then(
-            () => {
-                dispatch(success());
-                history.push('/login');
-                dispatch(alertActions.success('Registration successful'));
-            },
-            error => {
-                dispatch(failure(error));
-                dispatch(alertActions.error(error));
-            }
+                () => {
+                    dispatch(success());
+                    history.push('/login');
+                    dispatch(SendSuccess("Sikere regisztáció!"));
+                },
+                error => {
+                    dispatch(failure(error));
+                    dispatch(SendDanger(error));
+                }
             );
     };
 }
@@ -73,8 +75,8 @@ function getAll() {
 
         userService.getAll()
             .then(
-            users => dispatch(success(users)),
-            error => dispatch(failure(error))
+                users => dispatch(success(users)),
+                error => dispatch(failure(error))
             );
     };
 }
@@ -90,12 +92,12 @@ function _delete(id) {
 
         userService.delete(id)
             .then(
-            () => {
-                dispatch(success(id));
-            },
-            error => {
-                dispatch(failure(id, error));
-            }
+                () => {
+                    dispatch(success(id));
+                },
+                error => {
+                    dispatch(failure(id, error));
+                }
             );
     };
 }
