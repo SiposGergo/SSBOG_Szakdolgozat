@@ -40,7 +40,6 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-    console.log(requestOptions);
     return fetch(config.apiUrl + '/users/all/', requestOptions).then(handleResponse, handleError);
 }
 

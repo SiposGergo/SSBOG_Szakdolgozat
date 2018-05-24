@@ -1,6 +1,7 @@
 import moment from "moment";
 
-const getVisibleHikes = ({ hikes, text, sortBy, startDate, endDate, isOldHikesVisible, slider }) => {
+const getVisibleHikes = (
+    { hikes, text, sortBy, startDate, endDate, isOldHikesVisible, slider }) => {
     return hikes.filter((hike) => {
         const createdAtMoment = moment(hike.date);
         const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, "day") : true;
