@@ -6,6 +6,7 @@ import { load as loadAccount, unload as unloadAccount } from '../../reducers/For
 import { connect } from "react-redux";
 import moment from 'moment';
 
+
 const validate = values => {
     const errors = {}
 
@@ -45,7 +46,7 @@ const validate = values => {
 }
 
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-    <div className={"form-group " + (touched && error && "has-error" )}>
+    <div className={"form-group " + (touched && error && "has-error")}>
         <label>{label}</label>
         <div>
             <input className="form-control" {...input} placeholder={label} type={type} />
@@ -72,6 +73,7 @@ class UserForm extends React.Component {
         return (
             <form onSubmit={handleSubmit}>
                 <div className="col-md-6 col-md-offset-3">
+                    <h2>{this.props.title}</h2>
                     <Field name="name" type="text" component={renderField} label="Név:" />
                     <Field name="userName" type="text" component={renderField} label="Felhasználónév" />
                     <Field name="email" type="text" component={renderField} label="E-mail cím" />
@@ -83,7 +85,6 @@ class UserForm extends React.Component {
                     <div>
                         <label>Nem</label>
                         <div >
-                            {error.gender}
                             <label>
                                 <Field name="gender" component="input" type="radio" value="Male" />
                                 {' '}
@@ -115,9 +116,15 @@ let form = reduxForm({
 
 
 form = connect(
-    state => ({
-        initialValues: state.FormInitialDataReducer.data,
-    }),
+    state => {
+        let data = state.FormInitialDataReducer.data;
+        if (!data) {
+            data = { gender: "Male" }
+        }
+        return {
+            initialValues: data
+        }
+    },
     {
         load: loadAccount,
         unload: unloadAccount

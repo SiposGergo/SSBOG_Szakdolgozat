@@ -13,7 +13,7 @@ class RegisterPage extends React.Component {
     render() {
         return (
             <div>
-                <UserForm onSubmit={this.handleSubmit} buttonText = "Regisztráció" />
+                <UserForm onSubmit={this.handleSubmit} buttonText = "Regisztráció" title="Regisztáció" />
             </div>
         )
     }
