@@ -19,7 +19,8 @@ export const authentication = (state = initialState, action) => {
 
     case 'USERS_LOGOUT':
       return {
-        loggedIn: false
+        loggedIn: false,
+        user: null
       };
 
     default:

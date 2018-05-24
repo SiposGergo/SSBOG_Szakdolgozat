@@ -2,6 +2,9 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import validator from "validator";
 import Datepicker from "../Datepicker.js"
+import { load as loadAccount, unload as unloadAccount } from '../../reducers/FormInitialDataReducer';
+import { connect } from "react-redux";
+import moment from 'moment';
 
 const validate = values => {
     const errors = {}
@@ -42,51 +45,83 @@ const validate = values => {
 }
 
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-    <div>
+    <div className={"form-group " + (touched && error && "has-error" )}>
         <label>{label}</label>
         <div>
-            <input {...input} placeholder={label} type={type} />
-            {touched && (error && <span>{error}</span>)}
+            <input className="form-control" {...input} placeholder={label} type={type} />
+            {touched && (error && <div className="help-block">{error}</div>)}
         </div>
     </div>
 )
 
-const UserForm = (props) => {
-    const { handleSubmit, pristine, reset, submitting, change } = props
-    return (
-        <form onSubmit={handleSubmit}>
-            <Field name="name" type="text" component={renderField} label="Név:" />
-            <Field name="userName" type="text" component={renderField} label="Felhasználónév" />
-            <Field name="email" type="text" component={renderField} label="E-mail cím" />
-            <Field name="dateOfBirth" label="Születési Dátum" component={Datepicker} change={change} />
-            <Field name="town" type="text" component={renderField} label="Település" />
-            <Field name="phoneNumber" type="text" component={renderField} label="Telefonszám" />
+class UserForm extends React.Component {
 
-            <div>
-                <label>Nem</label>
-                <div>
-                    <label>
-                        <Field name="gender" component="input" type="radio" value="Male" />
-                        {' '}
-                        Férfi
-              </label>
-                    <label>
-                        <Field name="gender" component="input" type="radio" value="Female" />
-                        {' '}
-                        Nő
-              </label>
+    componentWillMount() {
+        const data = this.props.data;
+        if (data) {
+            this.props.load(data)
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.unload();
+    }
+
+    render() {
+        const { handleSubmit, pristine, reset, submitting, change } = this.props;
+        return (
+            <form onSubmit={handleSubmit}>
+                <div className="col-md-6 col-md-offset-3">
+                    <Field name="name" type="text" component={renderField} label="Név:" />
+                    <Field name="userName" type="text" component={renderField} label="Felhasználónév" />
+                    <Field name="email" type="text" component={renderField} label="E-mail cím" />
+                    <Field name="dateOfBirth" label="Születési Dátum" component={Datepicker} change={change}
+                        initDate={this.props.data ? moment(this.props.data.dateOfBirth) : moment()} />
+                    <Field name="town" type="text" component={renderField} label="Település" />
+                    <Field name="phoneNumber" type="text" component={renderField} label="Telefonszám" />
+
+                    <div>
+                        <label>Nem</label>
+                        <div >
+                            {error.gender}
+                            <label>
+                                <Field name="gender" component="input" type="radio" value="Male" />
+                                {' '}
+                                Férfi
+                            </label>
+                            <label>
+                                <Field name="gender" component="input" type="radio" value="Female" />
+                                {' '}
+                                Nő
+                            </label>
+                        </div>
+                    </div>
+                    <Field name="password" type="password" component={renderField} label="Jelszó" />
+                    <div>
+                        <button className="btn btn-info" type="submit" disabled={submitting}>{this.props.buttonText}</button>
+                    </div>
                 </div>
-            </div>
-            <Field name="password" type="password" component={renderField} label="Jelszó" />
-            <div>
-                <button type="submit" disabled={submitting}>{props.buttonText}</button>
-            </div>
-
-        </form>
-    )
+            </form>
+        )
+    }
 }
 
-export default reduxForm({
+
+
+let form = reduxForm({
     form: 'UserForm',
     validate
 })(UserForm)
+
+
+form = connect(
+    state => ({
+        initialValues: state.FormInitialDataReducer.data,
+    }),
+    {
+        load: loadAccount,
+        unload: unloadAccount
+    }
+)(form);
+
+export default form;

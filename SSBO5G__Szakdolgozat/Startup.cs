@@ -39,8 +39,12 @@ namespace SSBO5G__Szakdolgozat
                 c.SwaggerDoc("v1", new Info { Title = "HikeX API", Version = "v1" });
             });
 
-            services.AddMvc().AddJsonOptions(x 
-                => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc()
+                .AddJsonOptions(x =>
+                {
+                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    x.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                });
 
             // Database context
             services.AddDbContext<ApplicationContext>(

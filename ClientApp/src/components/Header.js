@@ -15,7 +15,7 @@ class Header extends React.Component {
         return (
             <header>
                 <h1>HikeX Rendszer</h1>
-                <h3>{user && "Üdv az oldalon " + user.username}</h3>
+                <h3>{user && "Üdv az oldalon " + user.userName}</h3>
                 <NavLink exact={true} to="/hikes" activeClassName="is-active">Túrák</NavLink>
                 {!user && <NavLink exact={true} to="/login" activeClassName="is-active">Bejelentkezés</NavLink>}
                 {!user && <NavLink exact={true} to="/register" activeClassName="is-active">Regisztráció</NavLink>}

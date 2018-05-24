@@ -7,10 +7,8 @@ import Header from "../components/Header.js";
 import HikeDetailsPage from "../components/HikeDetails/HikeDetailsPage.js"
 import { HomePage } from '../components/HomePage';
 import { LoginPage } from '../components/LoginPage';
-import { RegisterPage } from '../components/RegisterPage';
 import {UserDetailsPage} from "../components/UserDetailsaPage";
 import ErrorPage from "../components/404Page";
-
 import RegisteringPage from "../components/RegisteringPage";
 
 import {history} from "../helpers/history"
