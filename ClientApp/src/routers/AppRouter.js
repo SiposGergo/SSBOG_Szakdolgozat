@@ -11,6 +11,8 @@ import { RegisterPage } from '../components/RegisterPage';
 import {UserDetailsPage} from "../components/UserDetailsaPage";
 import ErrorPage from "../components/404Page";
 
+import RegisteringPage from "../components/RegisteringPage";
+
 import {history} from "../helpers/history"
 
 const AppRouter = () => (
@@ -23,7 +25,7 @@ const AppRouter = () => (
                 <PrivateRoute exact={true} path="/home" component={HomePage} />
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />
                 <Route exact={true} path="/login" component={LoginPage} />
-                <Route exact={true} path="/register" component={RegisterPage} />
+                <Route exact={true} path="/register" component={RegisteringPage} />
                 <Route path="/" component={ErrorPage} />
             </Switch>
         </div>
