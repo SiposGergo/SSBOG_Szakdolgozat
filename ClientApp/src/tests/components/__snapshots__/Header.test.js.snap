@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render header  correctly 1`] = `
+<header>
+  <h1>
+    HikeX Rendszer
+  </h1>
+  <h3 />
+  <NavLink
+    activeClassName="is-active"
+    ariaCurrent="true"
+    exact={true}
+    to="/hikes"
+  >
+    Túrák
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    ariaCurrent="true"
+    exact={true}
+    to="/login"
+  >
+    Bejelentkezés
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    ariaCurrent="true"
+    exact={true}
+    to="/register"
+  >
+    Regisztráció
+  </NavLink>
+</header>
+`;

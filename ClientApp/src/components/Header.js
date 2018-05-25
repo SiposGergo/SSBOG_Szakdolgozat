@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { userActions } from "../actions/UserActions";
 
-class Header extends React.Component {
+export class Header extends React.Component {
 
     onLogoutClick = () => {
         this.props.logout();

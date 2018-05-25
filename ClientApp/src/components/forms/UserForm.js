@@ -54,7 +54,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
     </div>
 )
 
-class UserForm extends React.Component {
+export class UserForm extends React.Component {
 
     render() {
         const { handleSubmit, pristine, reset, submitting, change } = this.props;

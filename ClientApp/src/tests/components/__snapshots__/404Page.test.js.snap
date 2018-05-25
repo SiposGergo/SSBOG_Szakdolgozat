@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render 404 page correctly 1`] = `
+<div>
+  A kért oldal nem található!
+</div>
+`;

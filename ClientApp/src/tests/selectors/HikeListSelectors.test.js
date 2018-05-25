@@ -1,5 +1,5 @@
 import getVisibleHikes from "../../selectors/HikeListSelector";
-import testHikes from "./testHikes";
+import {testHikes} from "../fixtures/testHikes";
 import moment from "moment";
 
 test("Selector should return all hikes, by date", () => {

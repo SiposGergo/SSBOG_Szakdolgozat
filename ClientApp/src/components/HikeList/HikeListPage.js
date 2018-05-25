@@ -8,13 +8,12 @@ import { itemsFetchData } from "../../actions/HikeListActions"
 
 const API = "http://localhost:4242/Hike/all";
 
-class HikeListPage extends React.Component {
+export class HikeListPage extends React.Component {
     componentDidMount() {
         this.props.fetchData(API);
     }
 
     render() {
-        console.log(this.props);
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
         }
@@ -44,7 +43,6 @@ const mapStateToProps = (state) => {
         hikes: getVisibleHikes(state.HikeListReducer),
         hasErrored: state.HikeListReducer.hasErrored,
         isLoading: state.HikeListReducer.isLoading
-
     }
 };
 
