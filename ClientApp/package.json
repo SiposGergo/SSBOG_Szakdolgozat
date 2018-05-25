@@ -8,6 +8,11 @@
     "build": "webpack",
     "dev-server": "webpack-dev-server --open"
   },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
+  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -32,7 +37,6 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
-    "redux-logger": "^3.0.6",
     "redux-notifications": "^4.0.1",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
@@ -40,7 +44,12 @@
     "semantic-ui-react": "^0.78.2",
     "style-loader": "^0.20.1",
     "validator": "^9.4.0",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "jest": "^23.0.0",
+    "redux-logger": "^3.0.6",
+    "webpack-dev-server": "^2.11.1",
+    "jest-localstorage-mock": "^2.2.0"
   }
 }

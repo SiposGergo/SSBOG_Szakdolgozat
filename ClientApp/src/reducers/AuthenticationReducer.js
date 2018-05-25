@@ -15,7 +15,9 @@ export const authentication = (state = initialState, action) => {
       };
 
     case 'USERS_LOGIN_FAILURE':
-      return {};
+      return {
+        loggedIn: false
+      };
 
     case 'USERS_LOGOUT':
       return {
