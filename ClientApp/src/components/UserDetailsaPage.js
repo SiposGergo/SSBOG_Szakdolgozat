@@ -7,9 +7,10 @@ import UserForm from "./forms/UserForm"
 class UserDetailsPAge extends React.Component {
 
     handleSubmit = (values) => {
-        /* const { user } = this.state;
         const { dispatch } = this.props;
-        dispatch(userActions.register(values, this.props.history)); */
+        console.log(this.props.user);
+        console.log(values);
+        dispatch(userActions.update(values, this.props.history));
     }
 
     render() {

@@ -2,7 +2,6 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import validator from "validator";
 import Datepicker from "../Datepicker.js"
-import { load as loadAccount, unload as unloadAccount } from '../../reducers/FormInitialDataReducer';
 import { connect } from "react-redux";
 import moment from 'moment';
 
@@ -57,17 +56,6 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 
 class UserForm extends React.Component {
 
-    componentWillMount() {
-        const data = this.props.data;
-        if (data) {
-            this.props.load(data)
-        }
-    }
-
-    componentWillUnmount() {
-        this.props.unload();
-    }
-
     render() {
         const { handleSubmit, pristine, reset, submitting, change } = this.props;
         return (
@@ -115,20 +103,10 @@ let form = reduxForm({
 })(UserForm)
 
 
-form = connect(
-    state => {
-        let data = state.FormInitialDataReducer.data;
-        if (!data) {
-            data = { gender: "Male" }
-        }
-        return {
-            initialValues: data
-        }
-    },
-    {
-        load: loadAccount,
-        unload: unloadAccount
+form = connect(state => {
+    return {
+        initialValues: state.authentication.user ? state.authentication.user : { gender: "Male" }
     }
-)(form);
+})(form);
 
 export default form;
