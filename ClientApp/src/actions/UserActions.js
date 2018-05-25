@@ -9,7 +9,8 @@ export const userActions = {
     logout,
     register,
     getAll,
-    delete: _delete
+    delete: _delete,
+    update
 };
 
 // Bejelentkezés
@@ -63,6 +64,22 @@ function register(user, history) {
                 }
             );
     };
+}
+
+function update(user) {
+    const success = (user) => ({ type: 'USER_UPDATE_SUCCESS', user })
+    return (dispatch) => {
+        userService.update(user).
+            then(
+                () => {
+                    console.log(user)
+                    dispatch(success(user))
+                    dispatch(SendSuccess("Sikeres adatmódosítás"));
+                },
+                (error) => {
+                    dispatch(SendDanger(error));
+                })
+    }
 }
 
 // összes user lekérése

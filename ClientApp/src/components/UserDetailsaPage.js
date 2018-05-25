@@ -8,9 +8,7 @@ class UserDetailsPAge extends React.Component {
 
     handleSubmit = (values) => {
         const { dispatch } = this.props;
-        console.log(this.props.user);
-        console.log(values);
-        dispatch(userActions.update(values, this.props.history));
+        dispatch(userActions.update(values));
     }
 
     render() {
