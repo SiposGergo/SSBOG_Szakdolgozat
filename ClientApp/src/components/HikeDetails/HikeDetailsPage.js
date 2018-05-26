@@ -6,44 +6,37 @@ import Comment from "./Comment";
 import CourseDetails from "./CourseDetails";
 import { Tab } from 'semantic-ui-react';
 import CommentForm from "./CommentForm";
+import { connect } from 'react-redux';
+import {getHikeDetails, postComent} from "../../actions/HikeDetailsActions";
+import { SendDanger } from "../../services/NotificationSender";
+import { change } from 'redux-form';
 
-class HikeDetailsPage extends React.Component {
 
-    state = {
-        hike: { comments: [], organizer: {}, courses: [] },
-        isLoading: false,
-        error: ""
-    }
+export class HikeDetailsPage extends React.Component {
 
     componentDidMount() {
-        const API = "http://localhost:4242/Hike/details/" + this.props.match.params.id;
-        this.setState({ isLoading: true });
-        fetch(API)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error();
-                }
-            })
-            .then(data => this.setState({ hike: data, isLoading: false }))
-            .catch(error => this.setState({ error, isLoading: false }));
+            this.props.dispatch(getHikeDetails(this.props.match.params.id));
     }
 
-    submitComment(value) {
-        console.log(value);
+    submitComment = (value) => {
+        if (!this.props.user){
+            this.props.dispatch(SendDanger("Lépj be a kommenteléshez!"));
+        } else {
+            this.props.dispatch(postComent(this.props.hike.id,this.props.user.id,value.message));
+            this.props.dispatch(change('CommentForm', 'message', ''));
+        }
     }
 
     render() {
-        if (this.state.error) {
+        if (this.props.hasErrored) {
             return <p>Hiba!</p>;
         }
 
-        if (this.state.isLoading) {
+        if (this.props.isLoading) {
             return <ReactLoading type="spin" color="#000000" height={40} width={40} />
         }
 
-        const hike = this.state.hike;
+        const hike = this.props.hike;
 
         const panes = hike.courses
             .map((course) => {
@@ -70,7 +63,16 @@ class HikeDetailsPage extends React.Component {
             </div>
         )
     }
-
 }
 
-export default HikeDetailsPage;
+function mapStateToProps(state) {
+    const {hasErrored,isLoading,hike} = state.hikeDetailsReducer;
+    return {
+        hasErrored,
+        isLoading,
+        hike,
+        user : state.authentication.user
+    };
+}
+
+export default connect(mapStateToProps)(HikeDetailsPage);

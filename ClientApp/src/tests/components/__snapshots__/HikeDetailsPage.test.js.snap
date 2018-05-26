@@ -1,0 +1,298 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render HikeDetails page when error 1`] = `
+<p>
+  Hiba!
+</p>
+`;
+
+exports[`Should render HikeDetails page when loading 1`] = `
+<Loading
+  color="#000000"
+  delay={1000}
+  height={40}
+  type="spin"
+  width={40}
+/>
+`;
+
+exports[`Should render HikeDetails page with test hike 1`] = `
+<div>
+  <HikeDetailsCompoent
+    hike={
+      Object {
+        "comments": Array [
+          Object {
+            "author": Object {
+              "dateOfBirth": "1997-01-01T00:00:00",
+              "email": "asd@bme.com",
+              "gender": "Male",
+              "id": 2,
+              "name": "Laci",
+              "password": null,
+              "phoneNumber": null,
+              "town": "Nagyréde",
+              "userName": "laci01",
+            },
+            "authorId": 2,
+            "commentText": "trolololoolo",
+            "hikeId": 2,
+            "id": 4,
+            "timeStamp": "2018-05-26T20:56:55.6583397+02:00",
+          },
+        ],
+        "courses": Array [
+          Object {
+            "beginningOfStart": "2018-07-22T06:00:00",
+            "checkPoints": Array [
+              Object {
+                "close": "2018-07-22T07:00:00",
+                "description": "",
+                "distanceFromStart": 0,
+                "id": 13,
+                "name": "Rajt",
+                "open": "2018-07-22T06:00:00",
+              },
+              Object {
+                "close": "2018-07-22T07:40:00",
+                "description": "",
+                "distanceFromStart": 2600,
+                "id": 14,
+                "name": "Kecske kő",
+                "open": "2018-07-22T06:10:00",
+              },
+              Object {
+                "close": "2018-07-22T08:30:00",
+                "description": "",
+                "distanceFromStart": 5800,
+                "id": 15,
+                "name": "Várhegy",
+                "open": "2018-07-22T06:20:00",
+              },
+              Object {
+                "close": "2018-07-22T09:15:00",
+                "description": "",
+                "distanceFromStart": 8900,
+                "id": 16,
+                "name": "Diós-kút",
+                "open": "2018-07-22T06:50:00",
+              },
+              Object {
+                "close": "2018-07-22T09:40:00",
+                "description": "",
+                "distanceFromStart": 11100,
+                "id": 17,
+                "name": "Fajzatpuszta",
+                "open": "2018-07-22T07:00:00",
+              },
+              Object {
+                "close": "2018-07-22T10:20:00",
+                "description": "",
+                "distanceFromStart": 13300,
+                "id": 18,
+                "name": "Káva",
+                "open": "2018-07-22T07:05:00",
+              },
+              Object {
+                "close": "2018-07-22T11:20:00",
+                "description": "",
+                "distanceFromStart": 16900,
+                "id": 19,
+                "name": "Tót-hegyes",
+                "open": "2018-07-22T07:25:00",
+              },
+              Object {
+                "close": "2018-07-22T12:10:00",
+                "description": "",
+                "distanceFromStart": 20100,
+                "id": 20,
+                "name": "Hideg-kút",
+                "open": "2018-07-22T07:40:00",
+              },
+              Object {
+                "close": "2018-07-22T13:15:00",
+                "description": "kilátó",
+                "distanceFromStart": 24500,
+                "id": 21,
+                "name": "Nyikom",
+                "open": "2018-07-22T08:00:00",
+              },
+              Object {
+                "close": "2018-07-22T14:30:00",
+                "description": "",
+                "distanceFromStart": 28700,
+                "id": 22,
+                "name": "Mátrakeresztes",
+                "open": "2018-07-22T08:40:00",
+              },
+              Object {
+                "close": "2018-07-22T16:20:00",
+                "description": "",
+                "distanceFromStart": 36500,
+                "id": 23,
+                "name": "Világos-hegy",
+                "open": "2018-07-22T08:50:00",
+              },
+              Object {
+                "close": "2018-07-22T17:00:00",
+                "description": "",
+                "distanceFromStart": 39200,
+                "id": 24,
+                "name": "Nagy-lénia",
+                "open": "2018-07-22T09:00:00",
+              },
+              Object {
+                "close": "2018-07-22T17:30:00",
+                "description": "",
+                "distanceFromStart": 41200,
+                "id": 25,
+                "name": "Fajzatpuszta",
+                "open": "2018-07-22T09:10:00",
+              },
+              Object {
+                "close": "2018-07-22T18:15:00",
+                "description": "",
+                "distanceFromStart": 44200,
+                "id": 26,
+                "name": "Havas",
+                "open": "2018-07-22T09:30:00",
+              },
+              Object {
+                "close": "2018-07-22T18:50:00",
+                "description": "",
+                "distanceFromStart": 46400,
+                "id": 27,
+                "name": "Puskaporos-kút",
+                "open": "2018-07-22T09:50:00",
+              },
+              Object {
+                "close": "2018-07-22T20:00:00",
+                "description": "",
+                "distanceFromStart": 51400,
+                "id": 28,
+                "name": "Cél",
+                "open": "2018-07-22T10:00:00",
+              },
+            ],
+            "distance": 51400,
+            "elevation": 1992,
+            "endOfStart": "2018-07-22T08:00:00",
+            "hikeId": 2,
+            "id": 2,
+            "limitTime": "12:00:00",
+            "maxNumOfHikers": 60,
+            "name": "Patai Mátra 50",
+            "placeOfFinish": "Gyöngyöspata, általános iskola",
+            "placeOfStart": "Gyöngyöspata, általános iskola",
+            "price": 1600,
+            "registerDeadline": "2018-07-21T00:00:00",
+          },
+          Object {
+            "beginningOfStart": "2018-07-22T06:00:00",
+            "checkPoints": Array [],
+            "distance": 34400,
+            "elevation": 1338,
+            "endOfStart": "2018-07-22T08:00:00",
+            "hikeId": 2,
+            "id": 3,
+            "limitTime": "10:00:00",
+            "maxNumOfHikers": 100,
+            "name": "Patai Mátra 35",
+            "placeOfFinish": "Gyöngyöspata, általános iskola",
+            "placeOfStart": "Gyöngyöspata, általános iskola",
+            "price": 1400,
+            "registerDeadline": "2018-07-21T00:00:00",
+          },
+        ],
+        "date": "2018-07-22T00:00:00",
+        "description": "Patai Mátra telejsítménytúra. Túra Gyöngyöspatáról 4 távon.",
+        "id": 2,
+        "name": "Patai Mátra",
+        "organizer": Object {
+          "dateOfBirth": "1995-01-01T00:00:00",
+          "email": "asd@alfold.com",
+          "gender": "Male",
+          "id": 4,
+          "name": "Erdei László",
+          "password": null,
+          "phoneNumber": "06303084417",
+          "town": "Nagyréde",
+          "userName": "laci02",
+        },
+        "website": "http://www.alfoldte.hu",
+      }
+    }
+  />
+  <OrganizerDetailsComponent
+    organizer={
+      Object {
+        "dateOfBirth": "1995-01-01T00:00:00",
+        "email": "asd@alfold.com",
+        "gender": "Male",
+        "id": 4,
+        "name": "Erdei László",
+        "password": null,
+        "phoneNumber": "06303084417",
+        "town": "Nagyréde",
+        "userName": "laci02",
+      }
+    }
+  />
+  <div>
+    <Tab
+      grid={
+        Object {
+          "paneWidth": 12,
+          "tabWidth": 4,
+        }
+      }
+      menu={
+        Object {
+          "aligned": "left",
+          "attached": true,
+          "tabular": true,
+        }
+      }
+      panes={
+        Array [
+          Object {
+            "menuItem": "Patai Mátra 50",
+            "render": [Function],
+          },
+          Object {
+            "menuItem": "Patai Mátra 35",
+            "render": [Function],
+          },
+        ]
+      }
+      renderActiveOnly={true}
+    />
+  </div>
+  <Comment
+    comment={
+      Object {
+        "author": Object {
+          "dateOfBirth": "1997-01-01T00:00:00",
+          "email": "asd@bme.com",
+          "gender": "Male",
+          "id": 2,
+          "name": "Laci",
+          "password": null,
+          "phoneNumber": null,
+          "town": "Nagyréde",
+          "userName": "laci01",
+        },
+        "authorId": 2,
+        "commentText": "trolololoolo",
+        "hikeId": 2,
+        "id": 4,
+        "timeStamp": "2018-05-26T20:56:55.6583397+02:00",
+      }
+    }
+    key="4"
+  />
+  <ReduxForm
+    onSubmit={[Function]}
+  />
+</div>
+`;

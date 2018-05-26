@@ -10,9 +10,11 @@ using SSBO5G__Szakdolgozat.Helpers;
 using AutoMapper;
 using SSBO5G__Szakdolgozat.Dtos;
 using SSBO5G__Szakdolgozat.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
+    [Authorize("Bearer")]
     [Route("[Controller]/")]
     public class HikeController : Controller
     {
@@ -27,6 +29,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
             this.mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<IActionResult> All()
         {
@@ -40,6 +43,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
