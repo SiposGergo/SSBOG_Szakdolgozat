@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Test_project.fixtures;
 
 namespace Test_project.tests
 {
@@ -20,7 +19,7 @@ namespace Test_project.tests
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
             HikeService hikeService = new HikeService(db);
-            TestDbSeeder.FillWithTestData(db);
+            DbSeeder.FillWithTestData(db);
             var result = await hikeService.GetAllHike();
             Assert.That(result, Has.Count.EqualTo(3));
 
