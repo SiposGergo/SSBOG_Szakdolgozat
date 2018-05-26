@@ -11,8 +11,8 @@ namespace SSBO5G__Szakdolgozat.Services
     public interface IUserService
     {
         Hiker Authenticate(string username, string password);
-        IEnumerable<Hiker> GetAll();
-        Hiker GetById(int id);
+        Task<IEnumerable<Hiker>> GetAll();
+        Task<Hiker> GetById(int id);
         Hiker Create(Hiker user, string password);
         void Update(Hiker user, string password = null);
         void Delete(int id);
@@ -46,16 +46,20 @@ namespace SSBO5G__Szakdolgozat.Services
             return user;
         }
 
-        public IEnumerable<Hiker> GetAll()
+        public async Task <IEnumerable<Hiker>> GetAll()
         {
-            // TODO: ez enmjó
-            var hikers =  context.Hikers.Where(x => x.Id != 0).ToList();
+            var hikers = await context.Hikers.ToListAsync();
             return hikers;
         }
 
-        public Hiker GetById(int id)
+        public async Task <Hiker> GetById(int id)
         {
-            return context.Hikers.Find(id);
+            var user = await context.Hikers.FindAsync(id);
+            if (user == null)
+            {
+                throw new ApplicationException("Nem található túrázó ezzel az azonosítóval.");
+            }
+            return user;
         }
 
         public Hiker Create(Hiker user, string password)
@@ -99,6 +103,7 @@ namespace SSBO5G__Szakdolgozat.Services
             user.PhoneNumber = userParam.PhoneNumber;
             user.Town = userParam.Town;
             user.UserName = userParam.UserName;
+            user.DateOfBirth = userParam.DateOfBirth;
 
             // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))

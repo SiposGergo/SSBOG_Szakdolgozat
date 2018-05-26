@@ -94,19 +94,27 @@ namespace SSBO5G__Szakdolgozat.Controllers
         }
 
         [HttpGet("all")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var users = userService.GetAll();
+            var users = await userService.GetAll();
             var userDtos = mapper.Map<IList<HikerDto>>(users);
             return Ok(userDtos);
         }
 
         [HttpGet("user/{id}")]
-        public IActionResult GetById(int id)
+        public async Task <IActionResult> GetById(int id)
         {
-            var user = userService.GetById(id);
-            var userDto = mapper.Map<HikerDto>(user);
-            return Ok(userDto);
+            try
+            {
+                var user = await userService.GetById(id);
+                var userDto = mapper.Map<HikerDto>(user);
+                return Ok(userDto);
+            }
+            catch (ApplicationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         [HttpPut("edit/{id}")]
