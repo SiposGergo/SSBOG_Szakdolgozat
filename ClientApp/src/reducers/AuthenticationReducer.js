@@ -28,7 +28,7 @@ export const authentication = (state = initialState, action) => {
     case "USER_UPDATE_SUCCESS":
       return {
         loggedIn: true,
-        user : action.user
+        user : {...action.user , password:""}
       };
 
     default:

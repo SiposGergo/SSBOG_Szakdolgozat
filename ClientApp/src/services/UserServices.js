@@ -1,6 +1,8 @@
 import { authHeader } from "../helpers/auth-header";
 import {config} from "../helpers/config";
 
+import {handleResponse, handleError} from "./Handlers"
+
 export const userService = {
     login,
     logout,
@@ -80,25 +82,4 @@ function _delete(id) {
     };
 
     return fetch(config.apiUrl + '/users/delete/' + id, requestOptions).then(handleResponse, handleError);
-}
-
-function handleResponse(response) {
-    return new Promise((resolve, reject) => {
-        if (response.ok) {
-            // jsont adunk vissza ha volt a responseban
-            var contentType = response.headers.get("content-type");
-            if (contentType && contentType.includes("application/json")) {
-                response.json().then(json => resolve(json));
-            } else {
-                resolve();
-            }
-        } else {
-            // hibaüzenetet adunk vissza ha hiba történt
-            response.text().then(text => reject(text));
-        }
-    });
-}
-
-function handleError(error) {
-    return Promise.reject(error && error.message);
 }

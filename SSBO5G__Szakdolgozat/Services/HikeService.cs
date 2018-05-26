@@ -12,6 +12,7 @@ namespace SSBO5G__Szakdolgozat.Services
     {
         Task<IEnumerable<Hike>> GetAllHike();
         Task<Hike> GetById(int id);
+        Task<Comment> AddCommentToHike(Comment comment);
     }
     public class HikeService : IHikeService
     {
@@ -19,6 +20,26 @@ namespace SSBO5G__Szakdolgozat.Services
         public HikeService(ApplicationContext context)
         {
             this.context = context;
+        }
+
+        public async Task<Comment> AddCommentToHike(Comment comment)
+        {
+            comment.TimeStamp = DateTime.Now;
+            Hiker hiker = await context.Hikers.FindAsync(comment.AuthorId);
+            if (hiker == null)
+            {
+                throw new ApplicationException("Nem található a komment szerzője");
+            }
+            Hike hike = await context.Hikes.FindAsync(comment.HikeId);
+            if (hike == null)
+            {
+                throw new ApplicationException("Nem található a kommentált túra");
+            }
+            comment.Author = hiker;
+            comment.Hike = hike;
+            await context.Comments.AddAsync(comment);
+            await context.SaveChangesAsync();
+            return comment;
         }
 
         public async Task<IEnumerable<Hike>> GetAllHike()

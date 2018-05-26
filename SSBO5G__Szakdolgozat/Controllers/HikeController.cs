@@ -9,6 +9,7 @@ using SSBO5G__Szakdolgozat.Services;
 using SSBO5G__Szakdolgozat.Helpers;
 using AutoMapper;
 using SSBO5G__Szakdolgozat.Dtos;
+using SSBO5G__Szakdolgozat.Models;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
@@ -53,6 +54,23 @@ namespace SSBO5G__Szakdolgozat.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPut("comment")]
+        public async Task<IActionResult> Comment([FromBody]CommentDto commentDto)
+        {
+            Comment comment = mapper.Map<Comment>(commentDto);
+            try
+            {
+                Comment c = await hikeService.AddCommentToHike(comment);
+                CommentDto dto = mapper.Map<CommentDto>(c);
+                return Ok(dto);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+            
         }
     }
 }

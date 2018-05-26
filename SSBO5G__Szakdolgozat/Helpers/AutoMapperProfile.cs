@@ -10,6 +10,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
         {
             CreateMap<Hiker, HikerDto>();
             CreateMap<HikerDto, Hiker>();
+
+            CreateMap<CommentDto, Comment>().ForMember(x => x.Hike, opt => opt.Ignore());
         }
     }
 }

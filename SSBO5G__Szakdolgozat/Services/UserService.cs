@@ -104,6 +104,7 @@ namespace SSBO5G__Szakdolgozat.Services
             user.Town = userParam.Town;
             user.UserName = userParam.UserName;
             user.DateOfBirth = userParam.DateOfBirth;
+            user.Gender = userParam.Gender;
 
             // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))

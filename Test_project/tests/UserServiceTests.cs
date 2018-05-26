@@ -194,5 +194,30 @@ namespace Test_project.tests
             Assert.Throws<ApplicationException>(() => { userService.Update(user); });
         }
 
+        [Test]
+        public void DeleteUser()
+        {
+            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
+                .UseInMemoryDatabase("test6");
+            var db = new ApplicationContext(dbOptionsBuilder.Options);
+            UserService userService = new UserService(db);
+            userService.Create(new Hiker
+            {
+                UserName = "telek",
+                Name = "Teszt Elek",
+                Email = "teszt.elek@gmail.com",
+                Gender = GenderTypes.Male,
+                Town = "Budapest"
+
+            }, "reallySecurePassword");
+
+            userService.Delete(1);
+
+            Assert.ThrowsAsync<ApplicationException>(async () =>
+            {
+                await userService.GetById(1);
+            });
+        }
+
     }
 }

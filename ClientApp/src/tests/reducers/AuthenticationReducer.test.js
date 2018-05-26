@@ -17,7 +17,7 @@ test("should set user and loggedn when success", () => {
 
 test("should set user and loggedn when user data update success", () => {
     const state = authentication(undefined, { type: "USER_UPDATE_SUCCESS", user: {} });
-    expect(state).toEqual({ loggedIn: true, user: {} });
+    expect(state).toEqual({ loggedIn: true, user: {password:""} });
 })
 
 test("should set user and loggedn after logout", () => {

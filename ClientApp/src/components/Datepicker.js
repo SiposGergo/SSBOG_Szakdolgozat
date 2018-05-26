@@ -18,6 +18,8 @@ export class Datepicker extends React.Component {
 
   render() {
     return (
+      <div>
+      <p><b>{this.props.label}</b></p>
         <SingleDatePicker
           date={this.state.date} 
           onDateChange={this.handleDateChange}
@@ -28,6 +30,7 @@ export class Datepicker extends React.Component {
           isOutsideRange={() => false}
           displayFormat="YYYY.MM.DD"
         />
+        </div>
     );
   }
 }

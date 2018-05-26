@@ -5,6 +5,7 @@ import OrganizerDetailsComponent from "./OrganizerDetailsComponent";
 import Comment from "./Comment";
 import CourseDetails from "./CourseDetails";
 import { Tab } from 'semantic-ui-react';
+import CommentForm from "./CommentForm";
 
 class HikeDetailsPage extends React.Component {
 
@@ -29,6 +30,9 @@ class HikeDetailsPage extends React.Component {
             .catch(error => this.setState({ error, isLoading: false }));
     }
 
+    submitComment(value) {
+        console.log(value);
+    }
 
     render() {
         if (this.state.error) {
@@ -62,7 +66,7 @@ class HikeDetailsPage extends React.Component {
                         <p>Nincsenek hozzászólások</p> :
                         hike.comments.map((comment) => <Comment key={comment.id} comment={comment} />)
                 }
-
+                <CommentForm onSubmit = {this.submitComment} />
             </div>
         )
     }
