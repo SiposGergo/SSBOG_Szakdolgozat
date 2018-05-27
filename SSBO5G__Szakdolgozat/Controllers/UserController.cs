@@ -69,7 +69,8 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 Gender = user.Gender,
                 Town = user.Town,
                 PhoneNumber = user.PhoneNumber,
-                Token = tokenString
+                Token = tokenString,
+                registrations = user.Registrations
             });
         }
 

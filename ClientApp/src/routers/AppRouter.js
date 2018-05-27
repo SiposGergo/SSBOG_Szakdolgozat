@@ -10,6 +10,7 @@ import { LoginPage } from '../components/LoginPage';
 import {UserDetailsPage} from "../components/UserDetailsaPage";
 import ErrorPage from "../components/404Page";
 import RegisteringPage from "../components/RegisteringPage";
+import UserPage from "../components/UserPage";
 
 import {history} from "../helpers/history"
 
@@ -24,6 +25,7 @@ const AppRouter = () => (
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />
                 <Route exact={true} path="/login" component={LoginPage} />
                 <Route exact={true} path="/register" component={RegisteringPage} />
+                <Route exact={true} path="/user/:id" component={UserPage} />                
                 <Route path="/" component={ErrorPage} />
             </Switch>
         </div>

@@ -32,7 +32,10 @@ namespace SSBO5G__Szakdolgozat.Services
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = context.Hikers.SingleOrDefault(x => x.UserName == username);
+            var user = context
+                .Hikers
+                .Include(x => x.Registrations)
+                .SingleOrDefault(x => x.UserName == username);
 
             // check if username exists
             if (user == null)

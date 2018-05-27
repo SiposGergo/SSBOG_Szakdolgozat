@@ -474,13 +474,13 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 {
                     HikeCourseId = 1,
                     HikerId = 1,
-                    StartNumber = 1
+                   //StartNumber = 1
                 },
                 new Registration
                 {
                     HikeCourseId = 1,
                     HikerId = 3,
-                    StartNumber = 2
+                    //StartNumber = 2
                 }
                 );
             context.SaveChanges();

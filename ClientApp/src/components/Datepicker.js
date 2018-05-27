@@ -18,7 +18,7 @@ export class Datepicker extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className = {this.props.meta.error && this.props.meta.touched && "has-error"}>
       <p><b>{this.props.label}</b></p>
         <SingleDatePicker
           date={this.state.date} 
@@ -30,6 +30,7 @@ export class Datepicker extends React.Component {
           isOutsideRange={() => false}
           displayFormat="YYYY.MM.DD"
         />
+        {this.props.meta.touched && <div className="help-block">{this.props.meta.error}</div>}
         </div>
     );
   }

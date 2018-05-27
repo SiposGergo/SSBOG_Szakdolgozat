@@ -41,6 +41,10 @@ const validate = values => {
         errors.password = 'Jelszó megadása szükséges.'
     }
 
+    if (!values.dateOfBirth) {
+        errors.dateOfBirth = 'Születési dátum megadása szükséges.'
+    }
+
     return errors
 }
 
@@ -105,7 +109,11 @@ let form = reduxForm({
 
 form = connect(state => {
     return {
-        initialValues: state.authentication.user ? state.authentication.user : { gender: "Male" }
+        initialValues: state.authentication.user ? 
+        state.authentication.user : 
+        { 
+            gender: "Male"
+        }
     }
 })(form);
 
