@@ -22,6 +22,8 @@ render() {
             <p>{user.userName}</p>
             <p>{user.email}</p>
             <p>{user.dateOfBirth}</p>
+            Előnevezések:
+            {user.registrations.map((reg)=> <div key={reg.id}> {reg.hikeCourse.name}</div> )}
             </div>)
     
 }

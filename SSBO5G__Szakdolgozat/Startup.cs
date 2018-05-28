@@ -32,6 +32,7 @@ namespace SSBO5G__Szakdolgozat
             services.AddAutoMapper();
             services.AddScoped<IHikeService, HikeService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
 
             // Swagger
             services.AddSwaggerGen(c =>

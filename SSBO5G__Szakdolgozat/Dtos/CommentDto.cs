@@ -12,6 +12,6 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public string CommentText { get; set; }
         public int AuthorId { get; set; }
         public int HikeId { get; set; }
-        public HikerDto Author { get; set; }
+        public BaseHiker Author { get; set; }
     }
 }

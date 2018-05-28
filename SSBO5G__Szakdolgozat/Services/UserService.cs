@@ -57,7 +57,11 @@ namespace SSBO5G__Szakdolgozat.Services
 
         public async Task <Hiker> GetById(int id)
         {
-            var user = await context.Hikers.FindAsync(id);
+            var user = await context
+                .Hikers
+                .Include(x => x.Registrations)
+                .ThenInclude(y => y.HikeCourse)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 throw new ApplicationException("Nem található túrázó ezzel az azonosítóval.");

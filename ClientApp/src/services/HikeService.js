@@ -24,4 +24,24 @@ export function postCommentService(hikeId, userId, message) {
         .then(handleResponse, handleError, );
 }
 
+export function postRegistrationService(hikeCourseId, userId) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hikerId:userId, hikeCourseId  })
+    };
 
+    return fetch(config.apiUrl + '/Hike/register' , requestOptions)
+        .then(handleResponse, handleError, );
+}
+
+export function postUnRegistrationService(hikeCourseId, userId) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hikerId:userId, hikeCourseId  })
+    };
+
+    return fetch(config.apiUrl + '/Hike/unregister' , requestOptions)
+        .then(handleResponse, handleError, );
+}

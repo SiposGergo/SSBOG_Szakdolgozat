@@ -155,7 +155,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     PlaceOfStart = "Mátrafüred, Mátra Szakképző Iskola (Erdész u. 11.)",
                     Price = 1000,
                     RegisterDeadline = new DateTime(2018, 03, 08, 0, 00, 00),
-                    LimitTime = new TimeSpan(11, 00, 00)
+                    LimitTime = new TimeSpan(11, 00, 00),
+                    NumOfRegisteredHikers = 0
                 });
 
             context.Courses.Add(
@@ -167,12 +168,14 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     Elevation = 1992,
                     Name = "Patai Mátra 50",
                     HikeId = 2,
-                    MaxNumOfHikers = 60,
+                    MaxNumOfHikers = 3,
                     PlaceOfFinish = "Gyöngyöspata, általános iskola",
                     PlaceOfStart = "Gyöngyöspata, általános iskola",
                     Price = 1600,
                     RegisterDeadline = new DateTime(2018, 07, 21, 0, 00, 00),
-                    LimitTime = new TimeSpan(12, 00, 00)
+                    LimitTime = new TimeSpan(12, 00, 00),
+                    NumOfRegisteredHikers = 2,
+                    StartnumInc = 2
                 });
 
             context.Courses.Add(
@@ -189,7 +192,9 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     PlaceOfStart = "Gyöngyöspata, általános iskola",
                     Price = 1400,
                     RegisterDeadline = new DateTime(2018, 07, 21, 0, 00, 00),
-                    LimitTime = new TimeSpan(10, 00, 00)
+                    LimitTime = new TimeSpan(10, 00, 00),
+                    NumOfRegisteredHikers = 0,
+                    StartnumInc = 0
                 });
 
             context.Courses.Add(
@@ -206,7 +211,9 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     PlaceOfStart = "Galgaguta, evangélikus templom melletti park",
                     Price = 1200,
                     RegisterDeadline = new DateTime(2014, 04, 10, 0, 00, 00),
-                    LimitTime = new TimeSpan(8, 00, 00)
+                    LimitTime = new TimeSpan(8, 00, 00),
+                    NumOfRegisteredHikers = 0,
+                    StartnumInc = 0
                 });
 
             context.SaveChanges();
@@ -474,13 +481,13 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 {
                     HikeCourseId = 1,
                     HikerId = 1,
-                   //StartNumber = 1
+                    StartNumber = "1"
                 },
                 new Registration
                 {
                     HikeCourseId = 1,
                     HikerId = 3,
-                    //StartNumber = 2
+                    StartNumber = "2"
                 }
                 );
             context.SaveChanges();

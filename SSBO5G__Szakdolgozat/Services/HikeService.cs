@@ -42,6 +42,8 @@ namespace SSBO5G__Szakdolgozat.Services
             return comment;
         }
 
+
+
         public async Task<IEnumerable<Hike>> GetAllHike()
         {
             var hikes = await context.Hikes
@@ -55,7 +57,9 @@ namespace SSBO5G__Szakdolgozat.Services
             var selectedHike = await context.Hikes
                 .Include(hike => hike.Organizer)
                 .Include(hike => hike.Courses)
-                .ThenInclude(course => course.CheckPoints)
+                    .ThenInclude(course => course.CheckPoints)
+                .Include(hike => hike.Courses)
+                    .ThenInclude(course => course.Registrations)
                 .Include(hike => hike.Comments)
                 .ThenInclude(comments => comments.Author)
                 .SingleOrDefaultAsync(x => x.Id == id);

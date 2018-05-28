@@ -30,7 +30,19 @@ export const authentication = (state = initialState, action) => {
         loggedIn: true,
         user : {...action.user , password:""}
       };
-
+    case "HIKE_DETAILS_LOAD_NEW_REGISTRATION":
+    console.log(action.registration);
+      return {
+          ...state,
+          user: {...state.user, registrations: [...state.user.registrations, action.registration]}
+      }
+      case "HIKE_DETAILS_DELETE_OLD_REGISTRATION":
+      const registrations = state.user.registrations; 
+      const newRegistrations = registrations.filter(reg=> reg.id != action.idToDelete);
+      return {
+        ...state,
+          user: {...state.user, registrations: newRegistrations }
+      }
     default:
       return state
   }

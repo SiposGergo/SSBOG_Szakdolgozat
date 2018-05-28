@@ -10,7 +10,7 @@ export default () => {
         rootReducer,
         applyMiddleware(
             thunkMiddleware,
-            loggerMiddleware
+            //loggerMiddleware
         ));
     return store;
 }

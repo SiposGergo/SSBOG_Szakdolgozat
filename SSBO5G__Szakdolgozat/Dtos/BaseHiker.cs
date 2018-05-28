@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SSBO5G__Szakdolgozat.Dtos
 {
-    public class HikerDto
+    public class BaseHiker
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,8 +16,5 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public GenderTypes Gender { get; set; }
         public string Town { get; set; }
         public string PhoneNumber { get; set; }
-        public string Password { get; set; }
-        public virtual ICollection<RegistrationDto> Registrations { get; set; }
     }
-
 }

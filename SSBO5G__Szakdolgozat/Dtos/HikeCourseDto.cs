@@ -16,6 +16,7 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public int Price { get; set; }
         public DateTime RegisterDeadline { get; set; }
         public int MaxNumOfHikers { get; set; }
+        public int NumOfRegisteredHikers { get; set; }
         public string PlaceOfStart { get; set; }
         public string PlaceOfFinish { get; set; }
         // méterben
@@ -26,9 +27,8 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public TimeSpan LimitTime { get; set; }
 
         public virtual ICollection<CheckPointDto> CheckPoints { get; set; }
-
-        //// ELőnevezések
-        //public virtual ICollection<Registration> Registrations { get; set; }
+        
+        public virtual ICollection<RegistrationDto> Registrations { get; set; }
 
         //// Teljesítések
         //public virtual ICollection<Participation> Participations { get; set; }

@@ -14,7 +14,7 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public string Description { get; set; }
         public string Website { get; set; }
 
-        public virtual HikerDto Organizer { get; set; }
+        public virtual BaseHiker Organizer { get; set; }
 
         public virtual ICollection<CommentDto> Comments { get; set; }
         public virtual ICollection<HikeCourseDto> Courses { get; set; }

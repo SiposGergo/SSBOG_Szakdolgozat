@@ -1,5 +1,4 @@
 export function handleResponse(response) {
-    console.log(response);
     return new Promise((resolve, reject) => {
         if (response.ok) {
             // jsont adunk vissza ha volt a responseban

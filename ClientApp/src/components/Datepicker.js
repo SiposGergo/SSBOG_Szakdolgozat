@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
+import {config} from "../helpers/config.js";
 
 export class Datepicker extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class Datepicker extends React.Component {
 
   render() {
     return (
-      <div className = {this.props.meta.error && this.props.meta.touched && "has-error"}>
+      <div className = {(this.props.meta.error && this.props.meta.touched) ?  "has-error" : ""}>
       <p><b>{this.props.label}</b></p>
         <SingleDatePicker
           date={this.state.date} 
@@ -28,7 +29,7 @@ export class Datepicker extends React.Component {
           showClearDate={true}
           numberOfMonths={1}
           isOutsideRange={() => false}
-          displayFormat="YYYY.MM.DD"
+          displayFormat={config.dateFormat}
         />
         {this.props.meta.touched && <div className="help-block">{this.props.meta.error}</div>}
         </div>

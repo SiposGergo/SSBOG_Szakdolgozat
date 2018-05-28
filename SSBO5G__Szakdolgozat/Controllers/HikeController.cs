@@ -21,12 +21,15 @@ namespace SSBO5G__Szakdolgozat.Controllers
         private ApplicationContext context;
         private IMapper mapper;
         IHikeService hikeService;
+        IRegistrationService registrationService;
 
-        public HikeController(ApplicationContext context, IHikeService service,IMapper mapper)
+        public HikeController(ApplicationContext context, IHikeService service,IMapper mapper, 
+            IRegistrationService registrationService)
         {
             this.context = context;
             hikeService = service;
             this.mapper = mapper;
+            this.registrationService = registrationService;
         }
 
         [AllowAnonymous]
@@ -52,7 +55,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
             {
                 var hike = await hikeService.GetById(id);
                 var hikeDto = mapper.Map<HikeDto>(hike);
-                return new JsonResult(hikeDto);
+                return Ok(hikeDto);
             }
             catch (Exception ex)
             {
@@ -72,9 +75,40 @@ namespace SSBO5G__Szakdolgozat.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
             
+        }
+
+        [HttpPut("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody]Registration registration)
+        {
+            try
+            {
+                Registration reg = await registrationService.RegisterToHike(registration);
+                RegistrationDto registrationDto1 = mapper.Map<RegistrationDto>(reg);
+                return Ok(registrationDto1);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("unregister")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UnRegister([FromBody]Registration registration)
+        {
+            try
+            {
+                int id = await registrationService.UnRegisterFromHike(registration);
+                return Ok(id);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
