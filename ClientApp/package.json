@@ -24,6 +24,7 @@
     "moment": "^2.20.1",
     "node-sass": "^4.7.2",
     "rc-slider": "^8.6.0",
+    "rc-time-picker": "^3.3.1",
     "rc-tooltip": "^3.7.0",
     "react": "^16.2.0",
     "react-dates": "^16.2.1",

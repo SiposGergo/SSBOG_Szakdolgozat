@@ -15,6 +15,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
 
             CreateMap<Registration, RegistrationDto>();
 
+           CreateMap<HikeDto, Hike>().IgnoreAllPropertiesWithAnInaccessibleSetter();
 
         }
     }

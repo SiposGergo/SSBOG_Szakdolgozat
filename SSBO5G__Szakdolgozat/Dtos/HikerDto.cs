@@ -18,6 +18,7 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public virtual ICollection<RegistrationDto> Registrations { get; set; }
+        public virtual ICollection<BaseHike> OrganizedHikes { get; set; }
     }
 
 }

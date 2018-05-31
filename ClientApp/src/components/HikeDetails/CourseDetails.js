@@ -45,11 +45,11 @@ class CourseDetails extends React.Component {
     }
 
     onRegisterClick = () => {
-        this.props.dispatch(postRegister(this.props.course.id, this.props.user.id));
+        this.props.dispatch(postRegister(this.props.course.id, this.props.user.id,this.props.hikeId));
     }
 
     onUnRegisterClick = () => {
-        this.props.dispatch(postUnRegister(this.props.course.id, this.props.user.id));
+        this.props.dispatch(postUnRegister(this.props.course.id, this.props.user.id,this.props.hikeId));
     }
 
     render() {
@@ -57,8 +57,8 @@ class CourseDetails extends React.Component {
 
         const isRegisterButtonEnabled = this.isPossibleToRegister();
         const isUnregisterButtonEnabled = this.isPossibleToUnregister();
+        const registratedPercent = ((course.numOfRegisteredHikers / course.maxNumOfHikers)*100).toString()+"%";
         
-
         return (
             <div>
                 { 
@@ -75,8 +75,6 @@ class CourseDetails extends React.Component {
                     </button>
                 }
 
-
-                
                 <p>{course.name}</p>
                 <p>Nevezési díj:{course.price}</p>
                 <p>Táv:{course.distance}</p>
@@ -87,6 +85,10 @@ class CourseDetails extends React.Component {
                     - {moment(course.endOfStart).format(config.dateTimeFormat)}</p>
                 <p>Szintidő:{course.limitTime}</p>
                 <p>Létszámkorlát:{course.maxNumOfHikers}</p>
+                <p>{course.numOfRegisteredHikers}/{course.maxNumOfHikers}</p>
+                <div className="progress">
+                     <div className="progress-bar" style={{width:registratedPercent}}></div>
+                </div>
                 <p>Nevezési határidő: :{moment(course.registerDeadline).format(config.dateTimeFormat)}</p>
                 <CheckpointList checkpoints={course.checkPoints} />
             </div>

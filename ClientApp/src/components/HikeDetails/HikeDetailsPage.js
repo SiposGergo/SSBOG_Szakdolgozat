@@ -42,7 +42,7 @@ export class HikeDetailsPage extends React.Component {
             .map((course) => {
                 return {
                     menuItem: course.name,
-                    render: () => (<Tab.Pane><CourseDetails key={course.id} course={course} /></Tab.Pane>)
+                    render: () => (<Tab.Pane><CourseDetails hikeId={hike.id} key={course.id} course={course} /></Tab.Pane>)
                 }
             });
 

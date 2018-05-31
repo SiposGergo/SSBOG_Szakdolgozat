@@ -13,6 +13,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Task<IEnumerable<Hike>> GetAllHike();
         Task<Hike> GetById(int id);
         Task<Comment> AddCommentToHike(Comment comment);
+        Task AddHike(Hike hike);
     }
     public class HikeService : IHikeService
     {
@@ -42,7 +43,16 @@ namespace SSBO5G__Szakdolgozat.Services
             return comment;
         }
 
-
+        public async Task AddHike(Hike hike)
+        {
+            var organizer = await context.Hikers.FindAsync(hike.OrganizerId);
+            if (organizer == null)
+            {
+                throw new ApplicationException("A felhasználó nem található!");
+            }
+            await context.Hikes.AddAsync(hike);
+            await context.SaveChangesAsync();
+        }
 
         public async Task<IEnumerable<Hike>> GetAllHike()
         {

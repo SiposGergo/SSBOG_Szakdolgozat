@@ -20,7 +20,9 @@ export class Header extends React.Component {
                 {!user && <NavLink exact={true} to="/login" activeClassName="is-active">Bejelentkezés</NavLink>}
                 {!user && <NavLink exact={true} to="/register" activeClassName="is-active">Regisztráció</NavLink>}
                 {user && <button className="btn" onClick={this.onLogoutClick}>Kilépés</button>}
-                {user && <NavLink exact={true} to="/me" activeClassName="is-active">Profilom</NavLink>}
+                {user && <NavLink exact={true} to="/me" activeClassName="is-active">Adataim</NavLink>}
+                {user && <NavLink exact={true} to={"/user/"+user.id} activeClassName="is-active">Oldalam</NavLink>}   
+                {user && <NavLink exact={true} to={"/hike/add"} activeClassName="is-active">Új túra</NavLink>}                                
             </header>)
     }
 }

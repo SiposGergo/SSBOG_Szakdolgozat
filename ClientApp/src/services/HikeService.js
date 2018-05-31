@@ -45,3 +45,14 @@ export function postUnRegistrationService(hikeCourseId, userId) {
     return fetch(config.apiUrl + '/Hike/unregister' , requestOptions)
         .then(handleResponse, handleError, );
 }
+
+export function postAddHike(hikeDto) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(hikeDto)
+    };
+
+    return fetch(config.apiUrl + '/Hike/add' , requestOptions)
+        .then(handleResponse, handleError, );
+}

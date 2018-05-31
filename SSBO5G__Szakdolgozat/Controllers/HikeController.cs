@@ -11,6 +11,7 @@ using AutoMapper;
 using SSBO5G__Szakdolgozat.Dtos;
 using SSBO5G__Szakdolgozat.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace SSBO5G__Szakdolgozat.Controllers
 {
@@ -81,7 +82,6 @@ namespace SSBO5G__Szakdolgozat.Controllers
         }
 
         [HttpPut("register")]
-        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]Registration registration)
         {
             try
@@ -97,13 +97,34 @@ namespace SSBO5G__Szakdolgozat.Controllers
         }
 
         [HttpPut("unregister")]
-        [AllowAnonymous]
         public async Task<IActionResult> UnRegister([FromBody]Registration registration)
         {
             try
             {
                 int id = await registrationService.UnRegisterFromHike(registration);
                 return Ok(id);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromBody] HikeDto hikeDto)
+        {
+            try
+            {
+                string userId = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                int id = 0;
+                if (userId == null || userId == "" || !Int32.TryParse(userId,out id))
+                {
+                    return BadRequest("Felhasználó nem található!");
+                }
+                Hike hike = mapper.Map<Hike>(hikeDto);
+                hike.OrganizerId = id;
+                await hikeService.AddHike(hike);
+                return Ok();
             }
             catch (Exception e)
             {

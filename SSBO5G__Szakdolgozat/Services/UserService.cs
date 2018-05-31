@@ -61,6 +61,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 .Hikers
                 .Include(x => x.Registrations)
                 .ThenInclude(y => y.HikeCourse)
+                .Include(x=> x.OrganizedHikes)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {

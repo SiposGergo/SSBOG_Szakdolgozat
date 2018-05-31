@@ -46,7 +46,6 @@ export function deleteOldRegistration(idToDelete) {
     }
 }
 
-
 export function postComent(hikeId, userId, message) {
     return dispatch => {
         postCommentService(hikeId, userId, message)
@@ -57,24 +56,26 @@ export function postComent(hikeId, userId, message) {
     };
 }
 
-export function postRegister(hikeCourseId, userId) {
+export function postRegister(hikeCourseId, userId, hikeId) {
     return dispatch => {
         postRegistrationService(hikeCourseId, userId) 
         .then(
             registration => {
                 dispatch(loadNewRegistration(registration))
+                dispatch(getHikeDetails(hikeId))
                 dispatch(SendSuccess("Sikeres nevezés"))},
             error => dispatch(SendDanger(error))
         );
     }
 }
 
-export function postUnRegister(hikeCourseId, userId) {
+export function postUnRegister(hikeCourseId, userId, hikeId) {
     return dispatch => {
         postUnRegistrationService(hikeCourseId, userId) 
         .then(
             idToDelete => {
                 dispatch(deleteOldRegistration(idToDelete))
+                dispatch(getHikeDetails(hikeId))
                 dispatch(SendSuccess("A nevezést töröltük"))},
             error => dispatch(SendDanger(error))
         );

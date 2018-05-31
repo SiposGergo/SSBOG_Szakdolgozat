@@ -14,7 +14,11 @@ class UserDetailsPAge extends React.Component {
     render() {
         return (
             <div>
-                <UserForm onSubmit={this.handleSubmit} buttonText="Elküld" data={this.props.user} />
+                <UserForm 
+                    onSubmit={this.handleSubmit} 
+                    buttonText="Elküld" 
+                    data={this.props.user}
+                    title="Adataim" />
             </div>
         )
     }

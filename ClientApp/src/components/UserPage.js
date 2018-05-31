@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {getUserById} from "../actions/UserPageActions";
 import ReactLoading from "react-loading";
+import { NavLink } from "react-router-dom";
 
 export class UserPage extends React.Component {
 
@@ -23,7 +24,30 @@ render() {
             <p>{user.email}</p>
             <p>{user.dateOfBirth}</p>
             Előnevezések:
-            {user.registrations.map((reg)=> <div key={reg.id}> {reg.hikeCourse.name}</div> )}
+            {
+                user.registrations.map( (reg)=> 
+                <div key={reg.id}> 
+                    <NavLink exact={true} to={"/hike/"+reg.hikeCourse.hikeId} activeClassName="is-active">
+                        {reg.hikeCourse.name}
+                    </NavLink>
+                Rajtszám: {reg.startNumber}
+                </div>
+             )}
+
+             Saját rendezésű túrák:
+            {
+                user.organizedHikes.map( (hike)=> 
+                <div key={hike.id}> 
+                    <NavLink exact={true} to={"/hike/"+hike.id} activeClassName="is-active">
+                        {hike.name}
+                    </NavLink>
+
+                    <NavLink exact={true} to={"/hike/edit/"+hike.id} activeClassName="is-active">
+                        Szerkesztés
+                    </NavLink>
+
+                </div>
+             )}
             </div>)
     
 }
