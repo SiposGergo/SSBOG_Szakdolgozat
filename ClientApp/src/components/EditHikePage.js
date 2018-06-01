@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getHikeDetails } from '../actions/HikeDetailsActions';
+import { getHikeDetails, postEditHike ,deleteData} from '../actions/EditHikeActions';
 import HikeForm from "./forms/HikeForm"
 
 
@@ -10,28 +10,46 @@ class EditHikePage extends React.Component {
         this.props.dispatch(getHikeDetails(this.props.match.params.id));
     }
 
+    componentWillUnmount() {
+        this.props.dispatch(deleteData());
+    }
+
     handleSubmit = (values) => {
-        const { dispatch } = this.props;
-        //dispatch(userActions.update(values));
+        this.props.dispatch(postEditHike(values));
         console.log(values)
     }
 
     render() {
-        return (
-            <div>
-                <HikeForm 
-                    onSubmit={this.handleSubmit} 
-                    buttonText="Elküld"
-                    title="Túra adatai" 
-                     />
-            </div>
-        )
+        if (this.props.hasErrored){
+            return (<div>Nincs ilyen túra!</div>);
+        }
+
+        if(this.props.hike.organizer && this.props.hike.organizer.id != this.props.user.id){
+            return (<div>Csak a saját szervezésű túráid adatait tudod szerkeszteni!</div>)
+        }
+        else{
+            
+            return (
+                <div>
+                    <HikeForm 
+                        onSubmit={this.handleSubmit} 
+                        buttonText="Elküld"
+                        title="Túra adatai" 
+                        initialValues = {this.props.hike}
+                         />
+                </div>
+            )
+        }
+        return (<div></div>)
+        
     }
 }
 
 function mapStateToProps(state) {
     return {
-        hike: state.hikeDetailsReducer.hike
+        hike: state.hikeEditReducer.hike,
+        hasErrored: state.hikeEditReducer.hasErrored,
+        user: state.authentication.user
     };
 }
 

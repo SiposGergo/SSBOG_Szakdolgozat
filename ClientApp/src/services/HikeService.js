@@ -12,8 +12,6 @@ export function getHikeById(id) {
 }
 
 export function postCommentService(hikeId, userId, message) {
-    
-    
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
@@ -54,5 +52,16 @@ export function postAddHike(hikeDto) {
     };
 
     return fetch(config.apiUrl + '/Hike/add' , requestOptions)
+        .then(handleResponse, handleError, );
+}
+
+export function postEditHikeService(hikeDto) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(hikeDto)
+    };
+
+    return fetch(config.apiUrl + '/Hike/edit' , requestOptions)
         .then(handleResponse, handleError, );
 }

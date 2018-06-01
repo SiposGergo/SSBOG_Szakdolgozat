@@ -70,7 +70,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 Town = user.Town,
                 PhoneNumber = user.PhoneNumber,
                 Token = tokenString,
-                registrations = user.Registrations
+                registrations = mapper.Map<IEnumerable<RegistrationDto>>(user.Registrations)
             });
         }
 

@@ -15,7 +15,10 @@ namespace SSBO5G__Szakdolgozat.Helpers
 
             CreateMap<Registration, RegistrationDto>();
 
-           CreateMap<HikeDto, Hike>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            CreateMap<HikeDto, Hike>()
+                 .IgnoreAllPropertiesWithAnInaccessibleSetter()
+                 .ForMember(x => x.Organizer, opt => opt.Ignore());
+
 
         }
     }

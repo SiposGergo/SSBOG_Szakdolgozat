@@ -32,7 +32,7 @@ const HikeForm = props => {
         label="A túra weboldala"
       />
       <Field name="date" label="Dátum" component={Datepicker} change={change}
-                        initDate={props.initialValues ? moment(props.initialValues.date) : moment()} 
+                        initDate={props.initialValues.date ? moment(props.initialValues.date) : moment()} 
         />
       <div>
         <button type="submit" disabled={submitting}>Elküld</button>
@@ -47,12 +47,5 @@ let form =  reduxForm({
   validate,
   enableReinitialize : true
 })(HikeForm)
-
-
-form = connect(state => {
-  return {
-      initialValues:  state.hikeDetailsReducer.hike
-  }
-})(form);
 
 export default form;

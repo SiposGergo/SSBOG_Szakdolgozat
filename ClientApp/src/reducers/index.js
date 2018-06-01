@@ -8,6 +8,7 @@ import { reducer as notifReducer } from 'redux-notifications';
 import { reducer as reduxFormReducer } from 'redux-form';
 import {hikeDetailsReducer} from "./HikeDetailsReducer"
 import {userPageReducer} from "./UserPageReducer";
+import {hikeEditReducer} from "./HikeEditReducer";
 
 const rootReducer = combineReducers({
     HikeListReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     notifs: notifReducer,
     form: reduxFormReducer,
     hikeDetailsReducer,
-    userPageReducer
+    userPageReducer,
+    hikeEditReducer
 });
 
 export default rootReducer;

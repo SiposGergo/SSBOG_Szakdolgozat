@@ -14,6 +14,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Task<Hike> GetById(int id);
         Task<Comment> AddCommentToHike(Comment comment);
         Task AddHike(Hike hike);
+        Task EditHike(Hike hike, int loggedInUserId);
     }
     public class HikeService : IHikeService
     {
@@ -52,6 +53,25 @@ namespace SSBO5G__Szakdolgozat.Services
             }
             await context.Hikes.AddAsync(hike);
             await context.SaveChangesAsync();
+        }
+
+        public async Task EditHike(Hike hike, int loggedInUserId)
+        {
+            var organizer = await context.Hikers.FindAsync(hike.OrganizerId);
+            if (organizer == null)
+            {
+                throw new ApplicationException("A felhasználó nem található!");
+            }
+            var hikeFromDb = await context.Hikes.FindAsync(hike.Id);
+            if (hikeFromDb.OrganizerId != loggedInUserId)
+            {
+                throw new ApplicationException("Tiltott művelet!");
+            }
+            hikeFromDb.Name = hike.Name;
+            hikeFromDb.Description = hike.Description;
+            hikeFromDb.Date = hike.Date;
+            hikeFromDb.Website = hike.Website;
+            await context.SaveChangesAsync();            
         }
 
         public async Task<IEnumerable<Hike>> GetAllHike()

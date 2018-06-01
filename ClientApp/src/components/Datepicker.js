@@ -8,12 +8,20 @@ export class Datepicker extends React.Component {
     super(props);
     this.state = {
       date: this.props.initDate,
-      focused: false
+      focused: false,
+      sent: false
     };
   }
 
+   componentWillReceiveProps(nextProps){
+    if(this.props.initDate != nextProps.initDate && !this.state.focused && !this.state.sent) {
+      this.setState((prevState) => { return {...prevState, date:nextProps.initDate}})
+    }
+  } 
+
   handleDateChange = (date) => {
     this.setState({ date });
+    this.setState(() => { return {sent:true}})
     this.props.change(this.props.input.name, date)
   }
 

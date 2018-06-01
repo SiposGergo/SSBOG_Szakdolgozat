@@ -131,5 +131,27 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost("edit")]
+        public async Task<IActionResult> Edit([FromBody] HikeDto hikeDto)
+        {
+            try
+            {
+                string userId = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                int id = 0;
+                if (userId == null || userId == "" || !Int32.TryParse(userId, out id))
+                {
+                    return BadRequest("Felhasználó nem található!");
+                }
+                Hike hike = mapper.Map<Hike>(hikeDto);
+                await hikeService.EditHike(hike, id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }
