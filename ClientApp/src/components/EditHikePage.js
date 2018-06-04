@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getHikeDetails, postEditHike ,deleteData} from '../actions/EditHikeActions';
-import HikeForm from "./forms/HikeForm"
+import HikeForm from "./forms/HikeForm/HikeForm"
 
 
 class EditHikePage extends React.Component {
@@ -16,7 +16,6 @@ class EditHikePage extends React.Component {
 
     handleSubmit = (values) => {
         this.props.dispatch(postEditHike(values));
-        console.log(values)
     }
 
     render() {

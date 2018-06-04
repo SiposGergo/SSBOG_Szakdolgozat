@@ -22,8 +22,9 @@ const rangeMarks = {
     70: { label: "70 km" },
     80: { label: "80 km" },
     90: { label: "90 km" },
-    100: { label: "100 km" }
-
+    100: { label: "100 km" },
+    110: { label: "110 km" },
+    120: { label: "120 km" }
 }
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
@@ -93,9 +94,9 @@ export class HikeListFilter extends React.Component {
                 <div>
                     <RangeSlider
                         min={0}
-                        max={100}
+                        max={120}
                         marks={rangeMarks}
-                        defaultValue={[0, 100]}
+                        defaultValue={[0, 120]}
                         onChange={this.onSliderChange}
                     />
                 </div>

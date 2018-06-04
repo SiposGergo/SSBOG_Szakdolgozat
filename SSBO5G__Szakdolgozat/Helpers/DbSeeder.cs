@@ -156,7 +156,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     Price = 1000,
                     RegisterDeadline = new DateTime(2018, 03, 08, 0, 00, 00),
                     LimitTime = new TimeSpan(11, 00, 00),
-                    NumOfRegisteredHikers = 0
+                    NumOfRegisteredHikers = 1
                 });
 
             context.Courses.Add(

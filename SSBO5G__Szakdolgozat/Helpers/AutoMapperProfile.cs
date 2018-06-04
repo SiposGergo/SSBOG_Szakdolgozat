@@ -19,6 +19,11 @@ namespace SSBO5G__Szakdolgozat.Helpers
                  .IgnoreAllPropertiesWithAnInaccessibleSetter()
                  .ForMember(x => x.Organizer, opt => opt.Ignore());
 
+            CreateMap<HikeCourseDto, HikeCourse>()
+                .IgnoreAllPropertiesWithAnInaccessibleSetter();
+
+            CreateMap<CheckPointDto, CheckPoint>()
+                .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
         }
     }

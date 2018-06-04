@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { userActions } from '../actions/UserActions';
-import UserForm from "./forms/UserForm"
+import UserForm from "./forms/UserForm/UserForm"
 
 
 class UserDetailsPAge extends React.Component {

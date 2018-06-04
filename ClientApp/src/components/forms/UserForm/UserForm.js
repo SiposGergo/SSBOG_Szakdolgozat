@@ -1,9 +1,9 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import Datepicker from "../Datepicker.js"
+import Datepicker from "../../Datepicker.js"
 import { connect } from "react-redux";
 import moment from 'moment';
-import {renderField} from "./RenderField";
+import {renderField} from "../RenderField";
 import {validate} from "./UserFormValidate";
 
 export class UserForm extends React.Component {

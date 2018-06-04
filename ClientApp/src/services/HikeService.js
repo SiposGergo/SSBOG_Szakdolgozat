@@ -29,7 +29,7 @@ export function postRegistrationService(hikeCourseId, userId) {
         body: JSON.stringify({ hikerId:userId, hikeCourseId  })
     };
 
-    return fetch(config.apiUrl + '/Hike/register' , requestOptions)
+    return fetch(config.apiUrl + '/Register/register' , requestOptions)
         .then(handleResponse, handleError, );
 }
 
@@ -40,7 +40,7 @@ export function postUnRegistrationService(hikeCourseId, userId) {
         body: JSON.stringify({ hikerId:userId, hikeCourseId  })
     };
 
-    return fetch(config.apiUrl + '/Hike/unregister' , requestOptions)
+    return fetch(config.apiUrl + '/Register/unregister' , requestOptions)
         .then(handleResponse, handleError, );
 }
 
@@ -57,7 +57,7 @@ export function postAddHike(hikeDto) {
 
 export function postEditHikeService(hikeDto) {
     const requestOptions = {
-        method: 'POST',
+        method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(hikeDto)
     };

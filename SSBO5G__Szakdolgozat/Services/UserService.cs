@@ -115,13 +115,17 @@ namespace SSBO5G__Szakdolgozat.Services
             user.Gender = userParam.Gender;
 
             // update password if it was entered
-            if (!string.IsNullOrWhiteSpace(password))
-            {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            //if (!string.IsNullOrWhiteSpace(password))
+            //{
+            //    byte[] passwordHash, passwordSalt;
+            //    CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
+            //    user.PasswordHash = passwordHash;
+            //    user.PasswordSalt = passwordSalt;
+            //}
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                throw new ApplicationException("Nem megfelelő jelszó!");
             }
 
             context.Hikers.Update(user);

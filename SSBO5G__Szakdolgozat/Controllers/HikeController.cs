@@ -17,20 +17,17 @@ namespace SSBO5G__Szakdolgozat.Controllers
 {
     [Authorize("Bearer")]
     [Route("[Controller]/")]
-    public class HikeController : Controller
+    public class HikeController : MyController 
     {
         private ApplicationContext context;
         private IMapper mapper;
         IHikeService hikeService;
-        IRegistrationService registrationService;
 
-        public HikeController(ApplicationContext context, IHikeService service,IMapper mapper, 
-            IRegistrationService registrationService)
+        public HikeController(ApplicationContext context, IHikeService service,IMapper mapper)
         {
             this.context = context;
             hikeService = service;
             this.mapper = mapper;
-            this.registrationService = registrationService;
         }
 
         [AllowAnonymous]
@@ -81,46 +78,12 @@ namespace SSBO5G__Szakdolgozat.Controllers
             
         }
 
-        [HttpPut("register")]
-        public async Task<IActionResult> Register([FromBody]Registration registration)
-        {
-            try
-            {
-                Registration reg = await registrationService.RegisterToHike(registration);
-                RegistrationDto registrationDto1 = mapper.Map<RegistrationDto>(reg);
-                return Ok(registrationDto1);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpPut("unregister")]
-        public async Task<IActionResult> UnRegister([FromBody]Registration registration)
-        {
-            try
-            {
-                int id = await registrationService.UnRegisterFromHike(registration);
-                return Ok(id);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] HikeDto hikeDto)
         {
             try
             {
-                string userId = HttpContext.User.FindFirstValue(ClaimTypes.Name);
-                int id = 0;
-                if (userId == null || userId == "" || !Int32.TryParse(userId,out id))
-                {
-                    return BadRequest("Felhasználó nem található!");
-                }
+                int id = GetLoggedInUserId();
                 Hike hike = mapper.Map<Hike>(hikeDto);
                 hike.OrganizerId = id;
                 await hikeService.AddHike(hike);
@@ -132,17 +95,12 @@ namespace SSBO5G__Szakdolgozat.Controllers
             }
         }
 
-        [HttpPost("edit")]
+        [HttpPut("edit")]
         public async Task<IActionResult> Edit([FromBody] HikeDto hikeDto)
         {
             try
             {
-                string userId = HttpContext.User.FindFirstValue(ClaimTypes.Name);
-                int id = 0;
-                if (userId == null || userId == "" || !Int32.TryParse(userId, out id))
-                {
-                    return BadRequest("Felhasználó nem található!");
-                }
+                int id = GetLoggedInUserId();
                 Hike hike = mapper.Map<Hike>(hikeDto);
                 await hikeService.EditHike(hike, id);
                 return Ok();
@@ -152,6 +110,5 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 return BadRequest(e.Message);
             }
         }
-
     }
 }

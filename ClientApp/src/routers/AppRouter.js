@@ -12,7 +12,9 @@ import ErrorPage from "../components/404Page";
 import RegisteringPage from "../components/RegisteringPage";
 import UserPage from "../components/UserPage";
 import AddHikePage from "../components/AddHikePage";
-import EditHikePage from "../components/EditHikePage"
+import EditHikePage from "../components/EditHikePage";
+import AddCoursePage from "../components/AddCoursePage";
+import EditCoursePage from "../components/EditCoursePage";
 
 import {history} from "../helpers/history"
 
@@ -23,7 +25,9 @@ const AppRouter = () => (
             <Switch>
                 <Route exact={true} path="/hikes" component={HikeListPage} />
                 <PrivateRoute exact={true} path="/hike/add" component={AddHikePage} />  
-                <PrivateRoute exact={true} path="/hike/edit/:id" component={EditHikePage} />  
+                <PrivateRoute exact={true} path="/hike/edit/:id" component={EditHikePage} /> 
+                <PrivateRoute exact={true} path="/hike/add-course/:id" component = {AddCoursePage}/> 
+                <PrivateRoute exact={true} path="/course/edit/:id" component = {EditCoursePage}/>                 
                 <Route exact={true} path="/hike/:id" component={HikeDetailsPage} />
                 <PrivateRoute exact={true} path="/home" component={HomePage} />
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />

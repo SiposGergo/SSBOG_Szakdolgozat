@@ -51,6 +51,10 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("A felhasználó nem található!");
             }
+            if (hike.Date < DateTime.Now)
+            {
+                throw new ApplicationException("A múltba nem szervezünk túrát!");
+            }
             await context.Hikes.AddAsync(hike);
             await context.SaveChangesAsync();
         }
@@ -66,6 +70,10 @@ namespace SSBO5G__Szakdolgozat.Services
             if (hikeFromDb.OrganizerId != loggedInUserId)
             {
                 throw new ApplicationException("Tiltott művelet!");
+            }
+            if (hike.Date < DateTime.Now)
+            {
+                throw new ApplicationException("A múltba nem szervezünk túrát!");
             }
             hikeFromDb.Name = hike.Name;
             hikeFromDb.Description = hike.Description;

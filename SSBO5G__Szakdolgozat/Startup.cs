@@ -33,6 +33,7 @@ namespace SSBO5G__Szakdolgozat
             services.AddScoped<IHikeService, HikeService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<ICourseService, CourseService>();
 
             // Swagger
             services.AddSwaggerGen(c =>

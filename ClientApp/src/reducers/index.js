@@ -9,6 +9,7 @@ import { reducer as reduxFormReducer } from 'redux-form';
 import {hikeDetailsReducer} from "./HikeDetailsReducer"
 import {userPageReducer} from "./UserPageReducer";
 import {hikeEditReducer} from "./HikeEditReducer";
+import {courseEditReducer} from "./CourseEditReducer";
 
 const rootReducer = combineReducers({
     HikeListReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     form: reduxFormReducer,
     hikeDetailsReducer,
     userPageReducer,
-    hikeEditReducer
+    hikeEditReducer,
+    courseEditReducer
 });
 
 export default rootReducer;

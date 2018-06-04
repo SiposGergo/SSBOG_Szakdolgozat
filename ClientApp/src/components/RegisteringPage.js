@@ -1,5 +1,5 @@
 import React from "react";
-import UserForm from "./forms//UserForm";
+import UserForm from "./forms/UserForm/UserForm";
 import { userActions } from "../actions/UserActions";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
