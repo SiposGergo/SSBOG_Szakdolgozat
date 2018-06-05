@@ -1,57 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCourseDetails, postEditCourse, deleteData } from '../actions/EditCourseActions';
+import { getHikeDetails, deleteData as deleteHikeData } from '../actions/EditHikeActions';
 import CourseForm from "./forms/CourseForm/CourseForm"
 import moment from "moment";
 
 class EditCoursePage extends React.Component {
 
     componentWillMount() {
-        this.props.dispatch(getCourseDetails(this.props.match.params.id));
+        this.props.dispatch(getCourseDetails(this.props.match.params.courseId));
+        this.props.dispatch(getHikeDetails(this.props.match.params.hikeId));
     }
 
     componentWillUnmount() {
         this.props.dispatch(deleteData());
+        this.props.dispatch(deleteHikeData());
     }
 
     handleSubmit = (values) => {
-        this.props.dispatch(postEditCourse(values, this.props.match.params.id));
+        this.props.dispatch(postEditCourse(values, this.props.match.params.courseId));
     }
 
     render() {
 
         const course = this.props.course;
-        /* if (course.registerDeadline) {course.registerDeadline = moment(course.registerDeadline)}
-        if (course.beginningOfStart) {course.beginningOfStart = moment(course.beginningOfStart)}
-        if (course.endOfStart) course.endOfStart = moment(course.endOfStart);
-        if(course.checkPoints) {
-            course.checkPoints.forEach((checkPoint) => {
-                checkPoint.open = moment(checkPoint.open)
-                checkPoint.close = moment(checkPoint.close)
-            });
-        } */
-
 
         if (this.props.hasErrored) {
             return (<div>Nincs ilyen túra táv!</div>);
         }
 
-        /* if(this.props.hike.organizer && this.props.hike.organizer.id != this.props.user.id){
+        if (this.props.hike.courses) {
+            const filtered = this.props.hike.courses
+                .filter((course) => course.id == this.props.match.params.courseId);
+            if(!filtered.length) {
+                return (<div>Csak a saját szervezésű túráid adatait tudod szerkeszteni!</div>)
+            }
+        }
+
+
+        if (this.props.hike.organizer && this.props.hike.organizer.id != this.props.user.id) {
             return (<div>Csak a saját szervezésű túráid adatait tudod szerkeszteni!</div>)
         }
-        else{ */
+        else {
 
-        return (
-            <div>
-                <CourseForm
-                    onSubmit={this.handleSubmit}
-                    title="Túra adatai"
-                    initialValues={course}
-                />
-            </div>
-        )
-        /* } */
-        return (<div></div>)
+            return (
+                <div>
+                    <CourseForm
+                        onSubmit={this.handleSubmit}
+                        title="Túra adatai"
+                        initialValues={course}
+                        baseDate={moment(this.props.hike.date)}
+                    />
+                </div>
+            )
+        }
 
     }
 }
@@ -59,7 +61,9 @@ class EditCoursePage extends React.Component {
 function mapStateToProps(state) {
     return {
         course: state.courseEditReducer.course,
-        hasErrored: state.courseEditReducer.hasErrored
+        hasErrored: state.courseEditReducer.hasErrored,
+        hike: state.hikeEditReducer.hike,
+        user: state.authentication.user
     };
 }
 

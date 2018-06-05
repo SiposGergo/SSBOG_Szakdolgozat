@@ -27,7 +27,7 @@ const AppRouter = () => (
                 <PrivateRoute exact={true} path="/hike/add" component={AddHikePage} />  
                 <PrivateRoute exact={true} path="/hike/edit/:id" component={EditHikePage} /> 
                 <PrivateRoute exact={true} path="/hike/add-course/:id" component = {AddCoursePage}/> 
-                <PrivateRoute exact={true} path="/course/edit/:id" component = {EditCoursePage}/>                 
+                <PrivateRoute exact={true} path="/course/edit/:hikeId/:courseId" component = {EditCoursePage}/>                 
                 <Route exact={true} path="/hike/:id" component={HikeDetailsPage} />
                 <PrivateRoute exact={true} path="/home" component={HomePage} />
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />

@@ -2,6 +2,7 @@ import validator from "validator";
 import moment from "moment";
 
 const validate = (values, props) => {
+    console.log(values)
     const errors = {};
     if (!values.name) {
         errors.name = 'A táv nevét kötelező megadni!';
@@ -44,9 +45,15 @@ const validate = (values, props) => {
     }
 
 
-    if (values.beginningOfStart && values.endOfStart && typeof (values.endOfStart) != "string"
-        && !values.endOfStart.isAfter(values.BeginnigOfStart)) {
-        errors.endOfStart = 'Nem lehet vége a rajtnak mielőtt elkezdődött volna!!';
+    if ( values.beginningOfStart 
+        && values.endOfStart 
+        && typeof (values.endOfStart) != "string"
+        && typeof (values.beginningOfStart) != "string") {
+        const begginingDate = values.beginningOfStart.toDate();
+        const endDate = values.endOfStart.toDate();
+        if (begginingDate > endDate) {
+            errors.endOfStart = 'Nem lehet vége a rajtnak mielőtt elkezdődött volna!!';
+        }
     }
 
     if (!values.limitTime) {
@@ -77,10 +84,11 @@ const validate = (values, props) => {
                 checkPointErrors.name = 'Az ellenőrzőpont nevét kötelező megadni!'
                 checkPointArrayErrors[index] = checkPointErrors
             }
-
             if (!checkpoint || !checkpoint.distanceFromStart) {
-                checkPointErrors.distanceFromStart = 'Az ellenőrzőpont távolságát kötelező megadni!'
-                checkPointArrayErrors[index] = checkPointErrors
+                if (checkpoint.distanceFromStart === "" || ((!checkpoint.distanceFromStart) && checkpoint.distanceFromStart !== 0)) {
+                    checkPointErrors.distanceFromStart = 'Az ellenőrzőpont távolságát kötelező megadni!'
+                    checkPointArrayErrors[index] = checkPointErrors
+                }
             }
 
             if (!checkpoint || !checkpoint.open) {

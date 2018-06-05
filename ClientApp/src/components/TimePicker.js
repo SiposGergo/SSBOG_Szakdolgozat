@@ -16,6 +16,7 @@ import RcTimePicker from 'rc-time-picker';
         componentWillReceiveProps(nextProps) {
             if (this.props.initTime != nextProps.initTime && !this.state.focused && !this.state.sent) {
                 this.setState((prevState) => { return { ...prevState, time: nextProps.initTime } })
+                this.props.change(this.props.input.name, nextProps.initTime)
             }
         }
 

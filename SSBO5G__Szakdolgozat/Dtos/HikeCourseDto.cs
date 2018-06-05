@@ -24,7 +24,7 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public int Elevation { get; set; }
         public DateTime BeginningOfStart { get; set; }
         public DateTime EndOfStart { get; set; }
-        public TimeSpan LimitTime { get; set; }
+        public double LimitTime { get; set; }
 
         public virtual ICollection<CheckPointDto> CheckPoints { get; set; }
         

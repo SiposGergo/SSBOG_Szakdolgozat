@@ -36,7 +36,6 @@ class AddCoursePage extends React.Component {
                         baseDate={this.props.hike.date} />
                 </div>)
         }
-        return (<div></div>)
     }
 }
 

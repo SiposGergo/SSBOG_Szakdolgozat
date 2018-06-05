@@ -53,7 +53,7 @@ export class UserPage extends React.Component {
                             Új táv
                         </NavLink>
                         {hike.courses && hike.courses.map((course) => <div key={course.id}>
-                            <NavLink exact={true} to={"/course/edit/" + course.id} activeClassName="is-active">
+                            <NavLink exact={true} to={"/course/edit/" + hike.id+'/' +course.id} activeClassName="is-active">
                                 {course.name}
                             </NavLink>
                         </div>)}

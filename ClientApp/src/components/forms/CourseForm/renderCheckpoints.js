@@ -4,56 +4,63 @@ import { renderField } from "../RenderField";
 import TimePicker from "../../TimePicker.js"
 import moment from "moment";
 
-export const renderCheckpoints = ({baseDate, initialValues,  change, fields, meta: { touched, error, submitFailed } }) => (
-    <ul>
-        <li>
-            <button type="button" onClick={() => fields.push({})}>Új ellenőrzőpont</button>
-            {(touched || submitFailed) && error && <span>{error}</span>}
-        </li>
-        {fields.map((course, index) =>
-            <li key={index}>
+export const renderCheckpoints = ({ baseDate, initialValues, change, fields, meta: { touched, error, submitFailed } }) => (
+    <div className="">
+        <button type="button" onClick={() => fields.push({})}>Új ellenőrzőpont</button>
+        {(touched || submitFailed) && error && <span>{error}</span>}
+        <div className="row">
+            {fields.map((course, index) =>
+                <div className="card" key={index} style={{ width: "400px" }}>
 
-                <button
-                    type="button"
-                    title="Törlés"
-                    onClick={() => fields.remove(index)} />
+                    <div className="card-header">
+                        <button
+                            type="button"
+                            title="Törlés"
+                            onClick={() => fields.remove(index)} />
 
-                <h4>ellenőrzőpont #{index + 1}</h4>
+                        <h4 >ellenőrzőpont #{index + 1}</h4>
+                    </div>
 
-                <Field
-                    name={`${course}.name`}
-                    type="text"
-                    component={renderField}
-                    label="Név" />
+                    <div className="card-body">
 
-                <Field
-                    name={`${course}.description`}
-                    type="text"
-                    component={renderField}
-                    label="Leírás" />
+                        <Field
+                            name={`${course}.name`}
+                            type="text"
+                            component={renderField}
+                            label="Név" />
 
-                <Field
-                    name={`${course}.distanceFromStart`}
-                    type="number"
-                    component={renderField}
-                    label="Távolság a rajttól" />
+                        <Field
+                            name={`${course}.description`}
+                            type="text"
+                            component={renderField}
+                            label="Leírás" />
 
-                <Field
-                    name={`${course}.open`}
-                    label="Nyitás"
-                    component={TimePicker}
-                    change={change}
-                    initTime={initialValues ? moment(initialValues.checkPoints[index].open) : moment(baseDate)}
-                />
+                        <Field
+                            name={`${course}.distanceFromStart`}
+                            type="number"
+                            component={renderField}
+                            label="Távolság a rajttól" />
 
-                <Field
-                    name={`${course}.close`}
-                    label="Zárás"
-                    component={TimePicker}
-                    change={change}
-                    initTime={initialValues ? moment(initialValues.checkPoints[index].close) : moment(baseDate)}
-                />
-            </li>
-        )}
-    </ul>
+                        <Field
+                            name={`${course}.open`}
+                            label="Nyitás"
+                            component={TimePicker}
+                            change={change}
+                            initTime={(initialValues && initialValues.checkPoints[index]) ? moment(initialValues.checkPoints[index].open) : moment(baseDate)}
+                        />
+
+                        <Field
+                            name={`${course}.close`}
+                            label="Zárás"
+                            component={TimePicker}
+                            change={change}
+                            initTime={(initialValues &&initialValues.checkPoints[index]) ? moment(initialValues.checkPoints[index].close) : moment(baseDate)}
+                        />
+
+                    </div>
+
+                </div>
+            )}
+        </div>
+    </div>
 )

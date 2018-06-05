@@ -27,6 +27,23 @@ namespace SSBO5G__Szakdolgozat.Services
             return new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0, 0);
         }
 
+        private bool CheckCheckPoints(ICollection<CheckPoint> checkPoints)
+        {
+            double dist = -1;
+            foreach (CheckPoint cp in checkPoints)
+            {
+                if (cp.DistanceFromStart <= dist)
+                {
+                    throw new ApplicationException("Az ellenőrzőpontok távolság adatai helytelenek!");
+                }
+                else
+                {
+                    dist = cp.DistanceFromStart;
+                }
+            }
+            return true;
+        }
+
         public async Task AddCourse(HikeCourse hikeCourse, int userId, int hikeId)
         {
             var user = await context.Hikers.FindAsync(userId);
@@ -49,6 +66,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Minimum 2 ellenőrzőpont megadása szükséges (rajt és cél)");
             }
+            CheckCheckPoints(hikeCourse.CheckPoints);
             hikeCourse.BeginningOfStart = RemoveSecondsFromDateTime(hikeCourse.BeginningOfStart);
             hikeCourse.EndOfStart = RemoveSecondsFromDateTime(hikeCourse.EndOfStart);
             foreach (CheckPoint checkPoint in hikeCourse.CheckPoints)
@@ -98,6 +116,8 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("A rajt után már nem lehet változtatni!");
             }
+            CheckCheckPoints(courseParam.CheckPoints);
+            context.CheckPoints.RemoveRange(course.CheckPoints);
             courseParam.BeginningOfStart = RemoveSecondsFromDateTime(courseParam.BeginningOfStart);
             courseParam.EndOfStart = RemoveSecondsFromDateTime(courseParam.EndOfStart);
             foreach (CheckPoint checkPoint in courseParam.CheckPoints)

@@ -13,7 +13,7 @@ const CourseForm = props => {
   const { baseDate, change, handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <div className="col-md-6 col-md-offset-3">
+      <div className="col-md-12">
         <h2>{props.title}</h2>
 
         <Field
