@@ -110,5 +110,20 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("add-helper/{hikeId}")]
+        public async Task<IActionResult> AddHelper(int hikeId, [FromBody] UserNameDto userNameDto)
+        {
+            try
+            {
+                int loggedInUserId = GetLoggedInUserId();
+                await hikeService.AddHelper(hikeId, loggedInUserId,userNameDto.UserName);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

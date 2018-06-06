@@ -22,5 +22,6 @@ namespace SSBO5G__Szakdolgozat.Models
         public virtual ICollection<Comment> Comments { get; set; }
         // távok
         public virtual ICollection<HikeCourse> Courses { get; set; }
+
     }
 }

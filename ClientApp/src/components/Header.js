@@ -13,7 +13,7 @@ export class Header extends React.Component {
     render() {
         const user = this.props.user;
         return (
-            <header>
+            <header className="sideNav">
                 <h1>HikeX Rendszer</h1>
                 <h3>{user && "Üdv az oldalon " + user.userName}</h3>
                 <NavLink exact={true} to="/hikes" activeClassName="is-active">Túrák</NavLink>

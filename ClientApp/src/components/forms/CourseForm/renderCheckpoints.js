@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from 'redux-form';
 import { renderField } from "../RenderField";
-import TimePicker from "../../TimePicker.js"
+import TimePicker from "../../FormInputs/TimePicker"
 import moment from "moment";
 
 export const renderCheckpoints = ({ baseDate, initialValues, change, fields, meta: { touched, error, submitFailed } }) => (

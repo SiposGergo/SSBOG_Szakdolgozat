@@ -2,10 +2,10 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validate from './HikeFormValidate';
 import { renderField } from "../RenderField";
-import Datepicker from "../../Datepicker.js"
+import Datepicker from "../../FormInputs/Datepicker"
 import moment from "moment";
 import { connect } from 'react-redux';
-import TextAreaField from "../../TextAreaField";
+import TextAreaField from "../../FormInputs/TextAreaField";
 
 const HikeForm = props => {
   const { change, handleSubmit, pristine, reset, submitting } = props;

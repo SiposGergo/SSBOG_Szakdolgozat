@@ -15,6 +15,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Task<Comment> AddCommentToHike(Comment comment);
         Task AddHike(Hike hike);
         Task EditHike(Hike hike, int loggedInUserId);
+        Task AddHelper(int hikeId, int loggedInUserId, string userName);
     }
     public class HikeService : IHikeService
     {
@@ -42,6 +43,39 @@ namespace SSBO5G__Szakdolgozat.Services
             await context.Comments.AddAsync(comment);
             await context.SaveChangesAsync();
             return comment;
+        }
+
+        public async Task AddHelper(int hikeId, int loggedInUserId, string userName)
+        {
+            var hike = await context.Hikes.FindAsync(hikeId);
+            if (hike == null)
+            {
+                throw new ApplicationException("Nem található ilyen túra");
+            }
+            if (hike.OrganizerId != loggedInUserId)
+            {
+                throw new ApplicationException("Ehhez nincs jogod");
+            }
+            Hiker hikerToAdd = await context.Hikers
+                .SingleOrDefaultAsync(x => x.UserName == userName);
+            if (hikerToAdd == null)
+            {
+                throw new ApplicationException("Nem található túrázó ezzel a felahsználónévvel");
+            }
+            var helpers = context.Hikes
+                .Where(x => x.Id == hikeId)
+                .SelectMany(x => x.Staff);
+            if (helpers.Any(x => x.HikerId == hikerToAdd.Id))
+            {
+                throw new ApplicationException("Ez a túrázó már fel van véve segítőként");
+            }
+            HikeHelper helper = new HikeHelper
+            {
+                HikeId = hikeId,
+                HikerId = hikerToAdd.Id
+            };
+            context.HikeHelpers.Add(helper);
+            await context.SaveChangesAsync();
         }
 
         public async Task AddHike(Hike hike)

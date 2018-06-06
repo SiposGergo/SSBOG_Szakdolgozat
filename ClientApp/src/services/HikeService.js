@@ -65,3 +65,14 @@ export function postEditHikeService(hikeDto) {
     return fetch(config.apiUrl + '/Hike/edit' , requestOptions)
         .then(handleResponse, handleError, );
 }
+
+export function postAddHikeHelperService(userName, hikeId) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({userName})
+    };
+
+    return fetch(config.apiUrl + '/Hike/add-helper/'+hikeId , requestOptions)
+        .then(handleResponse, handleError, );
+}

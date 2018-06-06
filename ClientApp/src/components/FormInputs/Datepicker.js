@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
-import {config} from "../helpers/config.js";
+import {config} from "../../helpers/config.js";
 
 export class Datepicker extends React.Component {
   constructor(props) {

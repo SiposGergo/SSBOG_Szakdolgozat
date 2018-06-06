@@ -2,9 +2,9 @@ import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import validate from './CourseFormValidate';
 import { renderField } from "../RenderField";
-import Datepicker from "../../Datepicker.js"
-import TimePicker from "../../TimePicker.js"
-import TextAreaField from "../../TextAreaField";
+import Datepicker from "../../FormInputs/Datepicker.js"
+import TimePicker from "../../FormInputs/TimePicker.js"
+import TextAreaField from "../../FormInputs/TextAreaField";
 import moment from "moment";
 import { connect } from 'react-redux';
 import { renderCheckpoints } from "./renderCheckpoints";

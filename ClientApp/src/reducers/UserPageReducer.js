@@ -1,7 +1,9 @@
 const defaultState = {
     user: {},
     isLoading: true,
-    hasErrored: false
+    hasErrored: false,
+    isModalOpen: false,
+    modalHikeId : 0
 }
 
 export const userPageReducer = (state = defaultState, action) => {
@@ -12,6 +14,10 @@ export const userPageReducer = (state = defaultState, action) => {
             return { ...state, isLoading: action.isLoading };
         case 'USER_PAGE_ITEMS_FETCH_DATA_SUCCESS':
             return { user: action.user }
+        case "USER_PAGE_OPEN_MODAL":
+            return {...state, isModalOpen:true}
+        case "USER_PAGE_CLOSE_MODAL":
+            return {...state, isModalOpen:false}
         default:
             return state
     }
