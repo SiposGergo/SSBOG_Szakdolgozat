@@ -1,6 +1,8 @@
 import { userService } from "../services/UserServices";
 import {postAddHikeHelperService} from "../services//HikeService";
 import { SendDanger, SendSuccess } from "../services/NotificationSender";
+import {getCourseInfoPdfService} from "../services/CourseServices";
+import download from "downloadjs";
 
 export function itemsHasErrored(error) {
     return {
@@ -53,6 +55,16 @@ export function getUserById(id) {
             .then(
                 user =>  dispatch(itemsFetchDataSuccess(user)) ,
                 error => dispatch(itemsHasErrored(error))
+            );
+    };
+}
+
+export function getCoursePdfInfo(id) {
+    return dispatch => {
+        getCourseInfoPdfService(id)
+            .then(
+                result =>  download(result, "nevezettek.pdf", "application/pdf") ,
+                error => dispatch(SendDanger(error))
             );
     };
 }

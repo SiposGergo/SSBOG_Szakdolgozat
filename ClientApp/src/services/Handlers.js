@@ -5,8 +5,10 @@ export function handleResponse(response) {
             var contentType = response.headers.get("content-type");
             if (contentType && contentType.includes("application/json")) {
                 response.json().then(json => resolve(json));
+            } else if ((contentType && contentType.includes("application/pdf")) ){
+                response.blob().then(blob => resolve(blob))
             } else {
-                resolve();
+                resolve(response)
             }
         }
         else if (response.status == 401) {

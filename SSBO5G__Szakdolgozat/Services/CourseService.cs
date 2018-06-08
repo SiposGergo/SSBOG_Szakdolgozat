@@ -3,7 +3,6 @@ using SSBO5G__Szakdolgozat.Helpers;
 using SSBO5G__Szakdolgozat.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SSBO5G__Szakdolgozat.Services
@@ -13,6 +12,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Task AddCourse(HikeCourse hikeCourse, int userId, int hikeId);
         Task<HikeCourse> GetCourse(int courseId);
         Task UpdateCourse(int userId, int courseId, HikeCourse course);
+        Task <byte[]> GetPdfCourseInfo(int courseId, int loggedInUserId);
     }
     public class CourseService : ICourseService
     {
@@ -74,6 +74,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 checkPoint.Open = RemoveSecondsFromDateTime(checkPoint.Open);
                 checkPoint.Close = RemoveSecondsFromDateTime(checkPoint.Close);
             }
+            hikeCourse.HikeId = hike.Id;
             hike.Courses.Add(hikeCourse);
             await context.SaveChangesAsync();
         }
@@ -138,6 +139,28 @@ namespace SSBO5G__Szakdolgozat.Services
             course.EndOfStart = courseParam.EndOfStart;
             course.CheckPoints = courseParam.CheckPoints;
             await context.SaveChangesAsync();
+        }
+
+        public async Task<byte[]> GetPdfCourseInfo(int courseId, int loggedInUserId)
+        {
+            HikeCourse course = await context.Courses
+                .Include(x => x.Registrations)
+                .ThenInclude(y=> y.Hiker)
+                .Include(x=> x.Hike)
+                .SingleOrDefaultAsync(x=> x.Id == courseId);
+            if (course == null)
+            {
+                throw new ApplicationException("Nincs ilyen táv");
+            }
+            if (loggedInUserId != course.Hike.OrganizerId)
+            {
+                throw new ApplicationException("Ehhez nincsen jogod");
+            }
+            if (course.Registrations.Count == 0)
+            {
+                throw new ApplicationException("Még nem nevezett senki");
+            }
+            return PdfGenerator.GetCourseInfoPdf(course);
         }
     }
 }

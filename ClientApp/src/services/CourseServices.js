@@ -32,3 +32,13 @@ export function postEditCourseService(courseDto, courseId) {
     return fetch(config.apiUrl + '/Course/edit/'+courseId , requestOptions)
         .then(handleResponse, handleError, );
 }
+
+export function getCourseInfoPdfService(courseId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(), 'Content-Type': 'application/pdf' }
+    };
+
+    return fetch(config.apiUrl + '/Course/pdf-info/'+courseId , requestOptions)
+        .then(handleResponse, handleError, );
+}

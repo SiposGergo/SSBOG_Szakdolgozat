@@ -2,11 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import AddHikeHelperModal from "./AddHikeHelperModal";
 import { connect } from "react-redux";
-
 import {
     openModal as openModalAction,
     closeModal as closeModalAction,
-    postAddHikeHelper
+    postAddHikeHelper,
+    getCoursePdfInfo
 } from "../../actions/UserPageActions";
 
 class UserOrganizedHikes extends React.Component {
@@ -24,6 +24,10 @@ class UserOrganizedHikes extends React.Component {
         const userName = event.target.userName.value;
         const hikeId = event.target.hikeId.value
         this.props.dispatch(postAddHikeHelper(userName, hikeId))
+    }
+
+    handleDownloadPdf = (id) => {
+        this.props.dispatch(getCoursePdfInfo(id));
     }
 
     render() {
@@ -60,6 +64,9 @@ class UserOrganizedHikes extends React.Component {
                                 <NavLink exact={true} to={"/course/edit/" + hike.id + '/' + course.id} activeClassName="is-active">
                                     {course.name}
                                 </NavLink>
+                                <button onClick={() => {this.handleDownloadPdf(course.id)}}>
+                                    Nevezők listája (PDF)
+                                </button>
                             </div>)}
                         </div>
                     )}

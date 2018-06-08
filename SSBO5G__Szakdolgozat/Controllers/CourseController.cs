@@ -5,8 +5,6 @@ using SSBO5G__Szakdolgozat.Dtos;
 using SSBO5G__Szakdolgozat.Models;
 using SSBO5G__Szakdolgozat.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SSBO5G__Szakdolgozat.Controllers
@@ -45,7 +43,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
         {
             try
             {
-                HikeCourse course =await courseService.GetCourse(courseId);
+                HikeCourse course = await courseService.GetCourse(courseId);
                 return Ok(mapper.Map<HikeCourseDto>(course));
             }
             catch (Exception e)
@@ -63,6 +61,21 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 HikeCourse course = mapper.Map<HikeCourse>(courseDto);
                 await courseService.UpdateCourse(userId, courseId, course);
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [HttpGet("pdf-info/{courseId}")]
+        public async Task<IActionResult> AddHelper(int courseId)
+        {
+            try
+            {
+                int loggedInUserId = GetLoggedInUserId();
+                byte[] result = await courseService.GetPdfCourseInfo(courseId, loggedInUserId);
+                return File(result, "application/pdf", "Nevezettek.pdf");
             }
             catch (Exception e)
             {
