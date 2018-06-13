@@ -4,13 +4,17 @@ import getVisibleHikes from "../../selectors/HikeListSelector";
 import HikeListItem from "./HikeListItem";
 import HikeListFilter from "./HikeListFilter.js";
 
-import { itemsFetchData } from "../../actions/HikeListActions"
+import { itemsFetchData, reset } from "../../actions/HikeListActions"
 
 const API = "http://localhost:4242/Hike/all";
 
 export class HikeListPage extends React.Component {
     componentDidMount() {
         this.props.fetchData(API);
+    }
+
+    componentWillUnmount() {
+        this.props.reset();
     }
 
     render() {
@@ -48,7 +52,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(itemsFetchData(url))
+        fetchData: (url) => dispatch(itemsFetchData(url)),
+        reset: () => dispatch(reset())
     };
 };
 

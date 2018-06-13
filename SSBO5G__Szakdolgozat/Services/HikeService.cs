@@ -16,6 +16,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Task AddHike(Hike hike);
         Task EditHike(Hike hike, int loggedInUserId);
         Task AddHelper(int hikeId, int loggedInUserId, string userName);
+        Task<IEnumerable<Hike>>  GetTodayHikes();
     }
     public class HikeService : IHikeService
     {
@@ -133,13 +134,27 @@ namespace SSBO5G__Szakdolgozat.Services
                 .Include(hike => hike.Courses)
                     .ThenInclude(course => course.Registrations)
                 .Include(hike => hike.Comments)
-                .ThenInclude(comments => comments.Author)
+                .ThenInclude(comments => comments.Author).
+                Include(x=>x.Staff)
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (selectedHike == null)
             {
                 throw new ApplicationException("Nem található ilyen azonosítóval túra.");
             }
             return selectedHike;
+        }
+
+        public async Task<IEnumerable<Hike>> GetTodayHikes()
+        {
+            var ids = context.Hikes
+                .Where(x => x.Date.Date == DateTime.Today)
+                .Select(x => x.Id);
+            List<Hike> todayHikes = new List<Hike>();
+            foreach (int id in ids)
+            {
+                todayHikes.Add(await GetById(id));
+            }
+            return todayHikes;
         }
     }
 }

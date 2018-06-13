@@ -119,6 +119,8 @@ namespace SSBO5G__Szakdolgozat
             app.UseAuthentication();
 
             DbSeeder.FillWithTestData(context);
+            DbSeeder.Fil2(context);
+
         }
     }
 }

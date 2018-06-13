@@ -1,4 +1,4 @@
-// szűréshez
+import {getTodayHikesService} from "../services/HikeService"
 
 export const setTextFilter = (text = "") => ({
     type: "SET_TEXT_FILTER",
@@ -54,6 +54,12 @@ export function itemsFetchDataSuccess(items) {
     };
 }
 
+export function reset() {
+    return {
+        type: 'HIKE_LIST_RESET'
+    };
+}
+
 export function itemsFetchData(url) {
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
@@ -70,3 +76,16 @@ export function itemsFetchData(url) {
             .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
+
+export function getTodayHikes() {
+    return dispatch => {
+        dispatch(itemsIsLoading(true));
+        getTodayHikesService()
+            .then(
+                items => {dispatch(itemsFetchDataSuccess(items)); dispatch(itemsIsLoading(false));},
+                error => {dispatch(itemsHasErrored(true))}
+            );
+    };
+}
+
+

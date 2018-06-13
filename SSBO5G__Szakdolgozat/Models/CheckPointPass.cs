@@ -15,7 +15,7 @@ namespace SSBO5G__Szakdolgozat.Models
         public CheckPoint CheckPoint { get; set; }
 
         // melyik teljesítéshez
-        public int ParticipationId { get; set; }
-        public Participation Participation { get; set; }
+        public int RegistrationId { get; set; }
+        public Registration Registration { get; set; }
     }
 }

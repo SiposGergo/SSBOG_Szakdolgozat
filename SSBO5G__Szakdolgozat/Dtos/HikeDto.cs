@@ -18,5 +18,6 @@ namespace SSBO5G__Szakdolgozat.Dtos
 
         public virtual ICollection<CommentDto> Comments { get; set; }
         public virtual ICollection<HikeCourseDto> Courses { get; set; }
+        public virtual ICollection<HikeHelperDto> Staff { get; set; }
     }
 }

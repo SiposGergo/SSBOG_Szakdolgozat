@@ -14,15 +14,17 @@ export class Header extends React.Component {
         const user = this.props.user;
         return (
             <header className="sideNav">
-                <h1>HikeX Rendszer</h1>
+                <NavLink exact={true} to="/" activeClassName="is-active">
+                    <h1>HikeX Rendszer</h1>
+                </NavLink>
                 <h3>{user && "Üdv az oldalon " + user.userName}</h3>
                 <NavLink exact={true} to="/hikes" activeClassName="is-active">Túrák</NavLink>
                 {!user && <NavLink exact={true} to="/login" activeClassName="is-active">Bejelentkezés</NavLink>}
                 {!user && <NavLink exact={true} to="/register" activeClassName="is-active">Regisztráció</NavLink>}
                 {user && <button className="btn" onClick={this.onLogoutClick}>Kilépés</button>}
                 {user && <NavLink exact={true} to="/me" activeClassName="is-active">Adataim</NavLink>}
-                {user && <NavLink exact={true} to={"/user/"+user.id} activeClassName="is-active">Oldalam</NavLink>}   
-                {user && <NavLink exact={true} to={"/hike/add"} activeClassName="is-active">Új túra</NavLink>}                                
+                {user && <NavLink exact={true} to={"/user/" + user.id} activeClassName="is-active">Oldalam</NavLink>}
+                {user && <NavLink exact={true} to={"/hike/add"} activeClassName="is-active">Új túra</NavLink>}
             </header>)
     }
 }

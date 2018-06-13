@@ -36,6 +36,10 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
             return { ...state, isLoading: action.isLoading };
         case 'ITEMS_FETCH_DATA_SUCCESS':
             return { ...state, hikes: action.items }
+
+        case "HIKE_LIST_RESET":
+            return filtersReducerDefaultState;
+
         default:
             return state
     }

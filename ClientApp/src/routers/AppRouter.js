@@ -15,6 +15,7 @@ import AddHikePage from "../components/AddHikePage";
 import EditHikePage from "../components/EditHikePage";
 import AddCoursePage from "../components/AddCoursePage";
 import EditCoursePage from "../components/EditCoursePage";
+import TodayHikes from "../components/TodayHikes";
 
 import {history} from "../helpers/history"
 
@@ -33,7 +34,8 @@ const AppRouter = () => (
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />
                 <Route exact={true} path="/login" component={LoginPage} />
                 <Route exact={true} path="/register" component={RegisteringPage} />
-                <Route exact={true} path="/user/:id" component={UserPage} />            
+                <Route exact={true} path="/user/:id" component={UserPage} />    
+                <Route path="/" exact={true} component={TodayHikes} />        
                 <Route path="/" component={ErrorPage} />
             </Switch>
         </div>

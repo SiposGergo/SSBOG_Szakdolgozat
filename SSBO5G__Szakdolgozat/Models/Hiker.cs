@@ -31,8 +31,5 @@ namespace SSBO5G__Szakdolgozat.Models
 
         //előnevezések
         public virtual ICollection<Registration> Registrations { get; set; }
-
-        // teljesítések
-        public virtual ICollection<Participation> Participations { get; set; }
     }
 }

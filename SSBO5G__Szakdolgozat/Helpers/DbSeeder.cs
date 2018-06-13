@@ -492,89 +492,176 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 );
             context.SaveChanges();
 
-            //////////Teljesítések//////////
-            context.Participations.AddRange(
-                new Participation { CourseId = 1, HikerId = 1 },
-                new Participation { CourseId = 1, HikerId = 2 }
-                );
+            ////////////Teljesítések//////////
+            //context.Participations.AddRange(
+            //    new Participation { CourseId = 1, HikerId = 1 },
+            //    new Participation { CourseId = 1, HikerId = 2 }
+            //    );
+            //context.SaveChanges();
+
+
+            ////////////áthaladások//////////
+            //context.CheckPointPasses.AddRange(
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 1,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 7, 10, 0)
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 2,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 8, 10, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 3,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 8, 50, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 4,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 9, 40, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 5,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 10, 25, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 6,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 11, 0, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 7,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 11, 46, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 8,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 12, 40, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 9,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 13, 40, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 10,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 14, 40, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 11,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 15, 25, 0),
+            //    },
+            //    new CheckPointPass
+            //    {
+            //        CheckPointId = 12,
+            //        ParticipationId = 1,
+            //        TimeStamp = new DateTime(2018, 03, 09, 16, 10, 0),
+            //    }
+            //        );
+            //context.SaveChanges();
+        }
+
+        public static void Fil2(ApplicationContext context)
+        {
+            context.Hikes.Add(new Hike
+            {
+                Name = "Teszt",
+                Website = "http://kekesturista.hu",
+                Date = new DateTime(2018, 06, 13),
+                Description = "Teszt Teljesítménytúra",
+                OrganizerId = 1,
+            });
             context.SaveChanges();
 
+            context.Courses.Add(new HikeCourse
+            {
+                BeginningOfStart = new DateTime(2018, 06, 13, 7, 00, 00),
+                EndOfStart = new DateTime(2018, 06, 13, 8, 00, 00),
+                Distance = 8940,
+                Elevation = 400,
+                Name = "Teszt 40",
+                HikeId = 4,
+                MaxNumOfHikers = 100,
+                PlaceOfFinish = "Teszt Rajt",
+                PlaceOfStart = "Teszt cél",
+                Price = 1000,
+                // Ez Valójában nem lehetne
+                RegisterDeadline = new DateTime(2018, 06, 13, 0, 00, 00),
+                LimitTime = new TimeSpan(3, 00, 00),
+                NumOfRegisteredHikers = 2,
+                StartnumInc = 3
+            });
+            context.SaveChanges();
 
-            //////////áthaladások//////////
-            context.CheckPointPasses.AddRange(
-                new CheckPointPass
+            context.CheckPoints.AddRange(
+                new CheckPoint
                 {
-                    CheckPointId = 1,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 7, 10, 0)
+                    CourseId = 5,
+                    Name = "Rajt",
+                    Description = "",
+                    DistanceFromStart = 0,
+                    Open = new DateTime(2018, 06, 13, 07, 00, 00),
+                    Close = new DateTime(2018, 06, 13, 8, 00, 00)
                 },
-                new CheckPointPass
+                 new CheckPoint
+                 {
+                     CourseId = 5,
+                     Name = "Muzsla Tető",
+                     Description = "kilátő",
+                     DistanceFromStart = 2500,
+                     Open = new DateTime(2018, 06, 13, 07, 00, 00),
+                     Close = new DateTime(2018, 06, 13, 10, 45, 00)
+                 }, new CheckPoint
+                 {
+                     CourseId = 5,
+                     Name = "Sástó",
+                     Description = "étterem terasza",
+                     DistanceFromStart = 3960,
+                     Open = new DateTime(2018, 06, 13, 07, 20, 00),
+                     Close = new DateTime(2018, 06, 13, 13, 15, 00)
+                 },
+                 new CheckPoint
+                 {
+                     CourseId = 5,
+                     Name = "Teszt Cél",
+                     Description = "iskola",
+                     DistanceFromStart = 8940,
+                     Open = new DateTime(2018, 06, 13, 8, 00, 00),
+                     Close = new DateTime(2018, 06, 13, 12, 10, 00)
+                 });
+            context.SaveChanges();
+
+            context.Registrations.AddRange(
+                new Registration
                 {
-                    CheckPointId = 2,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 8, 10, 0),
+                    HikeCourseId = 5,
+                    HikerId = 1,
+                    StartNumber = "89401"
                 },
-                new CheckPointPass
+                new Registration
                 {
-                    CheckPointId = 3,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 8, 50, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 4,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 9, 40, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 5,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 10, 25, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 6,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 11, 0, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 7,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 11, 46, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 8,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 12, 40, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 9,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 13, 40, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 10,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 14, 40, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 11,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 15, 25, 0),
-                },
-                new CheckPointPass
-                {
-                    CheckPointId = 12,
-                    ParticipationId = 1,
-                    TimeStamp = new DateTime(2018, 03, 09, 16, 10, 0),
+                    HikeCourseId = 5,
+                    HikerId = 3,
+                    StartNumber = "89402"
                 }
-                    );
+                );
             context.SaveChanges();
         }
     }

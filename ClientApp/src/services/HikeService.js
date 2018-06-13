@@ -76,3 +76,12 @@ export function postAddHikeHelperService(userName, hikeId) {
     return fetch(config.apiUrl + '/Hike/add-helper/'+hikeId , requestOptions)
         .then(handleResponse, handleError, );
 }
+
+export function getTodayHikesService() {
+    const requestOptions = {
+        method: 'GET'
+    };
+
+    return fetch(config.apiUrl + '/Hike/today/', requestOptions)
+        .then(handleResponse, handleError, );
+}

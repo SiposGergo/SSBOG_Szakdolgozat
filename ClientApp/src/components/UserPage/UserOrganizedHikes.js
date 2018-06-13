@@ -34,42 +34,45 @@ class UserOrganizedHikes extends React.Component {
         return (
             <div>
                 Saját rendezésű túrák:
-            {
-                    this.props.organizedHikes.map((hike) =>
-                        <div key={hike.id}>
-
-                            <NavLink exact={true} to={"/hike/" + hike.id} activeClassName="is-active">
-                                {hike.name}
-                            </NavLink>
-
-                            <NavLink exact={true} to={"/hike/edit/" + hike.id} activeClassName="is-active">
-                                Szerkesztés
-                        </NavLink>
-
-                            <NavLink exact={true} to={"/hike/add-course/" + hike.id} activeClassName="is-active">
-                                Új táv
-                        </NavLink>
-
-
-                            <AddHikeHelperModal
-                                modalIsOpen={this.props.isModalOpen}
-                                closeModal={this.closeModal}
-                                hikeId = {hike.id}
-                                onSubmit = {this.handleSubmit}
-                            />
-                            <button onClick={this.openModal}>Segítő hozzáadása</button>
-
-
-                            {hike.courses && hike.courses.map((course) => <div key={course.id}>
-                                <NavLink exact={true} to={"/course/edit/" + hike.id + '/' + course.id} activeClassName="is-active">
-                                    {course.name}
+            <ul className="list-group">
+                    {
+                        this.props.organizedHikes.map((hike) =>
+                            <div key={hike.id} className="list-group-item ">
+                                <NavLink exact={true} to={"/hike/" + hike.id} activeClassName="is-active">
+                                    {hike.name}
                                 </NavLink>
-                                <button onClick={() => {this.handleDownloadPdf(course.id)}}>
-                                    Nevezők listája (PDF)
-                                </button>
-                            </div>)}
-                        </div>
-                    )}
+
+                                <NavLink exact={true} to={"/hike/edit/" + hike.id} activeClassName="is-active">
+                                    Szerkesztés
+                                </NavLink>
+
+                                <NavLink exact={true} to={"/hike/add-course/" + hike.id} activeClassName="is-active">
+                                    Új táv
+                                </NavLink>
+
+
+                                <AddHikeHelperModal
+                                    modalIsOpen={this.props.isModalOpen}
+                                    closeModal={this.closeModal}
+                                    hikeId={hike.id}
+                                    onSubmit={this.handleSubmit}
+                                />
+                                <button onClick={this.openModal}>Segítő hozzáadása</button>
+
+                                <ul className="list-group">
+                                    {hike.courses && hike.courses.map((course) =>
+                                        <div key={course.id} className="list-group-item">
+                                            <NavLink exact={true} to={"/course/edit/" + hike.id + '/' + course.id} activeClassName="is-active">
+                                                {course.name}
+                                            </NavLink>
+                                            <button onClick={() => { this.handleDownloadPdf(course.id) }}>
+                                                Nevezők listája (PDF)
+                                            </button>
+                                        </div>)}
+                                </ul>
+                            </div>
+                        )}
+                </ul>
             </div>
         )
     }

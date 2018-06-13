@@ -61,6 +61,22 @@ namespace SSBO5G__Szakdolgozat.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("today")]
+        public async Task<IActionResult> TodayHikes()
+        {
+            try
+            {
+                var hikes = await hikeService.GetTodayHikes();
+                var hikesDto = mapper.Map<IEnumerable<HikeDto>>(hikes);
+                return Ok(hikesDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut("comment")]
         public async Task<IActionResult> Comment([FromBody]CommentDto commentDto)
         {

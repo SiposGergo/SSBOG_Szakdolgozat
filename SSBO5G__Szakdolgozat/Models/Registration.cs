@@ -13,5 +13,8 @@ namespace SSBO5G__Szakdolgozat.Models
         public int HikerId { get; set; }
         public Hiker Hiker { get; set; }
         public HikeCourse HikeCourse { get; set; }
+
+
+        public ICollection<CheckPointPass> Passes { get; set; }
     }
 }

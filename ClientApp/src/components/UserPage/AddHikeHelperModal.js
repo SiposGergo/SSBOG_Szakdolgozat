@@ -17,7 +17,7 @@ class AddHikeHelperModal extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="modal">
                 <Modal
                     isOpen={this.props.modalIsOpen}
                     style={customStyles}
@@ -30,7 +30,7 @@ class AddHikeHelperModal extends React.Component {
                     <form onSubmit={this.props.onSubmit}>
                         <label htmlFor="userName">Felhasználónév:</label>
                         <input type="text" name="userName" />
-                        <input type="number" name="hikeId" defaultValue={this.props.hikeId} hidden={true}/>
+                        <input type="number" name="hikeId" defaultValue={this.props.hikeId} hidden={true} />
                         <input type="submit" value="Hozzáad" />
                     </form>
 

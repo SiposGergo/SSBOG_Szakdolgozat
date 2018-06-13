@@ -32,9 +32,9 @@ export class UserPage extends React.Component {
             <p>{user.userName}</p>
             <p>{user.email}</p>
             <p>{user.dateOfBirth}</p>
-            
-            <UserRegistrations registrations={user.registrations}/>
+        
             <UserOrganizedHikes organizedHikes = {user.organizedHikes}/>
+            <UserRegistrations registrations={user.registrations}/>
         </div>)
 
     }

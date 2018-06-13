@@ -19,10 +19,13 @@ namespace SSBO5G__Szakdolgozat.Helpers
             CreateMap<HikeDto, Hike>()
                  .IgnoreAllPropertiesWithAnInaccessibleSetter()
                  .ForMember(x => x.Organizer, opt => opt.Ignore())
-                 .ForMember(x => x.Comments, opt => opt.Ignore());
+                 .ForMember(x => x.Comments, opt => opt.Ignore())
+                 .ForMember(x => x.Courses, opt => opt.Ignore())
+                 .ForMember(x => x.Staff, opt => opt.Ignore());
 
             CreateMap<HikeCourseDto, HikeCourse>()
-                .ForMember(X=> X.LimitTime, opt=> opt.ResolveUsing(src => {
+                .ForMember(X => X.LimitTime, opt => opt.ResolveUsing(src =>
+                {
                     int hours = (int)Math.Floor(src.LimitTime);
                     int minutes = (int)((src.LimitTime - hours) * 60);
                     return new TimeSpan(hours, minutes, 0);

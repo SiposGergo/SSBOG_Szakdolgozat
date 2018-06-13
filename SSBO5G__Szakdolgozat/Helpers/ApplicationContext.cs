@@ -37,7 +37,6 @@ namespace SSBO5G__Szakdolgozat.Helpers
         public DbSet<HikeCourse> Courses { get; set; }
         public DbSet<CheckPoint> CheckPoints { get; set; }
         public DbSet<Registration> Registrations { get; set; }
-        public DbSet<Participation> Participations { get; set; }
         public DbSet<CheckPointPass> CheckPointPasses { get; set; }
     }
 }

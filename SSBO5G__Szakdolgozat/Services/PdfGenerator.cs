@@ -8,6 +8,7 @@ using QRCoder;
 using SSBO5G__Szakdolgozat.Models;
 using System.Drawing;
 using System.IO;
+using System.Text;
 
 namespace SSBO5G__Szakdolgozat.Services
 {
@@ -41,6 +42,7 @@ namespace SSBO5G__Szakdolgozat.Services
                     {
                         Paragraph p = new Paragraph();
                         p.SetFont(normalFont);
+                        
                         QRCodeData qrCodeData = qrGenerator.CreateQrCode(reg.StartNumber, QRCodeGenerator.ECCLevel.Q);
                         QRCode qrCode = new QRCode(qrCodeData);
                         p.Add($"Név: {reg.Hiker.Name}\n");
