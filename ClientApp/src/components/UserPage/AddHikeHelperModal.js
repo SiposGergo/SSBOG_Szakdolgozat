@@ -22,9 +22,8 @@ class AddHikeHelperModal extends React.Component {
                     isOpen={this.props.modalIsOpen}
                     style={customStyles}
                     ariaHideApp={false}
-                    contentLabel="Example Modal"
+                    contentLabel="Example Modal" 
                 >
-
                     <h2>Segítő hozzáadása</h2>
                     <button onClick={this.props.closeModal}>close</button>
                     <form onSubmit={this.props.onSubmit}>
@@ -33,7 +32,6 @@ class AddHikeHelperModal extends React.Component {
                         <input type="number" name="hikeId" defaultValue={this.props.hikeId} hidden={true} />
                         <input type="submit" value="Hozzáad" />
                     </form>
-
                 </Modal>
             </div>
         );

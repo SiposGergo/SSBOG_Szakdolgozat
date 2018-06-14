@@ -27,7 +27,7 @@ export class TodayHikes extends React.Component {
                     <p>No Hikes</p>
                 ) : (
                         <div>
-                            <h3>A mai nap túrái</h3>
+                            <h3>A mai nap túrái </h3>
                             {this.props.hikes.map((h) => {
                                 return (
                                     <TodayHikesItem key={h.id} hike={h} user={this.props.user}/>

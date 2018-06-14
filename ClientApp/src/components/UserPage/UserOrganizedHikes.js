@@ -34,10 +34,9 @@ class UserOrganizedHikes extends React.Component {
         return (
             <div>
                 Saját rendezésű túrák:
-            <ul className="list-group">
                     {
                         this.props.organizedHikes.map((hike) =>
-                            <div key={hike.id} className="list-group-item ">
+                            <div key={hike.id} >
                                 <NavLink exact={true} to={"/hike/" + hike.id} activeClassName="is-active">
                                     {hike.name}
                                 </NavLink>
@@ -59,9 +58,8 @@ class UserOrganizedHikes extends React.Component {
                                 />
                                 <button onClick={this.openModal}>Segítő hozzáadása</button>
 
-                                <ul className="list-group">
                                     {hike.courses && hike.courses.map((course) =>
-                                        <div key={course.id} className="list-group-item">
+                                        <div key={course.id} >
                                             <NavLink exact={true} to={"/course/edit/" + hike.id + '/' + course.id} activeClassName="is-active">
                                                 {course.name}
                                             </NavLink>
@@ -69,10 +67,8 @@ class UserOrganizedHikes extends React.Component {
                                                 Nevezők listája (PDF)
                                             </button>
                                         </div>)}
-                                </ul>
                             </div>
                         )}
-                </ul>
             </div>
         )
     }

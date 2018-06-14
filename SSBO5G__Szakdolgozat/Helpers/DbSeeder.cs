@@ -580,11 +580,16 @@ namespace SSBO5G__Szakdolgozat.Helpers
 
         public static void Fil2(ApplicationContext context)
         {
+            DateTime date = DateTime.Today;
+            int year = date.Year;
+            int month = date.Month;
+            int day = date.Day;
+
             context.Hikes.Add(new Hike
             {
                 Name = "Teszt",
                 Website = "http://kekesturista.hu",
-                Date = new DateTime(2018, 06, 13),
+                Date =  date,
                 Description = "Teszt Teljesítménytúra",
                 OrganizerId = 1,
             });
@@ -592,8 +597,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
 
             context.Courses.Add(new HikeCourse
             {
-                BeginningOfStart = new DateTime(2018, 06, 13, 7, 00, 00),
-                EndOfStart = new DateTime(2018, 06, 13, 8, 00, 00),
+                BeginningOfStart = new DateTime(year, month, day, 7, 00, 00),
+                EndOfStart = new DateTime(year, month, day, 8, 00, 00),
                 Distance = 8940,
                 Elevation = 400,
                 Name = "Teszt 40",
@@ -603,7 +608,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 PlaceOfStart = "Teszt cél",
                 Price = 1000,
                 // Ez Valójában nem lehetne
-                RegisterDeadline = new DateTime(2018, 06, 13, 0, 00, 00),
+                RegisterDeadline = new DateTime(year, month, day, 0, 00, 00),
                 LimitTime = new TimeSpan(3, 00, 00),
                 NumOfRegisteredHikers = 2,
                 StartnumInc = 3
@@ -617,8 +622,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     Name = "Rajt",
                     Description = "",
                     DistanceFromStart = 0,
-                    Open = new DateTime(2018, 06, 13, 07, 00, 00),
-                    Close = new DateTime(2018, 06, 13, 8, 00, 00)
+                    Open = new DateTime(year, month, day, 07, 00, 00),
+                    Close = new DateTime(year, month, day, 8, 00, 00)
                 },
                  new CheckPoint
                  {
@@ -626,16 +631,16 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      Name = "Muzsla Tető",
                      Description = "kilátő",
                      DistanceFromStart = 2500,
-                     Open = new DateTime(2018, 06, 13, 07, 00, 00),
-                     Close = new DateTime(2018, 06, 13, 10, 45, 00)
+                     Open = new DateTime(year, month, day, 07, 00, 00),
+                     Close = new DateTime(year, month, day, 10, 45, 00)
                  }, new CheckPoint
                  {
                      CourseId = 5,
                      Name = "Sástó",
                      Description = "étterem terasza",
                      DistanceFromStart = 3960,
-                     Open = new DateTime(2018, 06, 13, 07, 20, 00),
-                     Close = new DateTime(2018, 06, 13, 13, 15, 00)
+                     Open = new DateTime(year, month, day, 07, 20, 00),
+                     Close = new DateTime(year, month, day, 13, 15, 00)
                  },
                  new CheckPoint
                  {
@@ -643,8 +648,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      Name = "Teszt Cél",
                      Description = "iskola",
                      DistanceFromStart = 8940,
-                     Open = new DateTime(2018, 06, 13, 8, 00, 00),
-                     Close = new DateTime(2018, 06, 13, 12, 10, 00)
+                     Open = new DateTime(year, month, day, 8, 00, 00),
+                     Close = new DateTime(year, month, day, 12, 10, 00)
                  });
             context.SaveChanges();
 
@@ -660,6 +665,82 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     HikeCourseId = 5,
                     HikerId = 3,
                     StartNumber = "89402"
+                }
+                );
+            context.SaveChanges();
+
+            // 2. táv
+
+            context.Courses.Add(new HikeCourse
+            {
+                BeginningOfStart = new DateTime(year, month, day, 7, 00, 00),
+                EndOfStart = new DateTime(year, month, day, 8, 00, 00),
+                Distance = 10000,
+                Elevation = 400,
+                Name = "Teszt 50",
+                HikeId = 4,
+                MaxNumOfHikers = 100,
+                PlaceOfFinish = "Teszt Rajt",
+                PlaceOfStart = "Teszt cél",
+                Price = 1500,
+                // Ez Valójában nem lehetne
+                RegisterDeadline = new DateTime(year, month, day, 0, 00, 00),
+                LimitTime = new TimeSpan(4, 00, 00),
+                NumOfRegisteredHikers = 2,
+                StartnumInc = 3
+            });
+            context.SaveChanges();
+
+            context.CheckPoints.AddRange(
+                new CheckPoint
+                {
+                    CourseId = 6,
+                    Name = "Rajt1",
+                    Description = "",
+                    DistanceFromStart = 0,
+                    Open = new DateTime(year, month, day, 07, 00, 00),
+                    Close = new DateTime(year, month, day, 8, 00, 00)
+                },
+                 new CheckPoint
+                 {
+                     CourseId = 6,
+                     Name = "Muzsla Tető1",
+                     Description = "kilátő",
+                     DistanceFromStart = 2500,
+                     Open = new DateTime(year, month, day, 07, 00, 00),
+                     Close = new DateTime(year, month, day, 10, 45, 00)
+                 }, new CheckPoint
+                 {
+                     CourseId = 6,
+                     Name = "Sástó",
+                     Description = "étterem terasza1",
+                     DistanceFromStart = 3960,
+                     Open = new DateTime(year, month, day, 07, 20, 00),
+                     Close = new DateTime(year, month, day, 13, 15, 00)
+                 },
+                 new CheckPoint
+                 {
+                     CourseId = 6,
+                     Name = "Teszt Cél1",
+                     Description = "iskola",
+                     DistanceFromStart = 8940,
+                     Open = new DateTime(year, month, day, 8, 00, 00),
+                     Close = new DateTime(year, month, day, 12, 10, 00)
+                 });
+            context.SaveChanges();
+
+            context.Registrations.AddRange(
+                new Registration
+                {
+                    HikeCourseId = 6,
+                    HikerId = 1,
+                    StartNumber = "100001"
+                },
+                new Registration
+                {
+                    HikeCourseId = 6,
+                    HikerId = 3,
+                    StartNumber = "100002"
                 }
                 );
             context.SaveChanges();

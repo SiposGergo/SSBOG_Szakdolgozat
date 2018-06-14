@@ -34,6 +34,8 @@ namespace SSBO5G__Szakdolgozat
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IAdminService, AdminServices>();
+
 
             // Swagger
             services.AddSwaggerGen(c =>
