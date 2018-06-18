@@ -10,6 +10,7 @@ import {hikeDetailsReducer} from "./HikeDetailsReducer"
 import {userPageReducer} from "./UserPageReducer";
 import {hikeEditReducer} from "./HikeEditReducer";
 import {courseEditReducer} from "./CourseEditReducer";
+import {resultReducer} from "./ResultReducer";
 
 const rootReducer = combineReducers({
     HikeListReducer,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     hikeDetailsReducer,
     userPageReducer,
     hikeEditReducer,
-    courseEditReducer
+    courseEditReducer,
+    resultReducer
 });
 
 export default rootReducer;

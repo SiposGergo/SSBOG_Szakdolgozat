@@ -63,6 +63,16 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 UserName = "peti1",
                 PhoneNumber = "063077111012"
             };
+            Hiker h6 = new Hiker
+            {
+                Name = "Prokop Alexandra",
+                Email = "pralexa@freemail.hu",
+                DateOfBirth = new DateTime(1996, 07, 22),
+                Gender = GenderTypes.Female,
+                Town = "Szeged",
+                UserName = "pralexa",
+                PhoneNumber = "063077111012"
+            };
 
             // Hozzá is adja
             Hiker h11 = userService.Create(h1, "abc1");
@@ -70,6 +80,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
             Hiker h31 = userService.Create(h3, "abc3");
             Hiker h41 = userService.Create(h4, "abc4");
             Hiker h51 = userService.Create(h5, "abc5");
+            Hiker h61 = userService.Create(h6, "abc6");
 
             //////////TÚRÁK//////////
             context.Hikes.AddRange(
@@ -589,7 +600,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
             {
                 Name = "Teszt",
                 Website = "http://kekesturista.hu",
-                Date =  date,
+                Date = date,
                 Description = "Teszt Teljesítménytúra",
                 OrganizerId = 1,
             });
@@ -623,7 +634,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     Description = "",
                     DistanceFromStart = 0,
                     Open = new DateTime(year, month, day, 07, 00, 00),
-                    Close = new DateTime(year, month, day, 8, 00, 00)
+                    Close = new DateTime(year, month, day, 22, 00, 00)
                 },
                  new CheckPoint
                  {
@@ -632,7 +643,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      Description = "kilátő",
                      DistanceFromStart = 2500,
                      Open = new DateTime(year, month, day, 07, 00, 00),
-                     Close = new DateTime(year, month, day, 10, 45, 00)
+                     Close = new DateTime(year, month, day, 22, 45, 00)
                  }, new CheckPoint
                  {
                      CourseId = 5,
@@ -640,7 +651,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      Description = "étterem terasza",
                      DistanceFromStart = 3960,
                      Open = new DateTime(year, month, day, 07, 20, 00),
-                     Close = new DateTime(year, month, day, 13, 15, 00)
+                     Close = new DateTime(year, month, day, 22, 15, 00)
                  },
                  new CheckPoint
                  {
@@ -649,7 +660,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      Description = "iskola",
                      DistanceFromStart = 8940,
                      Open = new DateTime(year, month, day, 8, 00, 00),
-                     Close = new DateTime(year, month, day, 12, 10, 00)
+                     Close = new DateTime(year, month, day, 22, 10, 00)
                  });
             context.SaveChanges();
 
@@ -665,7 +676,13 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     HikeCourseId = 5,
                     HikerId = 3,
                     StartNumber = "89402"
-                }
+                },
+                 new Registration
+                 {
+                     HikeCourseId = 5,
+                     HikerId = 6,
+                     StartNumber = "89403"
+                 }
                 );
             context.SaveChanges();
 
@@ -690,6 +707,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 StartnumInc = 3
             });
             context.SaveChanges();
+
+            context.HikeHelpers.Add(new HikeHelper { HikeId = 4, HikerId = 1});
 
             context.CheckPoints.AddRange(
                 new CheckPoint

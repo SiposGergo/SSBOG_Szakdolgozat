@@ -1,0 +1,28 @@
+table.minimalistBlack {
+    font-family: lato;
+    border: 2px solid #000000;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.minimalistBlack td, table.minimalistBlack th {
+    border: 2px solid #000000;
+    padding: 5px 4px;
+  }
+  table.minimalistBlack tbody td {
+    font-size: 13px;
+  }
+  table.minimalistBlack tr.male {
+    background: rgb(154, 215, 255);
+  }
+  table.minimalistBlack tr.female {
+    background: rgb(255, 128, 181);
+  }
+  table.minimalistBlack thead th {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  table.minimalistBlack tfoot td {
+    font-size: 13px;
+  }

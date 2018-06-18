@@ -28,7 +28,7 @@ class AddHikeHelperModal extends React.Component {
                     <button onClick={this.props.closeModal}>close</button>
                     <form onSubmit={this.props.onSubmit}>
                         <label htmlFor="userName">Felhasználónév:</label>
-                        <input type="text" name="userName" />
+                        <input type="text" name="userName" autoFocus />
                         <input type="number" name="hikeId" defaultValue={this.props.hikeId} hidden={true} />
                         <input type="submit" value="Hozzáad" />
                     </form>

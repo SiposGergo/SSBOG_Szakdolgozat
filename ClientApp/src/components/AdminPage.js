@@ -1,4 +1,7 @@
 import React from "react";
+import {postCheckpointPass} from "../actions/AdminActions";
+import {connect} from "react-redux";
+import moment from "moment"; 
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -16,8 +19,13 @@ class AdminPage extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const dto = {
+            startNumber: this.state.startNumber,
+            checkpointId : this.state.checkpoint,
+            timestamp: moment()
+        }
+        this.props.dispatch(postCheckpointPass(dto));
         this.setState({ startNumber: "" });
-        console.log(this.state)
     }
 
     handleSelectCourse = (e) => {
@@ -65,4 +73,4 @@ class AdminPage extends React.Component {
     }
 }
 
-export default AdminPage;
+export default connect()(AdminPage);

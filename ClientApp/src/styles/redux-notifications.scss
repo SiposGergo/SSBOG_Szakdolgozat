@@ -31,7 +31,7 @@
   }
   
   .notif--success {
-    background-color: #64ce83;
+    background-color: $dark-green;
   }
   
   .notif--info {
@@ -43,7 +43,7 @@
   }
   
   .notif--danger {
-    background-color: #d12212;
+    background-color: $danger-red;
   }
   
   .notif__container {

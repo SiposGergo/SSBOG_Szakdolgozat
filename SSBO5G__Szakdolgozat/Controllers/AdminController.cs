@@ -20,15 +20,14 @@ namespace SSBO5G__Szakdolgozat.Controllers
         IMapper mapper;
         IAdminService adminService;
 
-        [HttpPost("record-checkpoint-class")]
+        [HttpPost("record-checkpoint-pass")]
         public async Task<IActionResult> Record([FromBody] RecordDto recordDto)
         {
             try
             {
                 int loggedInUserId = GetLoggedInUserId();
-                return Json (new {
-                    message = await adminService.RecordCheckpointPass(loggedInUserId, recordDto)
-                });
+                await adminService.RecordCheckpointPass(loggedInUserId, recordDto);
+                return Ok();
             }
             catch (Exception e)
             {

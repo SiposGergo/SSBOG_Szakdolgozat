@@ -17,6 +17,7 @@ import AddCoursePage from "../components/AddCoursePage";
 import EditCoursePage from "../components/EditCoursePage";
 import TodayHikes from "../components/TodayHikes";
 import AdminPage from "../components/AdminPage";
+import CourseResultPage from "../components/CourseResultPage/CourseResultPage";
 
 import {history} from "../helpers/history"
 
@@ -31,6 +32,7 @@ const AppRouter = () => (
                 <PrivateRoute exact={true} path="/hike/add-course/:id" component = {AddCoursePage}/>
                 <PrivateRoute exact={true} path="/hike/admin/:id" component = {AdminPage}/>                 
                 <PrivateRoute exact={true} path="/course/edit/:hikeId/:courseId" component = {EditCoursePage}/>                 
+                <Route exact={true} path="/course/live/:id" component={CourseResultPage} />
                 <Route exact={true} path="/hike/:id" component={HikeDetailsPage} />
                 <PrivateRoute exact={true} path="/home" component={HomePage} />
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />

@@ -1,9 +1,21 @@
+// component styles
 @import '../../node_modules/semantic-ui-css/semantic.min.css';
 @import '../../node_modules/react-dates/lib/css/_datepicker.css';
 @import '../../node_modules/rc-slider/assets/index.css';
 @import '../../node_modules/rc-time-picker/assets/index.css';
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+// my styles
 @import './redux-notifications';
+@import './result-table';
+
+// colors
+$darkest-green: #2c7a20;
+$dark-green: #44bd32;
+$mid-green: #92DF87;
+$light-green: #CFF1CA;
+
+$danger-red: #d12212;
 
 /* .sideNav {
     height: 100%;
