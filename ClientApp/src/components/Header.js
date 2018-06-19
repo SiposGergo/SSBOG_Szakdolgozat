@@ -14,6 +14,7 @@ export class Header extends React.Component {
         const user = this.props.user;
         return (
             <header className="sideNav">
+                <img src="icon.png" className="logo"/>
                 <NavLink exact={true} to="/" activeClassName="is-active">
                     <h1>HikeX Rendszer</h1>
                 </NavLink>

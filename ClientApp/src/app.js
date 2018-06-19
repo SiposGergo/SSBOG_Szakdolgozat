@@ -11,7 +11,7 @@ const store = configureStore();
 
 const jsx = (
     <Provider store={store}>
-        <div className="container-fluid">
+        <div className="container-fluid main">
             <AppRouter />
             <Notifs/>
         </div>

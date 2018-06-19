@@ -24,6 +24,7 @@
     "file-loader": "^1.1.6",
     "history": "^4.7.2",
     "moment": "^2.20.1",
+    "moment-duration-format": "^2.2.2",
     "node-sass": "^4.7.2",
     "rc-slider": "^8.6.0",
     "rc-time-picker": "^3.3.1",

@@ -20,11 +20,41 @@ namespace SSBO5G__Szakdolgozat.Controllers
 
         [AllowAnonymous]
         [HttpGet("result/{courseId}")]
-        public async Task<IActionResult> Record(int courseId)
+        public async Task<IActionResult> Result(int courseId)
         {
             try
             {
                 var result = await resultService.GetResults(courseId);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("live-result/{courseId}")]
+        public async Task<IActionResult> LiveResult(int courseId)
+        {
+            try
+            {
+                var result = await resultService.GetLiveResult(courseId);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("live-result-netto/{courseId}")]
+        public async Task<IActionResult> LiveResultNetto(int courseId)
+        {
+            try
+            {
+                var result = await resultService.GetLiveResultNettoTime(courseId);
                 return Ok(result);
             }
             catch (Exception e)

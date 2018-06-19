@@ -74,13 +74,13 @@ namespace SSBO5G__Szakdolgozat.Services
                 registration.Passes = new List<CheckPointPass>(size);
                 for (int i = 0; i < size; i++)
                 {
-                    registration.Passes.Add(new CheckPointPass { TimeStamp = null});
+                    registration.Passes.Add(new CheckPointPass { TimeStamp = null });
                 }
             }
 
             if (checkpoint.Id == max && registration.Passes[cpId].TimeStamp != null)
             {
-                throw new ApplicationException("Egy rajtidő már rögzítésre került korábban!");
+                throw new ApplicationException("Egy cél már rögzítésre került korábban!");
             }
 
             registration.Passes[cpId] = new CheckPointPass
@@ -89,6 +89,14 @@ namespace SSBO5G__Szakdolgozat.Services
                 RegistrationId = registration.Id,
                 TimeStamp = recordDto.TimeStamp
             };
+
+            for (int i = 1; i < registration.Passes.Count; i++)
+            {
+                if ((registration.Passes[i - 1].TimeStamp ?? new DateTime(1970, 01, 01)) > (registration.Passes[i].TimeStamp ?? new DateTime(3000, 01, 01)))
+                {
+                    throw new ApplicationException("Érvénytelen idő!");
+                }
+            }
 
             await context.SaveChangesAsync();
         }

@@ -5,28 +5,31 @@
 @import '../../node_modules/rc-time-picker/assets/index.css';
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+@import "./variables.scss";
+
 // my styles
 @import './redux-notifications';
 @import './result-table';
+@import './sidenav';
 
-// colors
-$darkest-green: #2c7a20;
-$dark-green: #44bd32;
-$mid-green: #92DF87;
-$light-green: #CFF1CA;
+.is-active {
+    color: aqua;
+}
+ 
 
-$danger-red: #d12212;
+.main {
+    margin-top: 10px;
+    margin-left: 220px;
+    padding-left: 10px;
+    z-index: 2;
+}
 
-/* .sideNav {
-    height: 100%;
-    width: 220px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(204, 230, 255);
-    overflow-x: hidden;
-    padding-top: 10px;
-    transition: ease 1s;
-    border-right: solid 2px rgb(142, 200, 255);
-} */
+@media screen and (max-width: 600px) {
+    .sideNav {
+        left: -220px;
+        transition: ease 1s;
+    }
+    .main {
+        margin-left: 0px;
+    }
+}
