@@ -63,4 +63,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(EditCoursePage);
+export default connect(mapStateToProps,null,null, {pure:false})(EditCoursePage);

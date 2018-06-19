@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddHikeHelperModal from "./AddHikeHelperModal";
 import { connect } from "react-redux";
 import {
@@ -37,17 +37,17 @@ class UserOrganizedHikes extends React.Component {
                     {
                         this.props.organizedHikes.map((hike) =>
                             <div key={hike.id} >
-                                <NavLink exact={true} to={"/hike/" + hike.id} activeClassName="is-active">
+                                <Link to={"/hike/" + hike.id} >
                                     {hike.name}
-                                </NavLink>
+                                </Link>
 
-                                <NavLink exact={true} to={"/hike/edit/" + hike.id} activeClassName="is-active">
+                                <Link  to={"/hike/edit/" + hike.id} >
                                     Szerkesztés
-                                </NavLink>
+                                </Link>
 
-                                <NavLink exact={true} to={"/hike/add-course/" + hike.id} activeClassName="is-active">
+                                <Link  to={"/hike/add-course/" + hike.id} >
                                     Új táv
-                                </NavLink>
+                                </Link>
 
 
                                 <AddHikeHelperModal
@@ -60,9 +60,9 @@ class UserOrganizedHikes extends React.Component {
 
                                     {hike.courses && hike.courses.map((course) =>
                                         <div key={course.id} >
-                                            <NavLink exact={true} to={"/course/edit/" + hike.id + '/' + course.id} activeClassName="is-active">
+                                            <Link to={"/course/edit/" + hike.id + '/' + course.id} >
                                                 {course.name}
-                                            </NavLink>
+                                            </Link>
                                             <button onClick={() => { this.handleDownloadPdf(course.id) }}>
                                                 Nevezők listája (PDF)
                                             </button>
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(UserOrganizedHikes);
+export default connect(mapStateToProps, null, null, {pure:false})(UserOrganizedHikes);

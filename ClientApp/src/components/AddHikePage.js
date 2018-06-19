@@ -16,4 +16,4 @@ export class AddHikePage extends React.Component {
     }
 }
 
-export default connect()(AddHikePage)
+export default connect(null,null,null, {pure: false})(AddHikePage)

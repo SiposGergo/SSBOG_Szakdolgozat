@@ -118,4 +118,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     setSliderValues: (value) => dispatch(setSliderValues(value))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HikeListFilter);
+export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false} )(HikeListFilter);

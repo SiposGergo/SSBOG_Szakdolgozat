@@ -12,7 +12,7 @@ class RegisterPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <UserForm onSubmit={this.handleSubmit} buttonText = "Regisztráció" title="Regisztáció" />
             </div>
         )
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default connect(null, mapDispatchToProps,null, {pure:false})(RegisterPage);

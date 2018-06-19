@@ -1,13 +1,13 @@
 import React from "react";
 import moment from "moment";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class HikeListItem extends React.Component {
 
     render() {
         const props = this.props;
         return (<div>
-            <h1><NavLink to={"/hike/" + props.hike.id} exact={true}>{props.hike.name}</NavLink></h1>
+            <h1><Link to={"/hike/" + props.hike.id}>{props.hike.name}</Link></h1>
             <a href={props.hike.website} target="_blank">A Túra oldala</a>
             <table>
                 <tbody>

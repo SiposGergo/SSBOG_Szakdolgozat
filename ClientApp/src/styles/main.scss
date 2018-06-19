@@ -1,4 +1,5 @@
 // component styles
+@import './reset';
 @import '../../node_modules/semantic-ui-css/semantic.min.css';
 @import '../../node_modules/react-dates/lib/css/_datepicker.css';
 @import '../../node_modules/rc-slider/assets/index.css';
@@ -11,25 +12,14 @@
 @import './redux-notifications';
 @import './result-table';
 @import './sidenav';
+@import './menu';
 
-.is-active {
-    color: aqua;
+.btn-green {
+    margin-right:20px;
+    background: $dark-green;
+    color:white; 
 }
  
-
-.main {
-    margin-top: 10px;
-    margin-left: 220px;
-    padding-left: 10px;
-    z-index: 2;
-}
-
-@media screen and (max-width: 600px) {
-    .sideNav {
-        left: -220px;
-        transition: ease 1s;
-    }
-    .main {
-        margin-left: 0px;
-    }
+.help-block {
+    color: $danger-red;
 }

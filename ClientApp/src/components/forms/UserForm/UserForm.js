@@ -12,7 +12,7 @@ export class UserForm extends React.Component {
         const { handleSubmit, pristine, reset, submitting, change } = this.props;
         return (
             <form onSubmit={handleSubmit}>
-                <div className="col-md-6 col-md-offset-3">
+                <div className="col-md-6">
                     <h2>{this.props.title}</h2>
                     <Field name="name" type="text" component={renderField} label="Név:" />
                     <Field name="userName" type="text" component={renderField} label="Felhasználónév" />
@@ -39,7 +39,7 @@ export class UserForm extends React.Component {
                     </div>
                     <Field name="password" type="password" component={renderField} label="Jelszó" />
                     <div>
-                        <button className="btn btn-info" type="submit" disabled={submitting}>{this.props.buttonText}</button>
+                        <button className="btn btn-green" type="submit" disabled={submitting}>{this.props.buttonText}</button>
                     </div>
                 </div>
             </form>

@@ -65,8 +65,8 @@ class CourseResultPage extends React.Component {
                         <option value="netto">versenyidő</option>
                     </select>
                 </form>
-
-                <table className="minimalistBlack">
+                <div className="table-responsive">
+                <table className="minimalistBlack ">
                     <thead>
                         <tr>
                             <th>Hely</th>
@@ -124,7 +124,7 @@ class CourseResultPage extends React.Component {
                             })
                         }
                     </tbody>
-                </table>
+                </table></div>
             </div>)
         }
     }
@@ -139,4 +139,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CourseResultPage);
+export default connect(mapStateToProps, null, null, {pure: false})(CourseResultPage);

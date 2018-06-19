@@ -30,5 +30,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedUserDetailsPAge = connect(mapStateToProps)(UserDetailsPAge);
+const connectedUserDetailsPAge = connect(mapStateToProps,null,null, {pure:false})(UserDetailsPAge);
 export { connectedUserDetailsPAge as UserDetailsPage };

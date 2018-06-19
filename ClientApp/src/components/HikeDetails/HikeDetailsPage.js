@@ -75,4 +75,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(HikeDetailsPage);
+export default connect(mapStateToProps, null, null, {pure:false})(HikeDetailsPage);

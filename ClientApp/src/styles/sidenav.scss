@@ -11,7 +11,7 @@
     overflow-x: hidden;
     padding-top: 10px;
     transition: ease 1s;
-    border-right: solid 2px $dark-green;
+    border-right: solid 3px $darkest-green;
 } 
 
 .logo {
@@ -21,4 +21,21 @@
     margin-left: auto;
     margin-right: auto;
 
+}
+
+.main {
+    margin-top: 10px;
+    padding-left: 250px;
+    z-index: 2;
+}
+
+
+@media screen and (max-width: 600px) {
+    .sideNav {
+        left: -220px;
+        transition: ease 1s;
+    }
+    .main {
+        padding-left: 0px;
+    }
 }

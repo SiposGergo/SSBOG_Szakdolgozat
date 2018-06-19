@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HikeListPage);
+export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false})(HikeListPage);

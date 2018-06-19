@@ -52,4 +52,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(EditHikePage);
+export default connect(mapStateToProps,null,null, {pure:false})(EditHikePage);

@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 
 import { userActions } from "../actions/UserActions";
 
+import logo from "../images/icon.png"
+
 export class Header extends React.Component {
 
     onLogoutClick = () => {
@@ -14,18 +16,26 @@ export class Header extends React.Component {
         const user = this.props.user;
         return (
             <header className="sideNav">
-                <img src="icon.png" className="logo"/>
+
                 <NavLink exact={true} to="/" activeClassName="is-active">
-                    <h1>HikeX Rendszer</h1>
+                    <img src={logo} className="logo" />
                 </NavLink>
-                <h3>{user && "Üdv az oldalon " + user.userName}</h3>
-                <NavLink exact={true} to="/hikes" activeClassName="is-active">Túrák</NavLink>
-                {!user && <NavLink exact={true} to="/login" activeClassName="is-active">Bejelentkezés</NavLink>}
-                {!user && <NavLink exact={true} to="/register" activeClassName="is-active">Regisztráció</NavLink>}
-                {user && <button className="btn" onClick={this.onLogoutClick}>Kilépés</button>}
-                {user && <NavLink exact={true} to="/me" activeClassName="is-active">Adataim</NavLink>}
-                {user && <NavLink exact={true} to={"/user/" + user.id} activeClassName="is-active">Oldalam</NavLink>}
-                {user && <NavLink exact={true} to={"/hike/add"} activeClassName="is-active">Új túra</NavLink>}
+                <h3>{user && "Üdv az oldalon, " + user.userName + "!"}</h3>
+
+
+                {<NavLink exact={true} to="/" activeClassName="is-active" className="menu-item">Főoldal</NavLink>}
+                {!user && <NavLink exact={true} to="/login" activeClassName="is-active" className="menu-item">Bejelentkezés</NavLink>}
+                {!user && <NavLink exact={true} to="/register" activeClassName="is-active" className="menu-item">Regisztráció</NavLink>}
+                <NavLink exact={true} to="/hikes" activeClassName="is-active" className="menu-item">Túrák</NavLink>
+                {user && <NavLink exact={true} to="/me" activeClassName="is-active" className="menu-item">Adataim</NavLink>}
+                {user && <NavLink exact={true} to={"/user/" + user.id} activeClassName="is-active" className="menu-item">Oldalam</NavLink>}
+                {user && <NavLink exact={true} to={"/hike/add"} activeClassName="is-active" className="menu-item">Új túra</NavLink>}
+                {user && <NavLink onClick={this.onLogoutClick} to="#" activeClassName="is-active" className="menu-item" >Kilépés</NavLink>}
+
+
+
+
+
             </header>)
     }
 }
@@ -35,4 +45,4 @@ const mapStateToProps = (state) => ({ user: state.authentication.user })
 const mapDispatchToProps = (dispatch) => { return { logout: (history) => dispatch(userActions.logout(history)) } }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Header);

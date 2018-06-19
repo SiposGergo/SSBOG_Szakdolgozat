@@ -73,4 +73,4 @@ class AdminPage extends React.Component {
     }
 }
 
-export default connect()(AdminPage);
+export default connect()(AdminPage, null, null, {pure:false});

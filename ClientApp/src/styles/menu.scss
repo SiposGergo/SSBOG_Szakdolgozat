@@ -1,0 +1,26 @@
+@import './variables';
+
+.menu-item {
+    display: block;
+    color:black;
+    background: $mid-green;
+    padding: 10px;
+}
+
+.menu-item:active {
+    text-decoration: none;
+}
+.menu-item:hover {
+    text-decoration: none;
+    color:white;
+}
+
+.menu-item:not(.is-active):hover {
+    background:$dark-green;
+    color:white;
+}
+
+.is-active {
+    background:$darkest-green;
+    color: white;
+}
