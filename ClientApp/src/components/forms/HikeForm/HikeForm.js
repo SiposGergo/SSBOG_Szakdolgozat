@@ -39,7 +39,7 @@ const HikeForm = props => {
           initDate={props.initialValues ? moment(props.initialValues.date) : moment()}
         />
         <div>
-          <button type="submit" disabled={submitting}>Elküld</button>
+          <button type="submit" disabled={submitting} className="btn btn-green">Elküld</button>
         </div>
       </div>
     </form>

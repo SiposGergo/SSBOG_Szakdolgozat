@@ -14,17 +14,17 @@ export class TodayHikes extends React.Component {
 
     render() {
         if (this.props.hasErrored) {
-            return <p>Sorry! There was an error loading the items</p>;
+            return <h3>Hiba történt az elemek betöltése közben!</h3>;
         }
 
         if (this.props.isLoading) {
-            return <p>Loading…</p>;
+            return <h3>Betöltés...</h3>;
         }
 
         return (<div>
             {
                 this.props.hikes.length === 0 ? (
-                    <p>No Hikes</p>
+                    <h3>Üdvözöllek az oldalon, a mai nap nem rendeznek egy túrát sem.</h3>
                 ) : (
                         <div>
                             <h3>A mai nap túrái </h3>

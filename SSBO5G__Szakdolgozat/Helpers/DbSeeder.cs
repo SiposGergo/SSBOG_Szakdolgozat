@@ -694,67 +694,67 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      HikeCourseId = 5,
                      HikerId = 4,
                      StartNumber = "89405"
-                 },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 1,
-                     StartNumber = "89406"
-                 },
-                new Registration
-                {
-                    HikeCourseId = 5,
-                    HikerId = 3,
-                    StartNumber = "89407"
-                },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 6,
-                     StartNumber = "89408"
-                 },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 2,
-                     StartNumber = "89409"
-                 },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 4,
-                     StartNumber = "894010"
-                 },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 1,
-                     StartNumber = "894011"
-                 },
-                new Registration
-                {
-                    HikeCourseId = 5,
-                    HikerId = 3,
-                    StartNumber = "894012"
-                },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 6,
-                     StartNumber = "894013"
-                 },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 2,
-                     StartNumber = "894014"
-                 },
-                 new Registration
-                 {
-                     HikeCourseId = 5,
-                     HikerId = 4,
-                     StartNumber = "894015"
                  }
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 1,
+                //     StartNumber = "89406"
+                // },
+                //new Registration
+                //{
+                //    HikeCourseId = 5,
+                //    HikerId = 3,
+                //    StartNumber = "89407"
+                //},
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 6,
+                //     StartNumber = "89408"
+                // },
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 2,
+                //     StartNumber = "89409"
+                // },
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 4,
+                //     StartNumber = "894010"
+                // },
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 1,
+                //     StartNumber = "894011"
+                // },
+                //new Registration
+                //{
+                //    HikeCourseId = 5,
+                //    HikerId = 3,
+                //    StartNumber = "894012"
+                //},
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 6,
+                //     StartNumber = "894013"
+                // },
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 2,
+                //     StartNumber = "894014"
+                // },
+                // new Registration
+                // {
+                //     HikeCourseId = 5,
+                //     HikerId = 4,
+                //     StartNumber = "894015"
+                // }
                 );
             context.SaveChanges();
 

@@ -1,10 +1,17 @@
 @import './variables';
 
+
 .menu-item {
+    font-weight: 700;
     display: block;
     color:black;
     background: $mid-green;
     padding: 10px;
+    border-bottom: 3px solid $darkest-green;
+}
+
+.menu-item-first {
+    border-top: 3px solid $darkest-green;
 }
 
 .menu-item:active {
@@ -24,3 +31,4 @@
     background:$darkest-green;
     color: white;
 }
+

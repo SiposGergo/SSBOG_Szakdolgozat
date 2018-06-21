@@ -22,9 +22,7 @@ const rangeMarks = {
     70: { label: "70 km" },
     80: { label: "80 km" },
     90: { label: "90 km" },
-    100: { label: "100 km" },
-    110: { label: "110 km" },
-    120: { label: "120 km" }
+    100: { label: "100 km" }
 }
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
@@ -65,21 +63,29 @@ export class HikeListFilter extends React.Component {
 
     render() {
         return (
-            <div>
-                <input type="text" placeholder="Keresés" defaultValue={this.props.filters.text} onChange={this.onTextChange} />
+            <div className="hike-list-filter">
+                <input
+                    className="form-control"
+                    type="text"
+                    placeholder="Keresés"
+                    defaultValue={this.props.filters.text}
+                    onChange={this.onTextChange} />
+
                 <label>Rendezés: </label>
-                <select
+                <select className="form-control"
                     defaultValue={this.props.filters.sortBy}
                     onChange={this.onSortChange}
                 >
                     <option value="date">Dátum</option>
                     <option value="name">Név</option>
                 </select>
-                <label>
-                    Már megrendezett túrák mutatása
+                <label htmlFor="oldHikes">
+                    Már megrendezett túrák mutatása:
+                    </label>
                 <input type="checkbox" id="oldHikes" name="oldHikes"
-                        onChange={this.handleTextBoxClick} />
-                </label>
+                    onChange={this.handleTextBoxClick} />
+                <br/>
+
                 <DateRangePicker
                     startDate={this.props.filters.startDate}
                     startDateId="asd"
@@ -91,13 +97,23 @@ export class HikeListFilter extends React.Component {
                     numberOfMonths={1}
                     showClearDates={true}
                     isOutsideRange={() => false} />
-                <div>
+                <div style={{marginTop:10}}>
                     <RangeSlider
                         min={0}
-                        max={120}
+                        max={100}
                         marks={rangeMarks}
                         defaultValue={[0, 120]}
                         onChange={this.onSliderChange}
+
+
+                        railStyle={{ backgroundColor: '#6dd45f', height: 5 }}
+                        trackStyle={[{ backgroundColor: '#2c7a20', height: 5 }]}
+                        handleStyle={[
+                            { borderColor: '#2c7a20' }
+                        ]}
+                        dotStyle={{ borderColor: 'black' }}
+
+
                     />
                 </div>
             </div>
@@ -118,4 +134,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     setSliderValues: (value) => dispatch(setSliderValues(value))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false} )(HikeListFilter);
+export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(HikeListFilter);

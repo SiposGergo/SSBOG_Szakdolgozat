@@ -19,18 +19,18 @@ export class HikeListPage extends React.Component {
 
     render() {
         if (this.props.hasErrored) {
-            return <p>Sorry! There was an error loading the items</p>;
+            return <h3>Hiba történt az elemek betöltése közben!</h3>;
         }
 
         if (this.props.isLoading) {
-            return <p>Loading…</p>;
+            return <h3>Betöltés...</h3>;
         }
 
         return ( <div>
                 <HikeListFilter />
                 {
                     this.props.hikes.length === 0 ? (
-                        <p>No Hikes</p>
+                        <h3>Nincsen megjeleníthető túra!</h3>
                     ) : (
                             this.props.hikes.map((h) => {
                                 return (<HikeListItem key={h.id} hike={h} />)

@@ -1,25 +1,35 @@
 // component styles
-@import './reset';
+
 @import '../../node_modules/semantic-ui-css/semantic.min.css';
 @import '../../node_modules/react-dates/lib/css/_datepicker.css';
 @import '../../node_modules/rc-slider/assets/index.css';
 @import '../../node_modules/rc-time-picker/assets/index.css';
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+@import './reset';
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./variables.scss";
 
-// my styles
-@import './redux-notifications';
-@import './result-table';
-@import './sidenav';
-@import './menu';
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
-.btn-green {
-    margin-right:20px;
-    background: $dark-green;
-    color:white; 
+html {
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
 }
+
+// my styles
+@import './common/headers';
+@import './common/buttons';
+@import './common/links';
+@import './components/redux-notifications';
+@import './result-table';
+@import './components/Header/sidenav';
+@import './components/Header/menu';
+@import './components/HikeListFilter';
+
  
 .help-block {
     color: $danger-red;
 }
+
+
+

@@ -27,9 +27,10 @@ class TextAreaField extends React.Component {
     render() {
         return (
             <div className={(this.props.meta.error && this.props.meta.touched) ? "has-error" : ""}>
-                <p><b>{this.props.label}</b></p>
+                <p>{this.props.label}</p>
                 <div>
                     <textarea
+                        className="form-control"
                         rows={"10"}
                         cols={"40"}
                         placeholder={this.props.label}

@@ -26,7 +26,7 @@
     "moment": "^2.20.1",
     "moment-duration-format": "^2.2.2",
     "node-sass": "^4.7.2",
-    "rc-slider": "^8.6.0",
+    "rc-slider": "^8.6.1",
     "rc-time-picker": "^3.3.1",
     "rc-tooltip": "^3.7.0",
     "react": "^16.2.0",

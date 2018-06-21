@@ -28,7 +28,7 @@ import RcTimePicker from 'rc-time-picker';
         render() {
             return (
                 <div className={(this.props.meta.error && this.props.meta.touched) ? "has-error" : ""}>
-                    <p><b>{this.props.label}</b></p>
+                    <p>{this.props.label}</p>
                     <RcTimePicker
                         onChange={this.handleChange}
                         value={this.state.time}

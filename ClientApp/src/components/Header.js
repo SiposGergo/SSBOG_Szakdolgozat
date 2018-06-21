@@ -17,13 +17,14 @@ export class Header extends React.Component {
         return (
             <header className="sideNav">
 
+                <h1>HikeX</h1>
                 <NavLink exact={true} to="/" activeClassName="is-active">
                     <img src={logo} className="logo" />
                 </NavLink>
                 <h3>{user && "Üdv az oldalon, " + user.userName + "!"}</h3>
 
 
-                {<NavLink exact={true} to="/" activeClassName="is-active" className="menu-item">Főoldal</NavLink>}
+                {<NavLink exact={true} to="/" activeClassName="is-active" className="menu-item menu-item-first">Főoldal</NavLink>}
                 {!user && <NavLink exact={true} to="/login" activeClassName="is-active" className="menu-item">Bejelentkezés</NavLink>}
                 {!user && <NavLink exact={true} to="/register" activeClassName="is-active" className="menu-item">Regisztráció</NavLink>}
                 <NavLink exact={true} to="/hikes" activeClassName="is-active" className="menu-item">Túrák</NavLink>

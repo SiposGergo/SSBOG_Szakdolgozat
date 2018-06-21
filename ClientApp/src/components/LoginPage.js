@@ -50,7 +50,7 @@ class LoginPage extends React.Component {
                             }
                         </div>
                         <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Jelszó</label>
                             <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
                             {submitted && !password &&
                                 <div className="help-block">Add meg a jelszavad</div>

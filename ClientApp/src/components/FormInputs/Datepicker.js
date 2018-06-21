@@ -28,7 +28,7 @@ export class Datepicker extends React.Component {
   render() {
     return (
       <div className = {(this.props.meta.error && this.props.meta.touched) ?  "has-error" : ""}>
-      <p><b>{this.props.label}</b></p>
+      <p>{this.props.label}</p>
         <SingleDatePicker
           date={this.state.date} 
           onDateChange={this.handleDateChange}

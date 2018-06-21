@@ -29,7 +29,7 @@ export class UserForm extends React.Component {
                                 <Field name="gender" component="input" type="radio" value="Male" />
                                 {' '}
                                 Férfi
-                            </label>
+                            </label><br/>
                             <label>
                                 <Field name="gender" component="input" type="radio" value="Female" />
                                 {' '}
