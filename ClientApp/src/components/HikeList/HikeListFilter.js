@@ -64,40 +64,56 @@ export class HikeListFilter extends React.Component {
     render() {
         return (
             <div className="hike-list-filter">
-                <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Keresés"
-                    defaultValue={this.props.filters.text}
-                    onChange={this.onTextChange} />
+                <div className="row">
+                    <div className="col-md">
+                        <label htmlFor="keres">Keresés: </label>
+                        <input
+                            name="keres"
+                            className="form-control"
+                            type="text"
+                            placeholder="Keresés"
+                            defaultValue={this.props.filters.text}
+                            onChange={this.onTextChange} />
+                    </div>
+                    <div className="col-md">
+                        <label htmlFor="rendez">Rendezés: </label>
+                        <select className="form-control"
+                            name="rendez"
+                            defaultValue={this.props.filters.sortBy}
+                            onChange={this.onSortChange}
+                        >
+                            <option value="date">Dátum</option>
+                            <option value="name">Név</option>
+                        </select>
+                    </div>
 
-                <label>Rendezés: </label>
-                <select className="form-control"
-                    defaultValue={this.props.filters.sortBy}
-                    onChange={this.onSortChange}
-                >
-                    <option value="date">Dátum</option>
-                    <option value="name">Név</option>
-                </select>
+                    <div className="col-md">
+                        <label>Túra dátuma:</label>
+                        <br />
+                        <DateRangePicker
+                            startDate={this.props.filters.startDate}
+                            startDateId="asd"
+                            endDate={this.props.filters.endDate}
+                            endDateId="lol"
+                            onDatesChange={this.onDateChange}
+                            focusedInput={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChanged}
+                            numberOfMonths={1}
+                            showClearDates={true}
+                            isOutsideRange={() => false} 
+                            orientation="vertical"/>
+                    </div>
+                </div>
+
+
                 <label htmlFor="oldHikes">
                     Már megrendezett túrák mutatása:
                     </label>
                 <input type="checkbox" id="oldHikes" name="oldHikes"
                     onChange={this.handleTextBoxClick} />
-                <br/>
+                <br />
 
-                <DateRangePicker
-                    startDate={this.props.filters.startDate}
-                    startDateId="asd"
-                    endDate={this.props.filters.endDate}
-                    endDateId="lol"
-                    onDatesChange={this.onDateChange}
-                    focusedInput={this.state.calendarFocused}
-                    onFocusChange={this.onFocusChanged}
-                    numberOfMonths={1}
-                    showClearDates={true}
-                    isOutsideRange={() => false} />
-                <div style={{marginTop:10}}>
+                <div style={{ marginTop: 10 }}>
                     <RangeSlider
                         min={0}
                         max={100}

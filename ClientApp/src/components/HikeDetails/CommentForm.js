@@ -5,20 +5,20 @@ const CommentForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
-    <p>Írj kommentet!</p>
+    <h3>Írj kommentet!</h3>
     <div>
     <div>
       <Field
         name="message"
         component="textarea"
         placeholder="Üzenet..."
-        rows = "8"
+        rows = "4"
         cols = "50"
       />
     </div>
     </div>
       <div>
-        <button type="submit" disabled={pristine || submitting}>
+        <button className="btn btn-green" type="submit" disabled={pristine || submitting}>
           Elküld
         </button>
       </div>

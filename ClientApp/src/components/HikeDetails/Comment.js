@@ -1,16 +1,17 @@
 import React from "react";
 import moment from "moment";
-import {Link} from "react-router-dom";
-import {config} from "../../helpers/config.js";
+import { Link } from "react-router-dom";
+import { config } from "../../helpers/config.js";
 
 class Comment extends React.Component {
     render() {
         const comment = this.props.comment;
         return (
-            <div>
-                <Link to={"/user/"+comment.author.id}> {comment.author.name}  </Link>
-                <p>{moment(comment.timeStamp).format(config.dateTimeFormat)}</p>
+            <div className={"comment-box" +(this.props.user && comment.author.id == this.props.user.id ? " comment-box-own" : "") }>
+                <Link className="link" to={"/user/" + comment.author.id}> {comment.author.name}  </Link>
+                <div>{moment(comment.timeStamp).format(config.dateTimeFormat)}</div>
                 <p>{comment.commentText}</p>
+
             </div>
         )
     }

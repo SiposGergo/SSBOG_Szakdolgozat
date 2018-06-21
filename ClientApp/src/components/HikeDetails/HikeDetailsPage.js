@@ -7,7 +7,7 @@ import CourseDetails from "./CourseDetails";
 import { Tab } from 'semantic-ui-react';
 import CommentForm from "./CommentForm";
 import { connect } from 'react-redux';
-import {getHikeDetails, postComent} from "../../actions/HikeDetailsActions";
+import { getHikeDetails, postComent } from "../../actions/HikeDetailsActions";
 import { SendDanger } from "../../services/NotificationSender";
 import { change } from 'redux-form';
 
@@ -15,14 +15,14 @@ import { change } from 'redux-form';
 export class HikeDetailsPage extends React.Component {
 
     componentDidMount() {
-            this.props.dispatch(getHikeDetails(this.props.match.params.id));
+        this.props.dispatch(getHikeDetails(this.props.match.params.id));
     }
 
     submitComment = (value) => {
-        if (!this.props.user){
+        if (!this.props.user) {
             this.props.dispatch(SendDanger("Lépj be a kommenteléshez!"));
         } else {
-            this.props.dispatch(postComent(this.props.hike.id,this.props.user.id,value.message));
+            this.props.dispatch(postComent(this.props.hike.id, this.props.user.id, value.message));
             this.props.dispatch(change('CommentForm', 'message', ''));
         }
     }
@@ -47,32 +47,33 @@ export class HikeDetailsPage extends React.Component {
             });
 
         return (
-            <div>
+            <div style={{width:"90%"}}>
                 <HikeDetailsCompoent hike={hike} />
                 <OrganizerDetailsComponent organizer={hike.organizer} />
-                <div>
-                    <Tab panes={panes} />
+                <div >
+                    <Tab menu={{ color:"green", size:"huge", width:"2", inverted: true, attached: true }} panes={panes} />
                 </div>
-
+                <div>
                 {
                     hike.comments.length == 0 ?
                         <p>Nincsenek hozzászólások</p> :
-                        hike.comments.map((comment) => <Comment key={comment.id} comment={comment} />)
+                        hike.comments.map((comment) => <Comment key={comment.id} comment={comment}  user={this.props.user}/>)
                 }
-                <CommentForm onSubmit = {this.submitComment} />
+                </div>
+                <CommentForm onSubmit={this.submitComment} />
             </div>
         )
     }
 }
 
 function mapStateToProps(state) {
-    const {hasErrored,isLoading,hike} = state.hikeDetailsReducer;
+    const { hasErrored, isLoading, hike } = state.hikeDetailsReducer;
     return {
         hasErrored,
         isLoading,
         hike,
-        user : state.authentication.user
+        user: state.authentication.user
     };
 }
 
-export default connect(mapStateToProps, null, null, {pure:false})(HikeDetailsPage);
+export default connect(mapStateToProps, null, null, { pure: false })(HikeDetailsPage);

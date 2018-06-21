@@ -1,5 +1,9 @@
+@import '../variables';
+
 .hike-list-filter {
-    margin-bottom: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
+    width: 90%;
+    border: $border solid $darkest-green;
+    padding: 10px 25px 40px 25px;
+    border-radius: $border-radius-medium;
+    margin-bottom: 10px;
 }

@@ -1,0 +1,12 @@
+@import'../../variables';
+
+.ui.inverted.menu .green.active.item,
+.ui.inverted.green.menu {
+  background-color: $dark-green;
+}
+.ui.inverted.green.menu .item:before {
+  background-color: $dark-green;
+}
+.ui.inverted.green.menu .active.item {
+  background-color: $darkest-green !important;
+}

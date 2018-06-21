@@ -20,11 +20,15 @@ html {
 @import './common/headers';
 @import './common/buttons';
 @import './common/links';
+@import './common/card-green';
+
 @import './components/redux-notifications';
 @import './result-table';
 @import './components/Header/sidenav';
 @import './components/Header/menu';
 @import './components/HikeListFilter';
+@import './components/HikeDetails/comment-box';
+@import './components/HikeDetails/semantic-tab-green';
 
  
 .help-block {
