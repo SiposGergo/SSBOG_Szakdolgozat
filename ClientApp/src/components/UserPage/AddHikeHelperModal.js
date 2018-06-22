@@ -18,19 +18,22 @@ class AddHikeHelperModal extends React.Component {
     render() {
         return (
             <div className="modal">
-                <Modal
+                <Modal 
+                    className= "my-modal"
+                    overlayClassName= "my-overlay"
                     isOpen={this.props.modalIsOpen}
                     style={customStyles}
                     ariaHideApp={false}
-                    contentLabel="Example Modal" 
+                    contentLabel="Example Modal"
                 >
-                    <h2>Segítő hozzáadása</h2>
-                    <button onClick={this.props.closeModal}>close</button>
+                    <button className="btn btn-close" onClick={this.props.closeModal}>X</button>
+                    <h3>Segítő hozzáadása</h3>
+
                     <form onSubmit={this.props.onSubmit}>
                         <label htmlFor="userName">Felhasználónév:</label>
-                        <input type="text" name="userName" autoFocus />
+                        <input className="form-control" type="text" name="userName" autoFocus />
                         <input type="number" name="hikeId" defaultValue={this.props.hikeId} hidden={true} />
-                        <input type="submit" value="Hozzáad" />
+                        <input type="submit" value="Hozzáad" className="btn btn-green" />
                     </form>
                 </Modal>
             </div>

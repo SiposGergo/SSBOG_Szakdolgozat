@@ -1,18 +1,24 @@
 @import'../../variables';
 
+.comment-box { 
+        word-wrap: break-word;
+        border-radius: $border-radius-small;
+        margin: 10px 0px;
+        padding: 10px;
+        width: 90%;
+}
+
+.comment-box-own {
+    border: $border solid $darkest-green ;
+    margin-left: 10%;
+}
+
 .comment-box:nth-child(even) {
     background: $light-green;
 }
 
 .comment-box:nth-child(odd) {
     background: $mid-green;
-}
-
-.comment-box {
-    word-wrap: break-word;
-    border-radius: $border-radius-small;
-    margin: 10px 0px;
-    padding: 10px;
 }
 
 .comment-box .link, .comment-box div {
@@ -25,6 +31,3 @@
     float: right;
 }
 
-.comment-box-own {
-    border: $border solid $darkest-green;
-}

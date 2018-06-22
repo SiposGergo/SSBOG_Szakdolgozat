@@ -8,8 +8,7 @@ import {
 import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import Slider, { Range } from 'rc-slider';
-import Tooltip from 'rc-tooltip';
-
+import {config} from "../../helpers/config.js";
 
 const rangeMarks = {
     0: { label: "0 km" },
@@ -101,7 +100,8 @@ export class HikeListFilter extends React.Component {
                             numberOfMonths={1}
                             showClearDates={true}
                             isOutsideRange={() => false} 
-                            orientation="vertical"/>
+                            orientation="vertical"
+                            displayFormat={config.dateFormat}/>
                     </div>
                 </div>
 

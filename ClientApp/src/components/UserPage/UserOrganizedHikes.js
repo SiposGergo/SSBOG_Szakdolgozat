@@ -33,20 +33,20 @@ class UserOrganizedHikes extends React.Component {
     render() {
         return (
             <div>
-                Saját rendezésű túrák:
                     {
                         this.props.organizedHikes.map((hike) =>
-                            <div key={hike.id} >
+                            <div key={hike.id} className="own-hike-item" >
+                                <h3>{hike.name}</h3>
                                 <Link to={"/hike/" + hike.id} >
-                                    {hike.name}
+                                    <button className="btn btn-green">Túra adatlapja</button>
                                 </Link>
 
                                 <Link  to={"/hike/edit/" + hike.id} >
-                                    Szerkesztés
+                                <button className="btn btn-green">Szerkesztés</button>
                                 </Link>
 
                                 <Link  to={"/hike/add-course/" + hike.id} >
-                                    Új táv
+                                <button className="btn btn-green">Új táv hozzáadása</button>
                                 </Link>
 
 
@@ -56,14 +56,15 @@ class UserOrganizedHikes extends React.Component {
                                     hikeId={hike.id}
                                     onSubmit={this.handleSubmit}
                                 />
-                                <button onClick={this.openModal}>Segítő hozzáadása</button>
+                                <button className="btn btn-green" onClick={this.openModal}>Segítő hozzáadása</button>
 
                                     {hike.courses && hike.courses.map((course) =>
                                         <div key={course.id} >
+                                            <h4>{course.name}</h4>
                                             <Link to={"/course/edit/" + hike.id + '/' + course.id} >
-                                                {course.name}
+                                                <button className="btn btn-green">Szerkesztés</button>
                                             </Link>
-                                            <button onClick={() => { this.handleDownloadPdf(course.id) }}>
+                                            <button className="btn btn-green" onClick={() => { this.handleDownloadPdf(course.id) }}>
                                                 Nevezők listája (PDF)
                                             </button>
                                         </div>)}

@@ -1,30 +1,63 @@
 import React from "react";
 import moment from "moment";
-import {config} from "../../helpers/config";
+import { config } from "../../helpers/config";
 
 class CourseDetailsFirstCard extends React.Component {
     render() {
         const props = this.props;
         const registratedPercent = ((props.course.numOfRegisteredHikers / props.course.maxNumOfHikers) * 100).toString() + "%";
-        
+
         return (
             <div>
-                <p>{props.course.name}</p>
-                <p>Nevezési díj:{props.course.price}</p>
-                <p>Táv:{props.course.distance}</p>
-                <p>Szint emelkedés:{props.course.elevation}</p>
-                <p>Rajt:{props.course.placeOfStart}</p>
-                <p>Cél:{props.course.placeOfFinish}</p>
-                <p>Rajt ideje:{moment(props.course.beginningOfStart).format(config.dateTimeFormat)}
-                    - {moment(props.course.endOfStart).format(config.dateTimeFormat)}</p>
-                <p>Szintidő:{props.course.limitTime}</p>
-                <p>Létszámkorlát:{props.course.maxNumOfHikers}</p>
-                <p>{props.course.numOfRegisteredHikers}/{props.course.maxNumOfHikers}</p>
+                <h3><center>{props.course.name}</center></h3>
+                <table className="course-details-table">
+                    <tbody>
+                        <tr>
+                            <td>Nevezési díj</td>
+                            <td>{props.course.price + " Ft"}</td>
+                        </tr>
+                        <tr>
+                            <td>Táv</td>
+                            <td>{props.course.distance / 1000}{" km"}</td>
+                        </tr>
+                        <tr>
+                            <td>Szint emelkedés</td>
+                            <td>{props.course.elevation + " m"}</td>
+                        </tr>
+                        <tr>
+                            <td>Rajt</td>
+                            <td>{props.course.placeOfStart}</td>
+                        </tr>
+                        <tr>
+                            <td>Cél</td>
+                            <td>{props.course.placeOfFinish}</td>
+                        </tr>
+                        <tr>
+                            <td>Rajt ideje</td>
+                            <td> {moment(props.course.beginningOfStart).format(config.timeFormat)}
+                                - {moment(props.course.endOfStart).format(config.timeFormat)}</td>
+                        </tr>
+                        <tr>
+                            <td>Szintidő</td>
+                            <td>{props.course.limitTime + " óra"}</td>
+                        </tr>
+                        <tr>
+                            <td>Létszámkorlát</td>
+                            <td>{props.course.maxNumOfHikers + " fő"}</td>
+                        </tr>
+                        <tr>
+                            <td>Eddig nevezettek száma</td>
+                            <td>{props.course.numOfRegisteredHikers + " fő"}</td>
+                        </tr>
+                        <tr>
+                            <td>Nevezési határidő</td>
+                            <td>{moment(props.course.registerDeadline).format(config.dateTimeFormat)}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div className="progress">
-                    <div className="progress-bar" style={{ width: registratedPercent }}></div>
-
+                    <div className="progress-bar" style={{ width :registratedPercent, background :"#2c7a20" }}></div>
                 </div>
-                <p>Nevezési határidő: :{moment(props.course.registerDeadline).format(config.dateTimeFormat)}</p>
 
             </div>
         )

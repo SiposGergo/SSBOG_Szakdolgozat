@@ -47,11 +47,14 @@ export class HikeDetailsPage extends React.Component {
             });
 
         return (
-            <div style={{width:"90%"}}>
+            <div style={{width:"100%"}}>
+            <div className="row">
                 <HikeDetailsCompoent hike={hike} />
                 <OrganizerDetailsComponent organizer={hike.organizer} />
+            </div>
+                
                 <div >
-                    <Tab menu={{ color:"green", size:"huge", width:"2", inverted: true, attached: true }} panes={panes} />
+                    <Tab menu={{ color:"green", size:"huge", inverted: true }} panes={panes} />
                 </div>
                 <div>
                 {

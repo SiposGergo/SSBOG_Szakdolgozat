@@ -24,7 +24,7 @@ export class TodayHikes extends React.Component {
         return (<div>
             {
                 this.props.hikes.length === 0 ? (
-                    <h3>Üdvözöllek az oldalon, a mai nap nem rendeznek egy túrát sem.</h3>
+                    <h3><center>Üdvözöllek az oldalon, a mai nap nem rendeznek egy túrát sem.</center></h3>
                 ) : (
                         <div>
                             <h3>A mai nap túrái </h3>

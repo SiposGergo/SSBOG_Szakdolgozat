@@ -29,11 +29,21 @@ html {
 @import './components/HikeListFilter';
 @import './components/HikeDetails/comment-box';
 @import './components/HikeDetails/semantic-tab-green';
+@import './components/HikeDetails/HikeDetailsComponent';
+@import './components/HikeDetails/CourseDetailsFirstCard';
+@import './components/HikeDetails/CheckPointList';
+@import './components/UserPage/AddHikeHelperModal';
+@import './components/UserPage/UserPage';
 
  
 .help-block {
     color: $danger-red;
 }
 
+::selection {
+    background: #ffb7b7; /* WebKit/Blink Browsers */
+  }
 
-
+::-moz-selection {
+    background: #ffb7b7; /* Gecko Browsers */
+  }

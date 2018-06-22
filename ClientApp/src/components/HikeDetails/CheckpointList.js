@@ -3,7 +3,7 @@ import CheckpointListRow from "./ChecpointListRow";
 
 const CheckpointList = (props) => (
     <div>
-        <table>
+        <table className="checkpoint-table">
             <tbody>
                 <tr>
                     <th>Név</th>

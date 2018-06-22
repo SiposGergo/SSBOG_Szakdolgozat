@@ -1,0 +1,14 @@
+.course-details-table td:nth-child(odd) {
+    text-align: right;
+    padding-right:  10px;
+    padding-bottom: 5px;
+    border-right: 3px solid black;
+}
+
+.course-details-table td:nth-child(even) {
+    padding-left: 10px;
+}
+
+.course-details-table {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,15 @@
+@import'../../variables';
+
+.details-box {
+    word-wrap: break-word;
+    border-radius: $border-radius-small;
+    border: $border solid $darkest-green;
+    margin: 10px 15px;
+    padding: 10px;
+}
+
+.details-box .flo {
+    position: 
+    relative;
+    float: right;
+}

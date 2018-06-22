@@ -21,7 +21,7 @@ export class Header extends React.Component {
                 <NavLink exact={true} to="/" activeClassName="is-active">
                     <img src={logo} className="logo" />
                 </NavLink>
-                <h3>{user && "Üdv az oldalon, " + user.userName + "!"}</h3>
+                <h3><center>{user && "Üdv az oldalon, " + user.userName + "!"}</center></h3>
 
 
                 {<NavLink exact={true} to="/" activeClassName="is-active" className="menu-item menu-item-first">Főoldal</NavLink>}

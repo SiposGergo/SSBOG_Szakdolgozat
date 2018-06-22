@@ -5,7 +5,7 @@ const CommentForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
-    <h3>Írj kommentet!</h3>
+    <h3>Szólj hozzá!</h3>
     <div>
     <div>
       <Field
