@@ -7,3 +7,15 @@
 .card-green {
     margin: 15px;
 }
+
+.checkpoint-card:last-child() .card-header 
+{
+    background:$darkest-green;
+    color: white;
+
+}
+.checkpoint-card:first-child() .card-header 
+{
+    background:$darkest-green;
+    color:white;
+}

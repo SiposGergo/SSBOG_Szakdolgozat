@@ -4,21 +4,29 @@ import { renderField } from "../RenderField";
 import TimePicker from "../../FormInputs/TimePicker"
 import moment from "moment";
 
-export const renderCheckpoints = ({ baseDate, initialValues, change, fields, meta: { touched, error, submitFailed } }) => (
-    <div className="">
-        <button type="button" onClick={() => fields.push({})}>Új ellenőrzőpont</button>
+export const renderCheckpoints = ({ baseDate, submitting, initialValues, change, fields, meta: { touched, error, submitFailed } }) => (
+    <div style={{ margin: "15px" }}>
+        <button type="button" className="btn btn-green" onClick={() => fields.push({})}>Új ellenőrzőpont</button>
+        <button type="submit" className="btn btn-green" disabled={submitting}>Elküld</button>
         {(touched || submitFailed) && error && <span>{error}</span>}
         <div className="row">
             {fields.map((course, index) =>
-                <div className="card" key={index} style={{ width: "400px" }}>
+                <div className="card card-green checkpoint-card" key={index} style={{ minWidth: "370px" }}>
 
-                    <div className="card-header">
+                    <div className="card-header card-header-green">
                         <button
                             type="button"
                             title="Törlés"
-                            onClick={() => fields.remove(index)} />
+                            onClick={() => fields.remove(index)}
+                            className="btn btn-close" >
+                            X
+                        </button>
 
-                        <h4 >ellenőrzőpont #{index + 1}</h4>
+                        <h4 >
+                            {index == 0 ? "Rajt" : ""} 
+                            {(index + 1) == fields.length ? "Cél" : ""}
+                            {(index!=0 && index+1 < fields.length)? index + ". Ellenőrzőpont" : ""}
+                        </h4>
                     </div>
 
                     <div className="card-body">
@@ -54,7 +62,7 @@ export const renderCheckpoints = ({ baseDate, initialValues, change, fields, met
                             label="Zárás"
                             component={TimePicker}
                             change={change}
-                            initTime={(initialValues &&initialValues.checkPoints[index]) ? moment(initialValues.checkPoints[index].close) : moment(baseDate)}
+                            initTime={(initialValues && initialValues.checkPoints[index]) ? moment(initialValues.checkPoints[index].close) : moment(baseDate)}
                         />
 
                     </div>

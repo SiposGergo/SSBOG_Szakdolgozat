@@ -103,7 +103,7 @@ const validate = (values, props) => {
 
             if (checkpoint && checkpoint.open && checkpoint.close && typeof (checkpoint.open) != "string") {
                 if (checkpoint.open.toDate() >= checkpoint.close.toDate()) {
-                    checkPointErrors.close = 'Nem zárhat be az ellenőrzőpont, ha még ki sem nyitott!'
+                    checkPointErrors.close = 'Nem megfelelő sorrend!'
                     checkPointArrayErrors[index] = checkPointErrors
                 }
             }
