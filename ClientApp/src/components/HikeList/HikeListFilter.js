@@ -64,7 +64,7 @@ export class HikeListFilter extends React.Component {
         return (
             <div className="hike-list-filter">
                 <div className="row">
-                    <div className="col-md">
+                    <div className="col-md-3">
                         <label htmlFor="keres">Keresés: </label>
                         <input
                             name="keres"
@@ -74,7 +74,7 @@ export class HikeListFilter extends React.Component {
                             defaultValue={this.props.filters.text}
                             onChange={this.onTextChange} />
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-3">
                         <label htmlFor="rendez">Rendezés: </label>
                         <select className="form-control"
                             name="rendez"
@@ -86,7 +86,7 @@ export class HikeListFilter extends React.Component {
                         </select>
                     </div>
 
-                    <div className="col-md">
+                    <div className="col-md-6">
                         <label>Túra dátuma:</label>
                         <br />
                         <DateRangePicker
