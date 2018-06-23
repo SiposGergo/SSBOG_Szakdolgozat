@@ -30,6 +30,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     int minutes = (int)((src.LimitTime - hours) * 60);
                     return new TimeSpan(hours, minutes, 0);
                 }))
+                .ForMember(x=> x.Registrations, opt => opt.Ignore())
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
             CreateMap<HikeCourse, HikeCourseDto>()
