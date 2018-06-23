@@ -1,7 +1,7 @@
 import React from "react";
-import {postCheckpointPass} from "../actions/AdminActions";
-import {connect} from "react-redux";
-import moment from "moment"; 
+import { postCheckpointPass } from "../actions/AdminActions";
+import { connect } from "react-redux";
+import moment from "moment";
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class AdminPage extends React.Component {
         e.preventDefault();
         const dto = {
             startNumber: this.state.startNumber,
-            checkpointId : this.state.checkpoint,
+            checkpointId: this.state.checkpoint,
             timestamp: moment()
         }
         this.props.dispatch(postCheckpointPass(dto));
@@ -45,32 +45,38 @@ class AdminPage extends React.Component {
         }
 
         return (
-            <div>
+            <div className="col-md-3">
                 <form onSubmit={this.handleSubmit}>
-                    <select name="courses" value={this.state.course}
+                    <h3>Áthaladás rögzítése</h3>
+                    <label htmlFor="courses">Válaszd ki a távot!</label>
+                    <select className="form-control" name="courses" value={this.state.course}
                         onChange={this.handleSelectCourse}>
                         {this.state.courses.map((course) =>
                             (<option key={course.id} value={course.id}>{course.name}</option>))}
                     </select>
 
-                    <select name="checkpoints"
+                    <label htmlFor="checkpoints">Válaszd ki az ellenőrzőpontot!</label>
+                    <select className="form-control" name="checkpoints"
                         onChange={this.handleSelectCheckpoint}>
                         {this.state.courses.filter(c => c.id == this.state.course)[0].checkPoints
                             .map((checkpoint) =>
                                 (<option key={checkpoint.id} value={checkpoint.id}>{checkpoint.name}</option>))}
                     </select>
 
-                    <input type="number"
+                    <label htmlFor="startNumber">Add meg a rajtszámot!</label>
+                    <input
+                        className="form-control"
+                        type="number"
                         name="startNumber"
                         value={this.state.startNumber}
                         autoFocus
                         onChange={e => this.setState({ startNumber: e.target.value })}
                     />
 
-                    <input type="submit" value="elküld" />
+                    <input className="btn btn-green" type="submit" value="elküld" />
                 </form>
             </div>)
     }
 }
 
-export default connect()(AdminPage, null, null, {pure:false});
+export default connect()(AdminPage, null, null, { pure: false });

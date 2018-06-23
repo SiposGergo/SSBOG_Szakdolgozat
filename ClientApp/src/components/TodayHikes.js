@@ -24,10 +24,10 @@ export class TodayHikes extends React.Component {
         return (<div>
             {
                 this.props.hikes.length === 0 ? (
-                    <h3><center>Üdvözöllek az oldalon, a mai nap nem rendeznek egy túrát sem.</center></h3>
+                    <h3><center>Üdvözöllek az oldalon, úgy tűnik, a mai nap nem rendeznek egy túrát sem.</center></h3>
                 ) : (
                         <div>
-                            <h3>A mai nap túrái </h3>
+                            <h3>A mai nap túrái: </h3>
                             {this.props.hikes.map((h) => {
                                 return (
                                     <TodayHikesItem key={h.id} hike={h} user={this.props.user}/>
