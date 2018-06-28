@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SSBO5G__Szakdolgozat.Models;
 using Microsoft.EntityFrameworkCore;
 using SSBO5G__Szakdolgozat.Helpers;
+using SSBO5G__Szakdolgozat.Exceptions;
 
 namespace SSBO5G__Szakdolgozat.Services
 {
@@ -32,12 +33,12 @@ namespace SSBO5G__Szakdolgozat.Services
             Hiker hiker = await context.Hikers.FindAsync(comment.AuthorId);
             if (hiker == null)
             {
-                throw new ApplicationException("Nem található a komment szerzője");
+                throw new NotFoundException("túrázó");
             }
             Hike hike = await context.Hikes.FindAsync(comment.HikeId);
             if (hike == null)
             {
-                throw new ApplicationException("Nem található a kommentált túra");
+                throw new NotFoundException("túra");
             }
             comment.Author = hiker;
             comment.Hike = hike;
@@ -51,17 +52,17 @@ namespace SSBO5G__Szakdolgozat.Services
             var hike = await context.Hikes.FindAsync(hikeId);
             if (hike == null)
             {
-                throw new ApplicationException("Nem található ilyen túra");
+                throw new NotFoundException("túra");
             }
             if (hike.OrganizerId != loggedInUserId)
             {
-                throw new ApplicationException("Ehhez nincs jogod");
+                throw new UnauthorizedException();
             }
             Hiker hikerToAdd = await context.Hikers
                 .SingleOrDefaultAsync(x => x.UserName == userName);
             if (hikerToAdd == null)
             {
-                throw new ApplicationException("Nem található túrázó ezzel a felahsználónévvel");
+                throw new NotFoundException("túrázó");
             }
             var helpers = context.Hikes
                 .Where(x => x.Id == hikeId)
@@ -84,7 +85,7 @@ namespace SSBO5G__Szakdolgozat.Services
             var organizer = await context.Hikers.FindAsync(hike.OrganizerId);
             if (organizer == null)
             {
-                throw new ApplicationException("A felhasználó nem található!");
+                throw new NotFoundException("felhasználó");
             }
             if (hike.Date < DateTime.Now)
             {
@@ -99,16 +100,20 @@ namespace SSBO5G__Szakdolgozat.Services
             var organizer = await context.Hikers.FindAsync(hike.OrganizerId);
             if (organizer == null)
             {
-                throw new ApplicationException("A felhasználó nem található!");
+                throw new NotFoundException("A felhasználó nem található!");
             }
             var hikeFromDb = await context.Hikes.FindAsync(hike.Id);
+            if (hikeFromDb == null)
+            {
+                throw new NotFoundException("túra");
+            }
             if (hikeFromDb.OrganizerId != loggedInUserId)
             {
-                throw new ApplicationException("Tiltott művelet!");
+                throw new UnauthorizedException();
             }
             if (hike.Date < DateTime.Now)
             {
-                throw new ApplicationException("A múltba nem szervezünk túrát!");
+                throw new ApplicationException("Nem módosíthatd a túra dátumát a mai napnál régebbre!!");
             }
             hikeFromDb.Name = hike.Name;
             hikeFromDb.Description = hike.Description;
@@ -139,7 +144,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (selectedHike == null)
             {
-                throw new ApplicationException("Nem található ilyen azonosítóval túra.");
+                throw new NotFoundException("túra");
             }
             return selectedHike;
         }

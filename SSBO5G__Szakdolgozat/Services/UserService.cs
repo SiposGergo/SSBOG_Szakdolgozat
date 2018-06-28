@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using SSBO5G__Szakdolgozat.Exceptions;
 
 namespace SSBO5G__Szakdolgozat.Services
 {
@@ -36,16 +37,13 @@ namespace SSBO5G__Szakdolgozat.Services
                 .Hikers
                 .Include(x => x.Registrations)
                 .SingleOrDefault(x => x.UserName == username);
-
-            // check if username exists
+            
             if (user == null)
                 return null;
-
-            // check if password is correct
+            
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
-
-            // authentication successful
+            
             return user;
         }
 
@@ -66,14 +64,13 @@ namespace SSBO5G__Szakdolgozat.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
-                throw new ApplicationException("Nem található túrázó ezzel az azonosítóval.");
+                throw new NotFoundException("felhasználó");
             }
             return user;
         }
 
         public Hiker Create(Hiker user, string password)
         {
-            // validation
             if (string.IsNullOrWhiteSpace(password))
                 throw new ApplicationException("Jelszó megadása szükséges!");
 
@@ -97,16 +94,14 @@ namespace SSBO5G__Szakdolgozat.Services
             var user = context.Hikers.Find(userParam.Id);
 
             if (user == null)
-                throw new ApplicationException("Felhasználó nem található");
+                throw new NotFoundException("felhasználó");
 
             if (userParam.UserName != user.UserName)
             {
-                // username has changed so check if the new username is already taken
                 if (context.Hikers.Any(x => x.UserName == userParam.UserName))
                     throw new ApplicationException("A " + userParam.UserName + " felhasználónév már foglalt");
             }
-
-            // update user properties
+            
             user.Email = userParam.Email;
             user.Name = userParam.Name;
             user.PhoneNumber = userParam.PhoneNumber;
@@ -142,8 +137,6 @@ namespace SSBO5G__Szakdolgozat.Services
                 context.SaveChanges();
             }
         }
-
-        // private helper methods
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

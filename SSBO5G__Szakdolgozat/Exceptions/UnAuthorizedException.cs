@@ -7,7 +7,7 @@ namespace SSBO5G__Szakdolgozat.Exceptions
 {
     public class UnauthorizedException : ApplicationException
     {
-        public UnauthorizedException() : base("Nincs jogosultságod a művelet végrehajtására!")
+        public UnauthorizedException()
         {
 
         }

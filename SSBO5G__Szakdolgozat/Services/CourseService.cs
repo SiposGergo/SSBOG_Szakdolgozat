@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Helpers;
 using SSBO5G__Szakdolgozat.Models;
 using System;
@@ -49,18 +50,18 @@ namespace SSBO5G__Szakdolgozat.Services
             var user = await context.Hikers.FindAsync(userId);
             if (user == null)
             {
-                throw new ApplicationException("A felhasználó nem található!");
+                throw new NotFoundException("felhasználó");
             }
             var hike = await context.Hikes
                 .Include(x => x.Courses)
                 .SingleOrDefaultAsync(x => x.Id == hikeId);
             if (hike == null)
             {
-                throw new ApplicationException("A túra nem található!");
+                throw new NotFoundException("túra");
             }
             if (userId != hike.OrganizerId)
             {
-                throw new ApplicationException("Nincs jogod a művelethez!");
+                throw new UnauthorizedException();
             }
             if (hikeCourse.CheckPoints.Count < 2)
             {
@@ -86,7 +87,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 .SingleOrDefaultAsync(x => x.Id == courseId);
             if (course == null)
             {
-                throw new ApplicationException("Nincs ilyen táv!");
+                throw new NotFoundException("táv!");
             }
             return course;
         }
@@ -99,11 +100,11 @@ namespace SSBO5G__Szakdolgozat.Services
                 .SingleOrDefaultAsync(x=>x.Id == courseId);
             if (course == null)
             {
-                throw new ApplicationException("Nincs ilyen táv!");
+                throw new NotFoundException("táv!");
             }
             if (course.Hike.OrganizerId != userId)
             {
-                throw new ApplicationException("Nincs jogod a művelethez!");
+                throw new UnauthorizedException();
             }
             if (courseParam.CheckPoints.Count < 2)
             {
@@ -150,11 +151,11 @@ namespace SSBO5G__Szakdolgozat.Services
                 .SingleOrDefaultAsync(x=> x.Id == courseId);
             if (course == null)
             {
-                throw new ApplicationException("Nincs ilyen táv");
+                throw new NotFoundException("táv");
             }
             if (loggedInUserId != course.Hike.OrganizerId)
             {
-                throw new ApplicationException("Ehhez nincsen jogod");
+                throw new UnauthorizedException();
             }
             if (course.Registrations.Count == 0)
             {

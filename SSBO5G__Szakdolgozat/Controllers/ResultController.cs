@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Services;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,13 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 var result = await resultService.GetResults(courseId);
                 return Ok(result);
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
@@ -42,9 +47,13 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 var result = await resultService.GetLiveResult(courseId);
                 return Ok(result);
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
@@ -57,9 +66,13 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 var result = await resultService.GetLiveResultNettoTime(courseId);
                 return Ok(result);
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -33,6 +33,11 @@ namespace SSBO5G__Szakdolgozat.Services
                 .Include(x => x.Course).ThenInclude(c => c.CheckPoints)
                 .SingleOrDefaultAsync();
 
+            if (checkpoint == null)
+            {
+                throw new NotFoundException("ellenőrzőpont");
+            }
+
             // if logged in user no helper of the hike
             if (!checkpoint.Course.Hike.Staff.Any(x => x.HikerId == loggedInUserId))
             {

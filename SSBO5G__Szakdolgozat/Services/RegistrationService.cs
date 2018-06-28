@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Helpers;
 using SSBO5G__Szakdolgozat.Models;
 using System;
@@ -26,12 +27,12 @@ namespace SSBO5G__Szakdolgozat.Services
             Hiker hiker = await context.Hikers.FindAsync(registration.HikerId);
             if (hiker == null)
             {
-                throw new ApplicationException("Nem található a túrázó!");
+                throw new NotFoundException("túrázó");
             }
             HikeCourse course = await context.Courses.FindAsync(registration.HikeCourseId);
             if (course == null)
             {
-                throw new ApplicationException("Nem található a túra táv!");
+                throw new NotFoundException("táv");
             }
             var reg = await context
                 .Registrations
@@ -66,12 +67,12 @@ namespace SSBO5G__Szakdolgozat.Services
             Hiker hiker = await context.Hikers.FindAsync(registration.HikerId);
             if (hiker == null)
             {
-                throw new ApplicationException("Nem található a túrázó!");
+                throw new NotFoundException("túrázó");
             }
             HikeCourse course = await context.Courses.FindAsync(registration.HikeCourseId);
             if (course == null)
             {
-                throw new ApplicationException("Nem található a túra táv!");
+                throw new NotFoundException("táv");
             }
             var reg = await context
                 .Registrations

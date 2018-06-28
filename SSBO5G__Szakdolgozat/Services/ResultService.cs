@@ -39,7 +39,12 @@ namespace SSBO5G__Szakdolgozat.Services
 
             if (course == null)
             {
-                throw new NotFoundException("túra táv");
+                throw new NotFoundException("táv");
+            }
+
+            if (course.BeginningOfStart > DateTime.Now)
+            {
+                throw new ApplicationException("Ez a túra még nem rajtolt el!");
             }
 
             var registrations = course.Registrations
@@ -63,7 +68,11 @@ namespace SSBO5G__Szakdolgozat.Services
 
             if (course == null)
             {
-                throw new NotFoundException("túra táv");
+                throw new NotFoundException("táv");
+            }
+            if (course.BeginningOfStart > DateTime.Now)
+            {
+                throw new ApplicationException("Ez a túra még nem rajtolt el!");
             }
 
             var registrations = course.Registrations
@@ -88,7 +97,11 @@ namespace SSBO5G__Szakdolgozat.Services
 
             if (course == null)
             {
-                throw new NotFoundException("túra táv");
+                throw new NotFoundException("táv");
+            }
+            if (course.BeginningOfStart > DateTime.Now)
+            {
+                throw new ApplicationException("Ez a túra még nem rajtolt el!");
             }
 
             var registrations = course.Registrations

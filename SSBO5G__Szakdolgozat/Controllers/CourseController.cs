@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSBO5G__Szakdolgozat.Dtos;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Models;
 using SSBO5G__Szakdolgozat.Services;
 using System;
@@ -31,9 +32,17 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 await courseService.AddCourse(hikeCourse, userId, hikeId);
                 return Ok();
             }
-            catch (Exception e)
+            catch (UnauthorizedException)
             {
-                return BadRequest(e.Message);
+                return Forbid();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
@@ -46,9 +55,9 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 HikeCourse course = await courseService.GetCourse(courseId);
                 return Ok(mapper.Map<HikeCourseDto>(course));
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -62,14 +71,22 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 await courseService.UpdateCourse(userId, courseId, course);
                 return Ok();
             }
-            catch (Exception e)
+            catch (UnauthorizedException)
             {
-                return BadRequest(e.Message);
+                return Forbid();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
         
         [HttpGet("pdf-info/{courseId}")]
-        public async Task<IActionResult> AddHelper(int courseId)
+        public async Task<IActionResult> GetPdfInfo(int courseId)
         {
             try
             {

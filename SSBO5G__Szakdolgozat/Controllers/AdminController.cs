@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSBO5G__Szakdolgozat.Dtos;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Services;
 using System;
 using System.Threading.Tasks;
@@ -29,9 +30,17 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 await adminService.RecordCheckpointPass(loggedInUserId, recordDto);
                 return Ok();
             }
-            catch (Exception e)
+            catch (UnauthorizedException)
             {
-                return BadRequest(e.Message);
+                return Forbid();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

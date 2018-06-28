@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSBO5G__Szakdolgozat.Dtos;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Models;
 using SSBO5G__Szakdolgozat.Services;
 using System;
@@ -34,9 +35,13 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 RegistrationDto registrationDto1 = mapper.Map<RegistrationDto>(reg);
                 return Ok(registrationDto1);
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
@@ -48,9 +53,13 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 int id = await registrationService.UnRegisterFromHike(registration);
                 return Ok(id);
             }
-            catch (Exception e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

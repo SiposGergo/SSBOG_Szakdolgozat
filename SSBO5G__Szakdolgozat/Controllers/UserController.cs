@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SSBO5G__Szakdolgozat.Dtos;
+using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Helpers;
 using SSBO5G__Szakdolgozat.Models;
 using SSBO5G__Szakdolgozat.Services;
@@ -19,7 +20,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
 {
     [Authorize("Bearer")]
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : MyController
     {
         private IUserService userService;
         private IMapper mapper;
@@ -57,8 +58,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
-            // return basic user info (without password) and token to store client side
+            
             return Ok(new
             {
                 Id = user.Id,
@@ -78,18 +78,15 @@ namespace SSBO5G__Szakdolgozat.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody]HikerDto hikerDto)
         {
-            // map dto to entity
             var user = mapper.Map<Hiker>(hikerDto);
 
             try
             {
-                // save 
                 userService.Create(user, hikerDto.Password);
                 return Ok();
             }
             catch (ApplicationException ex)
             {
-                // return error message if there was an exception
                 return BadRequest(ex.Message);
             }
         }
@@ -111,9 +108,9 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 var userDto = mapper.Map<HikerDto>(user);
                 return Ok(userDto);
             }
-            catch (ApplicationException e)
+            catch (NotFoundException ex)
             {
-                return BadRequest(e.Message);
+                return NotFound(ex.Message);
             }
             
         }
@@ -121,19 +118,21 @@ namespace SSBO5G__Szakdolgozat.Controllers
         [HttpPut("edit/{id}")]
         public IActionResult Update(int id, [FromBody]HikerDto userDto)
         {
-            // map dto to entity and set id
             var user = mapper.Map<Hiker>(userDto);
+            int loggedInUserId = GetLoggedInUserId();
+            if (loggedInUserId != id)
+            {
+                return Forbid();
+            }
             user.Id = id;
 
             try
             {
-                // save 
                 userService.Update(user, userDto.Password);
                 return Ok();
             }
             catch (ApplicationException ex)
             {
-                // return error message if there was an exception
                 return BadRequest(ex.Message);
             }
         }
