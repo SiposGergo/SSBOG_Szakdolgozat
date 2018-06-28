@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps,null, {pure:false})(RegisterPage);
+export default connect(null, mapDispatchToProps)(RegisterPage);

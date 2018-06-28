@@ -3,7 +3,7 @@ import React from "react";
 const Error_404Page = () => {
     return (
         <div>
-            A kért oldal nem található!
+            <h2><center>404 - A kért oldal nem található!</center></h2>
         </div>
     )
 }

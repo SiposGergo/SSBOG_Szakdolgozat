@@ -83,4 +83,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null, null, {pure:false})(UserOrganizedHikes);
+export default connect(mapStateToProps)(UserOrganizedHikes);

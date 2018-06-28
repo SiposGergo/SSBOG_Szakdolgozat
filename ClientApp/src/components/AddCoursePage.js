@@ -47,4 +47,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null, null, {pure:false})(AddCoursePage);
+export default connect(mapStateToProps)(AddCoursePage);

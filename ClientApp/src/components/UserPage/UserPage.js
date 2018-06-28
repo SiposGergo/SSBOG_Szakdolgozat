@@ -56,4 +56,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null, null, { pure: false })(UserPage);
+export default connect(mapStateToProps)(UserPage);
