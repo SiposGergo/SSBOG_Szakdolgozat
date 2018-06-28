@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import ReactLoading from "react-loading";
+import LoadSpinner from "../LoadSpinner";
 import UserRegistrations from "./UserRegistrations";
 import UserOrganizedHikes from "./UserOrganizedHikes";
 import {
@@ -23,7 +23,7 @@ export class UserPage extends React.Component {
         }
 
         if (this.props.isLoading) {
-            return <ReactLoading type="spin" color="#000000" height={40} width={40} />
+            return <LoadSpinner />
         }
         const user = this.props.user;
         const BasicUserDataCard = (Card)(BasicUserData);

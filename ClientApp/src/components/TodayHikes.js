@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getTodayHikes, reset } from "../actions/HikeListActions";
 import TodayHikesItem from "./TodayHikesItem";
+import LoadSpinner from "./LoadSpinner";
 
 export class TodayHikes extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ export class TodayHikes extends React.Component {
         }
 
         if (this.props.isLoading) {
-            return <h3>Betöltés...</h3>;
+            return <LoadSpinner />;
         }
 
         return (<div>

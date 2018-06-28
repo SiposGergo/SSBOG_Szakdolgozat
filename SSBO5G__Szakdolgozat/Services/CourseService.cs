@@ -4,6 +4,7 @@ using SSBO5G__Szakdolgozat.Helpers;
 using SSBO5G__Szakdolgozat.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SSBO5G__Szakdolgozat.Services
@@ -58,6 +59,10 @@ namespace SSBO5G__Szakdolgozat.Services
             if (hike == null)
             {
                 throw new NotFoundException("túra");
+            }
+            if (hike.Courses.Any(x=>x.Distance ==hikeCourse.Distance))
+            {
+                throw new ApplicationException("Egy túrán belül nem lehet két azonos táv!");
             }
             if (userId != hike.OrganizerId)
             {

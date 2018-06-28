@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import getVisibleHikes from "../../selectors/HikeListSelector";
 import HikeListItem from "./HikeListItem";
 import HikeListFilter from "./HikeListFilter.js";
-
+import LoadSpinner from "../LoadSpinner";
 import { itemsFetchData, reset } from "../../actions/HikeListActions"
 
 const API = "http://localhost:4242/Hike/all";
@@ -23,7 +23,7 @@ export class HikeListPage extends React.Component {
         }
 
         if (this.props.isLoading) {
-            return <h3>Betöltés...</h3>;
+            return <LoadSpinner />;
         }
 
         return ( <div>
