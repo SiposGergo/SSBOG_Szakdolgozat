@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SSBO5G__Szakdolgozat.Exceptions;
+using SSBO5G__Szakdolgozat.Dtos;
 
 namespace SSBO5G__Szakdolgozat.Services
 {
@@ -17,6 +18,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Hiker Create(Hiker user, string password);
         void Update(Hiker user, string password = null);
         void Delete(int id);
+        Task ChangePassword(int userId, ChangePasswordDto dto);
     }
 
     public class UserService : IUserService
@@ -126,6 +128,27 @@ namespace SSBO5G__Szakdolgozat.Services
 
             context.Hikers.Update(user);
             context.SaveChanges();
+        }
+
+        public async Task ChangePassword(int userId, ChangePasswordDto dto)
+        {
+            Hiker hiker = await context.Hikers.FindAsync(userId);
+            if (hiker == null)
+            {
+                throw new NotFoundException("túrázó");
+            }
+            if (String.IsNullOrWhiteSpace(dto.CurrentPassword) || String.IsNullOrWhiteSpace(dto.NewPassword))
+            {
+                throw new ApplicationException("Helytelenül megadott adatok");
+            }
+            if (!VerifyPasswordHash(dto.CurrentPassword, hiker.PasswordHash, hiker.PasswordSalt))
+            {
+                throw new ApplicationException("Nem megfelő jelszó!");
+            }
+            CreatePasswordHash(dto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+            hiker.PasswordHash = passwordHash;
+            hiker.PasswordSalt = passwordSalt;
+            await context.SaveChangesAsync();
         }
 
         public void Delete(int id)

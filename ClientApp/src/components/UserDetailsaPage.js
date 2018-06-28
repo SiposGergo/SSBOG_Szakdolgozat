@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { userActions } from '../actions/UserActions';
-import UserForm from "./forms/UserForm/UserForm"
-
+import UserForm from "./forms/UserForm/UserForm";
+import ChangePasswordForm from "./forms/ChangePasswordForm/ChangePasswordForm";
 
 class UserDetailsPAge extends React.Component {
 
@@ -11,12 +11,20 @@ class UserDetailsPAge extends React.Component {
         dispatch(userActions.update(values));
     }
 
+    handlePasswordChange = (values) => {
+        console.log(values);
+        this.props.dispatch(userActions.changePassword(values));
+    }
+
     render() {
         return (
             <div>
-                <UserForm 
-                    onSubmit={this.handleSubmit} 
-                    buttonText="Elküld" 
+                <ChangePasswordForm
+                    onSubmit={this.handlePasswordChange}
+                    title="Jelszó megváltoztatása" />
+                <UserForm
+                    onSubmit={this.handleSubmit}
+                    buttonText="Elküld"
                     data={this.props.user}
                     title="Adataim" />
             </div>

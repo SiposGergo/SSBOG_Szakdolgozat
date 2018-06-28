@@ -9,7 +9,8 @@ export const userService = {
     getAll,
     getById,
     update,
-    delete: _delete
+    delete: _delete,
+    postChangePasswordService
 };
 
 function login(username, password) {
@@ -81,4 +82,13 @@ function _delete(id) {
     };
 
     return fetch(config.apiUrl + '/users/delete/' + id, requestOptions).then(handleResponse, handleError);
+}
+
+function postChangePasswordService(dto) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {...authHeader(), 'Content-Type': 'application/json'},
+        body : JSON.stringify(dto)
+    };
+    return fetch(config.apiUrl + '/users/change-password/', requestOptions).then(handleResponse, handleError);
 }

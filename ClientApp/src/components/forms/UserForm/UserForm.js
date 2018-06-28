@@ -14,7 +14,7 @@ export class UserForm extends React.Component {
             <form onSubmit={handleSubmit}>
                 <div className="col-md-6">
                     <h2>{this.props.title}</h2>
-                    <Field name="name" type="text" component={renderField} label="Név:" />
+                    <Field name="name" type="text" component={renderField} label="Név" />
                     <Field name="userName" type="text" component={renderField} label="Felhasználónév" />
                     <Field name="email" type="text" component={renderField} label="E-mail cím" />
                     <Field name="dateOfBirth" label="Születési Dátum" component={Datepicker} change={change}

@@ -99,6 +99,25 @@ namespace SSBO5G__Szakdolgozat.Controllers
             return Ok(userDtos);
         }
 
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+        {
+            try
+            {
+                var userId = GetLoggedInUserId();
+                await userService.ChangePassword(userId, dto);
+                return Ok();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("user/{id}")]
         public async Task <IActionResult> GetById(int id)
         {

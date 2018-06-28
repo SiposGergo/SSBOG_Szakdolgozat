@@ -10,7 +10,8 @@ export const userActions = {
     register,
     getAll,
     delete: _delete,
-    update
+    update,
+    changePassword
 };
 
 // Bejelentkezés
@@ -80,6 +81,16 @@ function update(user) {
                     dispatch(SendDanger(error));
                 })
     }
+}
+
+function changePassword(dto) {
+    return dispatch => {
+        userService.postChangePasswordService(dto)
+            .then(
+                () => dispatch(SendSuccess("Sikeres jelszó változtatás!")),
+                (error) => dispatch(SendDanger(error))
+            );
+    };
 }
 
 // összes user lekérése
