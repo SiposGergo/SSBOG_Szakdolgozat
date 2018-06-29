@@ -8,6 +8,7 @@ import {
 } from "../../actions/UserPageActions";
 import BasicUserData from "./BasicUserData";
 import Card from "../Card";
+import { authentication } from "../../reducers/AuthenticationReducer";
 
 export class UserPage extends React.Component {
 
@@ -29,13 +30,16 @@ export class UserPage extends React.Component {
         const BasicUserDataCard = (Card)(BasicUserData);
         const UserOrganizedHikesCard = (Card)(UserOrganizedHikes);
         const UserRegistrationsCard = (Card)(UserRegistrations);
+
         return (<div>
             <div className="row">
                 <BasicUserDataCard user={user} title="Adatok" />
             </div>
-            <div className="row">
+
+            { this.props.loggedInUser.id == this.props.match.params.id && <div className="row">
                 <UserOrganizedHikesCard organizedHikes={user.organizedHikes} title="Saját szervezésű túrák" />
-            </div>
+            </div> }
+
             <div className="row">
                 <UserRegistrationsCard registrations={user.registrations} title="Nevezések" />
             </div>
@@ -51,7 +55,8 @@ const mapStateToProps = (state) => {
             user,
             isLoading,
             hasErrored,
-            error
+            error,
+            loggedInUser : state.authentication.user
         }
     }
 }
