@@ -20,3 +20,13 @@ export const SendSuccess = (notifText) => {
         }
     )
 };
+
+export const SendWarning = (notifText) => {
+    return notifSend(
+        {
+            message: notifText,
+            kind: 'warning',
+            dismissAfter: 5000
+        }
+    )
+};

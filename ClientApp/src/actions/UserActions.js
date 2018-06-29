@@ -1,6 +1,6 @@
 import { userService } from '../services/UserServices';
 
-import { SendDanger, SendSuccess } from "../services/NotificationSender";
+import { SendDanger, SendSuccess, SendWarning } from "../services/NotificationSender";
 
 import { history } from "../helpers/history";
 
@@ -28,7 +28,10 @@ function login(username, password) {
                 user => {
                     dispatch(SendSuccess(`Üdv az oldalon, ${user.userName}`));
                     dispatch(success(user));
-                    if (user.mustChangePassword) { history.push('/change-password') }
+                    if (user.mustChangePassword) {
+                        dispatch(SendWarning("Biztonsági okokból a generált jelszavad meg kell változtatnod!"));
+                        history.push('/change-password');
+                    }
                     else { history.push('/home') }
 
                 },
@@ -95,6 +98,7 @@ function changePassword(dto) {
                 () => {
                     dispatch(SendSuccess("Sikeres jelszó változtatás!"));
                     dispatch(passwordChangeSuccess());
+                    history.push('/');
                 },
                 (error) => dispatch(SendDanger(error))
             );
