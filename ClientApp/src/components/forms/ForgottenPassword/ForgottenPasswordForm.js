@@ -1,25 +1,29 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import validate from './ChangePasswordValidate';
+import validate from './ForgottenPasswordValidate';
 import { renderField } from "../RenderField";
 
-const ChangePasswordForm = props => {
+const ForgottenPasswordForm = props => {
     const { handleSubmit, pristine, reset, submitting } = props;
     return (
         <form onSubmit={handleSubmit}>
             <div className="col-md-6 col-md-offset-3">
                 <h2>{props.title}</h2>
+                <p>
+                    Ha elfelejtetted a jelszavad, az alábbi mezők kitöltése után emailben kapsz egy újat,
+                    az új jelszavad biztonsági okokból az első belépéskor meg kell változtatnod!
+                    </p>
                 <Field
-                    name="currentPassword"
-                    type="password"
+                    name="email"
+                    type="text"
                     component={renderField}
-                    label="Jelenlegi jelszó"
+                    label="E-mail"
                 />
                 <Field
-                    name="newPassword"
-                    type="password"
+                    name="userName"
+                    type="text"
                     component={renderField}
-                    label="Új jelszó"
+                    label="Felhasználónév"
                 />
                 <div>
                     <button type="submit" disabled={submitting} className="btn btn-green">Elküld</button>
@@ -30,8 +34,8 @@ const ChangePasswordForm = props => {
 };
 
 let form = reduxForm({
-    form: 'ChangePasswordForm',
+    form: 'ForgottenPasswordForm',
     validate,
-})(ChangePasswordForm)
+})(ForgottenPasswordForm)
 
 export default form;

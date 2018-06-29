@@ -11,7 +11,8 @@ export const userActions = {
     getAll,
     delete: _delete,
     update,
-    changePassword
+    changePassword,
+    forgottenPassword
 };
 
 // Bejelentkezés
@@ -27,7 +28,9 @@ function login(username, password) {
                 user => {
                     dispatch(SendSuccess(`Üdv az oldalon, ${user.userName}`));
                     dispatch(success(user));
-                    history.push('/home');
+                    if (user.mustChangePassword) { history.push('/change-password') }
+                    else { history.push('/home') }
+
                 },
                 error => {
                     dispatch(failure(error));
@@ -83,11 +86,26 @@ function update(user) {
     }
 }
 
+const passwordChangeSuccess = () => ({ type: 'PASSWORD_CHANGE_SUCCESS' })
+
 function changePassword(dto) {
     return dispatch => {
         userService.postChangePasswordService(dto)
             .then(
-                () => dispatch(SendSuccess("Sikeres jelszó változtatás!")),
+                () => {
+                    dispatch(SendSuccess("Sikeres jelszó változtatás!"));
+                    dispatch(passwordChangeSuccess());
+                },
+                (error) => dispatch(SendDanger(error))
+            );
+    };
+}
+
+function forgottenPassword(dto) {
+    return dispatch => {
+        userService.postForgottenPasswordService(dto)
+            .then(
+                () => dispatch(SendSuccess("Új jelszavadat elküldtük emailben!")),
                 (error) => dispatch(SendDanger(error))
             );
     };

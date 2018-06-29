@@ -13,9 +13,10 @@ namespace SSBO5G__Szakdolgozat.Models
         public DateTime DateOfBirth { get; set; }
         public GenderTypes Gender { get; set; }
         public string Town { get; set; }
-        //Password ???
         public string PhoneNumber { get; set; }
-        
+
+        public bool mustChangePassword { get; set; }
+
         // Auth-hoz
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }

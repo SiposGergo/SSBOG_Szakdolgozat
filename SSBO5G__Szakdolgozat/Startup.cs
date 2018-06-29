@@ -15,7 +15,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization; 
+using Microsoft.AspNetCore.Authorization;
 
 namespace SSBO5G__Szakdolgozat
 {
@@ -29,6 +29,13 @@ namespace SSBO5G__Szakdolgozat
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // email username and password
+            var emailSettingsSection = Configuration.GetSection("EmailSettings");
+            var emailSettings = emailSettingsSection.Get<EmailSettings>();
+            var emailUserName = emailSettings.UserName;
+            var emailPassword = emailSettings.Password;
+
+
             services.AddAutoMapper();
             services.AddScoped<IHikeService, HikeService>();
             services.AddScoped<IUserService, UserService>();
@@ -36,7 +43,10 @@ namespace SSBO5G__Szakdolgozat
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IAdminService, AdminServices>();
             services.AddScoped<IResultService, ResultService>();
-
+            services.AddScoped<IEmailSender, EmailSender>((x) =>
+                {
+                    return new EmailSender(emailUserName, emailPassword);
+                });
 
             // Swagger
             services.AddSwaggerGen(c =>
@@ -68,7 +78,6 @@ namespace SSBO5G__Szakdolgozat
             // Auth & JWT
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
@@ -98,7 +107,7 @@ namespace SSBO5G__Szakdolgozat
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             ILoggerFactory loggerFactory, ApplicationContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));

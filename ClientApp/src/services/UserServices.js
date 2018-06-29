@@ -10,7 +10,8 @@ export const userService = {
     getById,
     update,
     delete: _delete,
-    postChangePasswordService
+    postChangePasswordService,
+    postForgottenPasswordService
 };
 
 function login(username, password) {
@@ -91,4 +92,13 @@ function postChangePasswordService(dto) {
         body : JSON.stringify(dto)
     };
     return fetch(config.apiUrl + '/users/change-password/', requestOptions).then(handleResponse, handleError);
+}
+
+function postForgottenPasswordService(dto) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {...authHeader(), 'Content-Type': 'application/json'},
+        body : JSON.stringify(dto)
+    };
+    return fetch(config.apiUrl + '/users/forgotten-password/', requestOptions).then(handleResponse, handleError);
 }

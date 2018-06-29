@@ -69,6 +69,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 Gender = user.Gender,
                 Town = user.Town,
                 PhoneNumber = user.PhoneNumber,
+                user.mustChangePassword,
                 Token = tokenString,
                 registrations = mapper.Map<IEnumerable<RegistrationDto>>(user.Registrations)
             });
@@ -111,6 +112,21 @@ namespace SSBO5G__Szakdolgozat.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("forgotten-password")]
+        public async Task<IActionResult> ForgottenPassword([FromBody] ForgottenPasswordDto dto)
+        {
+            try
+            {
+                await userService.ForgottenPassword(dto);
+                return Ok();
             }
             catch (ApplicationException ex)
             {

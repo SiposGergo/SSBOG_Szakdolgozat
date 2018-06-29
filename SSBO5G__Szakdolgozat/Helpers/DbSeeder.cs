@@ -12,17 +12,18 @@ namespace SSBO5G__Szakdolgozat.Helpers
         //////////TÚRÁZÓK//////////
         public static void FillWithTestData(ApplicationContext context)
         {
-            IUserService userService = new UserService(context);
+            IUserService userService = new UserService(context, null);
 
             Hiker h1 = new Hiker
             {
                 Name = "Gergő",
-                Email = "asd@lol.com",
+                Email = "prosipinho@gmail.com",
                 DateOfBirth = new DateTime(1997, 03, 26),
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
                 UserName = "prosipinho",
-                PhoneNumber = "06309119162"
+                PhoneNumber = "06309119162",
+                mustChangePassword = false
             };
             Hiker h2 = new Hiker
             {
@@ -31,7 +32,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 DateOfBirth = new DateTime(1997, 01, 01),
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
-                UserName = "laci01"
+                UserName = "laci01",
+                mustChangePassword = false
             };
             Hiker h3 = new Hiker
             {
@@ -41,7 +43,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
                 UserName = "gyuri",
-                PhoneNumber = "06303084317"
+                PhoneNumber = "06303084317",
+                mustChangePassword = false
             };
             Hiker h4 = new Hiker
             {
@@ -51,7 +54,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
                 UserName = "laci02",
-                PhoneNumber = "06303084417"
+                PhoneNumber = "06303084417",
+                mustChangePassword = false
             };
             Hiker h5 = new Hiker
             {
@@ -61,7 +65,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "BörzsönyValami",
                 UserName = "peti1",
-                PhoneNumber = "063077111012"
+                PhoneNumber = "063077111012",
+                mustChangePassword = false
             };
             Hiker h6 = new Hiker
             {
@@ -71,7 +76,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Female,
                 Town = "Szeged",
                 UserName = "pralexa",
-                PhoneNumber = "063077111012"
+                PhoneNumber = "063077111012",
+                mustChangePassword = false
             };
 
             // Hozzá is adja

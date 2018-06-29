@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using SSBO5G__Szakdolgozat.Exceptions;
 using SSBO5G__Szakdolgozat.Dtos;
+using System.Text;
 
 namespace SSBO5G__Szakdolgozat.Services
 {
@@ -19,15 +20,18 @@ namespace SSBO5G__Szakdolgozat.Services
         void Update(Hiker user, string password = null);
         void Delete(int id);
         Task ChangePassword(int userId, ChangePasswordDto dto);
+        Task ForgottenPassword(ForgottenPasswordDto dto);
     }
 
     public class UserService : IUserService
     {
         private ApplicationContext context;
+        private IEmailSender emailSender;
 
-        public UserService(ApplicationContext context)
+        public UserService(ApplicationContext context, IEmailSender emailSender)
         {
             this.context = context;
+            this.emailSender = emailSender;
         }
 
         public Hiker Authenticate(string username, string password)
@@ -45,7 +49,7 @@ namespace SSBO5G__Szakdolgozat.Services
             
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
-            
+
             return user;
         }
 
@@ -148,6 +152,31 @@ namespace SSBO5G__Szakdolgozat.Services
             CreatePasswordHash(dto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
             hiker.PasswordHash = passwordHash;
             hiker.PasswordSalt = passwordSalt;
+            hiker.mustChangePassword = false;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task ForgottenPassword(ForgottenPasswordDto dto)
+        {
+            Hiker hiker = await context.Hikers.SingleOrDefaultAsync(x => x.UserName == dto.UserName);
+            if (String.IsNullOrWhiteSpace(dto.Email)|| String.IsNullOrWhiteSpace(dto.UserName))
+            {
+                throw new ApplicationException("Nem megfelelően megadott adatok");
+            }
+            if (hiker == null || hiker.Email != dto.Email)
+            {
+                throw new ApplicationException("Nem található ilyen adatokkal túrázó!");
+            }
+            string password = CreteRandomPassword(10);
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+            hiker.PasswordHash = passwordHash;
+            hiker.PasswordSalt = passwordSalt;
+            hiker.mustChangePassword = true;
+
+            string emailText = $"Kedves {hiker.Name}, a HikeX rendszerben a jelszavad megváltoztatásást kérted.\n" +
+                $"Az új jelszavad: {password}";
+
+            await emailSender.SendEmail(hiker.Email,emailText,"Elfelejtett jelszó!");
             await context.SaveChangesAsync();
         }
 
@@ -159,6 +188,18 @@ namespace SSBO5G__Szakdolgozat.Services
                 context.Hikers.Remove(user);
                 context.SaveChanges();
             }
+        }
+
+        private static string CreteRandomPassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -188,7 +229,6 @@ namespace SSBO5G__Szakdolgozat.Services
                     if (computedHash[i] != storedHash[i]) return false;
                 }
             }
-
             return true;
         }
     }
