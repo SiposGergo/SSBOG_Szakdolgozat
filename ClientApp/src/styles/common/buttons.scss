@@ -5,3 +5,11 @@
     background: $dark-green;
     color:white; 
 }
+
+.btn-close {
+    position: relative;
+    float: right;
+    color: white;
+    background: $danger-red;
+    font-weight: 700;
+}

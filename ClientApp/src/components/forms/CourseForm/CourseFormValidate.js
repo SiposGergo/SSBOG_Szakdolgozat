@@ -84,6 +84,12 @@ const validate = (values, props) => {
                 checkPointErrors.name = 'Az ellenőrzőpont nevét kötelező megadni!'
                 checkPointArrayErrors[index] = checkPointErrors
             }
+
+            if (index == 0 && checkpoint.distanceFromStart !=0) {
+                checkPointErrors.distanceFromStart = "A start távolsága a starttól 0.";
+                checkPointArrayErrors[index] = checkPointErrors
+            } 
+
             if (!checkpoint || !checkpoint.distanceFromStart) {
                 if (checkpoint.distanceFromStart === "" || ((!checkpoint.distanceFromStart) && checkpoint.distanceFromStart !== 0)) {
                     checkPointErrors.distanceFromStart = 'Az ellenőrzőpont távolságát kötelező megadni!'

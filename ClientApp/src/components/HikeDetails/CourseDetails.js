@@ -40,6 +40,9 @@ class CourseDetails extends React.Component {
                 }
             })
         }
+        const deadline = moment(this.props.course.registerDeadline);
+        const now = moment();
+        if (now > deadline) { value1 = false }
         return value1
     }
 
@@ -63,7 +66,7 @@ class CourseDetails extends React.Component {
             <div>
                 <div className="row">
                     <Card1 title="Táv adatai" course={course} />
-                    <Card2 title="Ellenőrzőpontok" checkpoints={course.checkPoints}/>
+                    <Card2 title="Ellenőrzőpontok" checkpoints={course.checkPoints} />
                 </div>
                 {
                     isRegisterButtonEnabled &&

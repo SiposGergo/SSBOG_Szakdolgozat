@@ -8,7 +8,7 @@ const filtersReducerDefaultState = {
     startDate: moment().startOf('year'),
     endDate: moment().endOf('year'),
     isOldHikesVisible: false,
-    slider: [0,100],
+    slider: [0, 100],
     hasErrored: false,
     isLoading: false,
 }
@@ -38,7 +38,15 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
             return { ...state, hikes: action.items }
 
         case "HIKE_LIST_RESET":
-            return filtersReducerDefaultState;
+            return {
+                ...state,
+                text: "",
+                sortBy: "name",
+                startDate: moment().startOf('year'),
+                endDate: moment().endOf('year'),
+                isOldHikesVisible: false,
+                slider: [0, 100],
+            }
 
         default:
             return state

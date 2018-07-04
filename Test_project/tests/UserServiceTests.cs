@@ -19,7 +19,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db,null);
             var result = await userService.GetAll();
             Assert.That(result, Has.Count.EqualTo(5));
         }
@@ -30,7 +30,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test2");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             var result = await userService.GetAll();
             Assert.That(result, Has.Count.EqualTo(0));
         }
@@ -41,7 +41,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             var result = await userService.GetById(1);
             Assert.That(result.UserName, Is.EqualTo("prosipinho"));
         }
@@ -52,7 +52,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             Assert.ThrowsAsync<ApplicationException>(async () =>
             {
                 await userService.GetById(8);
@@ -65,7 +65,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test2");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             Assert.Throws<ApplicationException>(() =>
             {
                 userService.Create(new Hiker
@@ -86,7 +86,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             Assert.Throws<ApplicationException>(() =>
             {
                 userService.Create(new Hiker
@@ -107,7 +107,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test3");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             userService.Create(new Hiker
             {
                 UserName = "telek",
@@ -127,7 +127,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test4");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             userService.Create(new Hiker
             {
                 UserName = "telek1",
@@ -147,7 +147,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test4");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             var result = userService.Authenticate("telek11", "reallySecurePassword");
             Assert.That(result, Is.EqualTo(null));
         }
@@ -158,7 +158,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test4");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             var result = userService.Authenticate("telek1", "reallySecurePassword123");
             Assert.That(result, Is.EqualTo(null));
         }
@@ -169,7 +169,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             Hiker user = new Hiker
             {
                 Id = 2,
@@ -185,7 +185,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test1");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             Hiker user = new Hiker
             {
                 Id = 1,
@@ -200,7 +200,7 @@ namespace Test_project.tests
             var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase("test6");
             var db = new ApplicationContext(dbOptionsBuilder.Options);
-            UserService userService = new UserService(db);
+            UserService userService = new UserService(db, null);
             userService.Create(new Hiker
             {
                 UserName = "telek",

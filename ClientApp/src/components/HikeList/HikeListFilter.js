@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import {
     setTextFilter, sortByName, sortByDate,
-    setEndDate, setStartDate, setOldHikesVisibility, setSliderValues
+    setEndDate, setStartDate, setOldHikesVisibility, setSliderValues, reset
 }
     from "../../actions/HikeListActions";
 import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import Slider, { Range } from 'rc-slider';
 import {config} from "../../helpers/config.js";
+import { relative } from "upath";
 
 const rangeMarks = {
     0: { label: "0 km" },
@@ -60,9 +61,14 @@ export class HikeListFilter extends React.Component {
         this.props.setSliderValues(value);
     }
 
+    onClearFilters= () => {
+        this.props.clearFilters();
+    }
+
     render() {
         return (
             <div className="hike-list-filter">
+            <button className="btn btn-close" onClick={this.onClearFilters}>x</button>
                 <div className="row">
                     <div className="col-md-3">
                         <label htmlFor="keres">Keresés: </label>
@@ -71,14 +77,14 @@ export class HikeListFilter extends React.Component {
                             className="form-control"
                             type="text"
                             placeholder="Keresés"
-                            defaultValue={this.props.filters.text}
+                            value = {this.props.filters.text}
                             onChange={this.onTextChange} />
                     </div>
                     <div className="col-md-3">
                         <label htmlFor="rendez">Rendezés: </label>
                         <select className="form-control"
                             name="rendez"
-                            defaultValue={this.props.filters.sortBy}
+                            value={this.props.filters.sortBy}
                             onChange={this.onSortChange}
                         >
                             <option value="date">Dátum</option>
@@ -110,7 +116,8 @@ export class HikeListFilter extends React.Component {
                     Már megrendezett túrák mutatása:
                     </label>
                 <input type="checkbox" id="oldHikes" name="oldHikes"
-                    onChange={this.handleTextBoxClick} />
+                    onChange={this.handleTextBoxClick}
+                    value={this.props.filters.isOldHikesVisible} />
                 <br />
 
                 <div style={{ marginTop: 10 }}>
@@ -118,9 +125,9 @@ export class HikeListFilter extends React.Component {
                         min={0}
                         max={100}
                         marks={rangeMarks}
-                        defaultValue={[0, 120]}
+                        value={this.props.filters.slider}
                         onChange={this.onSliderChange}
-
+                        
 
                         railStyle={{ backgroundColor: '#6dd45f', height: 5 }}
                         trackStyle={[{ backgroundColor: '#2c7a20', height: 5 }]}
@@ -147,7 +154,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     setStartDate: (date) => dispatch(setStartDate(date)),
     setEndDate: (date) => dispatch(setEndDate(date)),
     setOldHikesVisibility: (bool) => dispatch(setOldHikesVisibility(bool)),
-    setSliderValues: (value) => dispatch(setSliderValues(value))
+    setSliderValues: (value) => dispatch(setSliderValues(value)),
+    clearFilters: () => dispatch(reset())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HikeListFilter);

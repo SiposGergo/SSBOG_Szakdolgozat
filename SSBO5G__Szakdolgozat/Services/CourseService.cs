@@ -72,6 +72,10 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Minimum 2 ellenőrzőpont megadása szükséges (rajt és cél)");
             }
+            if (hikeCourse.CheckPoints.ElementAt(0).DistanceFromStart != 0)
+            {
+                throw new ApplicationException("A start távolsága a starttól 0 méter!");
+            }
             CheckCheckPoints(hikeCourse.CheckPoints);
             hikeCourse.BeginningOfStart = RemoveSecondsFromDateTime(hikeCourse.BeginningOfStart);
             hikeCourse.EndOfStart = RemoveSecondsFromDateTime(hikeCourse.EndOfStart);
@@ -122,6 +126,10 @@ namespace SSBO5G__Szakdolgozat.Services
             if (DateTime.Now > course.BeginningOfStart)
             {
                 throw new ApplicationException("A rajt után már nem lehet változtatni!");
+            }
+            if (course.CheckPoints.ElementAt(0).DistanceFromStart != 0)
+            {
+                throw new ApplicationException("A start távolsága a starttól 0 méter!");
             }
             CheckCheckPoints(courseParam.CheckPoints);
             context.CheckPoints.RemoveRange(course.CheckPoints);

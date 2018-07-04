@@ -44,7 +44,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
 
             if (user == null)
                 return BadRequest("A felahsználónév vagy jelszó helytelen.");
-
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -53,7 +53,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -83,6 +83,10 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Ez a regisztráció nem létezik!");
             }
+            if (DateTime.Now > course.RegisterDeadline)
+            {
+                throw new ApplicationException("Az előnevezési határidő után már nem lehetséges a nevezés lemondása!");
+            }
             course.NumOfRegisteredHikers--;
             context.Registrations.Remove(reg);
             await context.SaveChangesAsync();

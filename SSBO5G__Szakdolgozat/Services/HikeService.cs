@@ -92,6 +92,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 throw new ApplicationException("A múltba nem szervezünk túrát!");
             }
             await context.Hikes.AddAsync(hike);
+            await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId});
             await context.SaveChangesAsync();
         }
 
