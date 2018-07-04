@@ -13,5 +13,6 @@ namespace SSBO5G__Szakdolgozat.Dtos
         public BaseHiker Hiker { get; set; }
         public string StartNumber { get; set; }
         public ICollection<CheckPointPassDto> Passes { get; set; }
+        public double AvgSpeed { get; set; }
     }
 }

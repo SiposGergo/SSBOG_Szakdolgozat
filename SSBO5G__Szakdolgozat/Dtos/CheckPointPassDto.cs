@@ -7,7 +7,7 @@ namespace SSBO5G__Szakdolgozat.Dtos
     {
         public int Id { get; set; }
         public DateTime? TimeStamp { get; set; }
-
+        public TimeSpan? NettoTime { get; set; }
         // Melyik ellenőrzőpont
         public int CheckPointId { get; set; }
         //public CheckPoint CheckPoint { get; set; }

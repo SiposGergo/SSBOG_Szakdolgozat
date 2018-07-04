@@ -2,6 +2,7 @@
 using SSBO5G__Szakdolgozat.Dtos;
 using SSBO5G__Szakdolgozat.Models;
 using System;
+using System.Linq;
 
 namespace SSBO5G__Szakdolgozat.Helpers
 {
@@ -41,7 +42,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
 
             CreateMap<CheckPointDto, CheckPoint>()
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
-
+            
         }
     }
 }

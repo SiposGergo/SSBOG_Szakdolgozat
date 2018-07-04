@@ -27,8 +27,8 @@ namespace SSBO5G__Szakdolgozat.Controllers
             try
             {
                 int loggedInUserId = GetLoggedInUserId();
-                await adminService.RecordCheckpointPass(loggedInUserId, recordDto);
-                return Ok();
+                string message = await adminService.RecordCheckpointPass(loggedInUserId, recordDto);
+                return Ok(message);
             }
             catch (UnauthorizedException)
             {

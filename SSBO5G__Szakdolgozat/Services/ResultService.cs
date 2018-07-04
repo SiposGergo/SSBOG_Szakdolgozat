@@ -47,6 +47,8 @@ namespace SSBO5G__Szakdolgozat.Services
                 throw new ApplicationException("Ez a túra még nem rajtolt el!");
             }
 
+
+
             var registrations = course.Registrations
                 .OrderByDescending(x => x.Passes.Count(p => p.TimeStamp != null))
                 .ThenBy(x => x.Passes.Count(p => p.TimeStamp != null) >= 2 ?

@@ -18,5 +18,6 @@ namespace SSBO5G__Szakdolgozat.Models
         public HikeCourse HikeCourse { get; set; }
 
         public virtual IList<CheckPointPass> Passes { get; set; }
+        public double AvgSpeed { get; set; }
     }
 }

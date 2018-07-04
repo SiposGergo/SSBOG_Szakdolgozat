@@ -13,7 +13,7 @@ namespace SSBO5G__Szakdolgozat.Services
 {
     public interface IAdminService
     {
-        Task RecordCheckpointPass(int loggedInUserId, RecordDto recordDto);
+        Task<string> RecordCheckpointPass(int loggedInUserId, RecordDto recordDto);
     }
 
     public class AdminServices : IAdminService
@@ -24,7 +24,7 @@ namespace SSBO5G__Szakdolgozat.Services
             this.context = context;
         }
 
-        public async Task RecordCheckpointPass(int loggedInUserId, RecordDto recordDto)
+        public async Task<string> RecordCheckpointPass(int loggedInUserId, RecordDto recordDto)
         {
             CheckPoint checkpoint = await context.CheckPoints
                 .Where(x => x.Id == recordDto.CheckpointId)
@@ -62,6 +62,7 @@ namespace SSBO5G__Szakdolgozat.Services
             Registration registration = await context.Registrations
                 .Where(x => x.StartNumber == recordDto.StartNumber)
                 .Include(x => x.Passes)
+                .Include(x=>x.Hiker)
                 .SingleOrDefaultAsync();
 
             int min = checkpoint.Course.CheckPoints.ToList().Min(x => x.Id);
@@ -85,15 +86,18 @@ namespace SSBO5G__Szakdolgozat.Services
 
             if (checkpoint.Id == max && registration.Passes[cpId].TimeStamp != null)
             {
-                throw new ApplicationException("Egy cél már rögzítésre került korábban!");
+                throw new ApplicationException("Egy cél idő már rögzítésre került korábban!");
             }
 
             registration.Passes[cpId] = new CheckPointPass
             {
                 CheckPointId = recordDto.CheckpointId,
                 RegistrationId = registration.Id,
-                TimeStamp = recordDto.TimeStamp
+                TimeStamp = recordDto.TimeStamp,
+                NettoTime = cpId == 0 ? new TimeSpan(0,0,0) : recordDto.TimeStamp - registration.Passes[0].TimeStamp,
             };
+
+            registration.AvgSpeed = cpId == 0 ? 0 : Math.Round((checkpoint.DistanceFromStart / 1000) / registration.Passes[cpId].NettoTime.Value.TotalHours,2);        
 
             for (int i = 1; i < registration.Passes.Count; i++)
             {
@@ -102,8 +106,8 @@ namespace SSBO5G__Szakdolgozat.Services
                     throw new ApplicationException("Érvénytelen idő!");
                 }
             }
-
             await context.SaveChangesAsync();
+            return $"Áthaladás Rögzítve!\nTúrázó: {registration.Hiker.Name}, idő: {registration.Passes[cpId].NettoTime}, sebesség: {registration.AvgSpeed} km/h";
         }
     }
 }
