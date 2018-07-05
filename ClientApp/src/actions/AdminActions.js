@@ -8,7 +8,7 @@ export function postCheckpointPass(recordDto) {
     return dispatch => {
         postCheckpointPassService(recordDto)
             .then(
-                msg => dispatch(SendSuccess("Áthaladás rögzítve!")),
+                json => dispatch(SendSuccess(json.message)),
                 error => dispatch(SendDanger(error))
             );
     };

@@ -4,6 +4,9 @@ import { getCourseResult, getCourseLiveResult, getCourseLiveResultNetto } from "
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 import { config } from "../../helpers/config";
+import LoadSpinner from "../LoadSpinner";
+import ResultFilters from "./ResultFilters";
+
 
 const refreshRateMs = 10000;
 const refreshRateSec = refreshRateMs / 1000;
@@ -26,7 +29,7 @@ class CourseResultPage extends React.Component {
     }
 
     update = () => {
-        if (this.state.time=="brutto") {
+        if (this.state.time == "brutto") {
             this.props.dispatch(getCourseLiveResult(this.props.match.params.id));
         } else {
             this.props.dispatch(getCourseLiveResultNetto(this.props.match.params.id));
@@ -41,7 +44,7 @@ class CourseResultPage extends React.Component {
 
     handleSelectTime = (e) => {
         this.setState({ time: e.target.value });
-        if(e.target.value == "netto") {
+        if (e.target.value == "netto") {
             this.props.dispatch(getCourseLiveResultNetto(this.props.match.params.id));
         }
         else {
@@ -51,81 +54,71 @@ class CourseResultPage extends React.Component {
 
     render() {
         if (this.props.hasErrored) return (<div>Hiba!</div>)
-        if (this.props.isLoading) return (<div>Loading...</div>)
+        if (this.props.isLoading) return (<LoadSpinner />)
 
 
         if (this.props.checkpoints && this.props.registrations) {
-            return (<div>
-                Az adatok {this.state.counter} másodperc múlva frissülnek.
+            return (
 
+
+                <div>
+                    Az adatok {this.state.counter} másodperc múlva frissülnek.
+
+
+                    <ResultFilters />
                 <form>
-                    <select name="time" value={this.state.time}
-                        onChange={this.handleSelectTime}>
-                        <option value="brutto">abszolút idő</option>
-                        <option value="netto">versenyidő</option>
-                    </select>
-                </form>
-                <div className="table-responsive">
-                <table className="minimalistBlack ">
-                    <thead>
-                        <tr>
-                            <th>Hely</th>
-                            <th>Rajtszám</th>
-                            <th>Túrázó</th>
-                            <th>Eredmény</th>
-                            <th>Átlagsebesség</th>
-                            {this.props.checkpoints.map(cp => (<th key={cp.id}> {cp.name}({(cp.distanceFromStart / 1000)}km) </th>))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.props.registrations.map((reg) => {
+                        <select name="time" value={this.state.time}
+                            onChange={this.handleSelectTime}>
+                            <option value="brutto">abszolút idő</option>
+                            <option value="netto">versenyidő</option>
+                        </select>
+                    </form>
 
-                                const startPoint = reg.passes[0];
-                                const finishPoint = reg.passes[this.props.checkpoints.length-1];
-                                const passesCopy = reg.passes.slice();
-                                const lastPoint = passesCopy.reverse().find(x=>x.timeStamp!=null);
-                                let totalTime = undefined; 
-                                let avgSpeed= undefined;
-                                if (startPoint&&finishPoint &&finishPoint.timeStamp!=null) {
-                                    let differenceInMs = moment(finishPoint.timeStamp).diff(moment(startPoint.timeStamp));
-                                    totalTime = moment.duration(differenceInMs);
-                                }
-                                if (startPoint&&lastPoint && startPoint.id != lastPoint.id) { 
-                                    let differenceInMs1 = moment(lastPoint.timeStamp).diff(moment(startPoint.timeStamp));
-                                    const totalHours = moment.duration(differenceInMs1).asHours();
-                                    const point = this.props.checkpoints.find(x=> x.id == lastPoint.checkPointId);
-                                    avgSpeed = Math.round(((point.distanceFromStart/1000) / totalHours ) *100)/100;
-                                }
-                                return (
-                                    <tr key={reg.id} className={reg.hiker.gender.toLowerCase()}>
-                                        <td>{this.props.registrations.indexOf(reg) + 1}</td>
-                                        <td>{reg.startNumber}</td>
-                                        <td>{reg.hiker.name}</td>
-                                        <td> {totalTime ? totalTime.format(config.timeFormatLong, { trim: false }) : ""} </td>
-                                        <td>{avgSpeed ? avgSpeed+" km/h" : ""}</td>
-                                        {
-                                            this.props.checkpoints.map(cp => {
-                                                const pass = reg.passes.find((reg) => reg.checkPointId == cp.id);
-                                                let netto = undefined;
-                                                if (pass && startPoint) {
-                                                    let differenceInMs = moment(pass.timeStamp).diff(moment(startPoint.timeStamp));
-                                                    let duration = moment.duration(differenceInMs);
-                                                    netto = duration;
+
+                    <div className="table-responsive">
+                        <table className="minimalistBlack ">
+                            <thead>
+                                <tr>
+                                    <th>Hely</th>
+                                    <th>Rajtszám</th>
+                                    <th>Túrázó</th>
+                                    <th>Eredmény</th>
+                                    <th>Átlagsebesség</th>
+                                    {this.props.checkpoints.map(cp => (<th key={cp.id}> {cp.name}({(cp.distanceFromStart / 1000)}km) </th>))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.props.registrations.map((reg) => {
+                                        return (
+                                            <tr key={reg.id} className={reg.hiker.gender.toLowerCase()}>
+                                                <td>{this.props.registrations.indexOf(reg) + 1}</td>
+                                                <td>{reg.startNumber}</td>
+                                                <td>{reg.hiker.name}</td>
+                                                <td>
+                                                    {reg.passes[0] && reg.passes[reg.passes.length - 1].nettoTime ?
+                                                        moment.duration(reg.passes[reg.passes.length - 1].nettoTime).format(config.timeFormatLong, { trim: false })
+                                                        : "-"
+                                                    }
+                                                </td>
+                                                <td>{reg.avgSpeed ? reg.avgSpeed + "km/h" : "-"}</td>
+                                                {
+                                                    this.props.checkpoints.map(cp => {
+                                                        const pass = reg.passes.find((reg) => reg.checkPointId == cp.id);
+                                                        return (<td key={cp.id}>
+                                                            {this.state.time == "brutto" && pass ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
+                                                            {this.state.time == "netto" && pass ? moment.duration(pass.nettoTime).format(config.timeFormatLong, { trim: false }) : ""}
+                                                        </td>)
+                                                    })
                                                 }
-                                                return (<td key={cp.id}>
-                                                    {this.state.time == "brutto" && pass ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
-                                                    {this.state.time == "netto" && netto ? netto.format(config.timeFormatLong, { trim: false }) : ""}
-                                                </td>)
-                                            })
-                                        }
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table></div>
-            </div>)
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table></div>
+
+                </div>)
         }
     }
 }

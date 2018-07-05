@@ -107,7 +107,11 @@ namespace SSBO5G__Szakdolgozat.Services
                 }
             }
             await context.SaveChangesAsync();
-            return $"Áthaladás Rögzítve!\nTúrázó: {registration.Hiker.Name}, idő: {registration.Passes[cpId].NettoTime}, sebesség: {registration.AvgSpeed} km/h";
+            if (cpId == 0)
+            {
+                return $"Túrázó elindítva: {registration.Hiker.Name}";
+            }
+            return $"Áthaladás Rögzítve!\nTúrázó: {registration.Hiker.Name}, idő: {registration.Passes[cpId].NettoTime.Value.ToString("hh\\:mm\\:ss")}, sebesség: {registration.AvgSpeed} km/h";
         }
     }
 }
