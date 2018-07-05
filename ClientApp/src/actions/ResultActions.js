@@ -1,4 +1,63 @@
-import {getCourseResultService, getCourseLiveResultService, getCourseLiveResultNettoTimeService} from "../services/ResultService";
+import {getCourseResultService, getCourseLiveResultService} from "../services/ResultService";
+
+export const sortDefault = () => ({
+    type: "RESULT_SET_SORT_BY",
+    value : "default"
+})
+
+export const sortByName = () => ({
+    type: "RESULT_SET_SORT_BY",
+    value : "name"
+})
+
+export const sortByNetto = () => ({
+    type: "RESULT_SET_SORT_BY",
+    value : "nettoTime"
+})
+
+export const setTimeNetto = () => ({
+    type: "RESULT_SET_TIME",
+    value : "netto"
+})
+
+export const setTimeBrutto = () => ({
+    type: "RESULT_SET_TIME",
+    value : "brutto"
+})
+
+export const setJustFinishers = (value) => ({
+    type: "RESULT_SET_JUST_FINISHERS",
+    value 
+})
+
+export const setGenderMale = () => ({
+    type: "RESULT_SET_GENDER",
+    value : "male"
+})
+
+export const setGenderFemale = () => ({
+    type: "RESULT_SET_GENDER",
+    value : "female"
+})
+
+export const setGenderBoth = () => ({
+    type: "RESULT_SET_GENDER",
+    value : "both"
+})
+
+export const setStartNumberText = (value) => ({
+    type: "RESULT_SET_START_NUMBER_TEXT",
+    value 
+})
+
+export const setNameText = (value) => ({
+    type: "RESULT_SET_NAME_TEXT",
+    value 
+})
+
+export const reset = () => ({
+    type: "RESULT_RESET"
+})
 
 export function itemsHasErrored() {
     return {
@@ -43,17 +102,6 @@ export function getCourseLiveResult(courseId) {
     return dispatch => {
 
         getCourseLiveResultService(courseId)
-            .then(
-                data => dispatch(itemsUpdated(data)),
-                () => dispatch(itemsHasErrored())
-            );
-    };
-}
-
-export function getCourseLiveResultNetto(courseId) {
-    return dispatch => {
-
-        getCourseLiveResultNettoTimeService(courseId)
             .then(
                 data => dispatch(itemsUpdated(data)),
                 () => dispatch(itemsHasErrored())

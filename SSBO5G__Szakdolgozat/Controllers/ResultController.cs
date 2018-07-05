@@ -56,24 +56,5 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [AllowAnonymous]
-        [HttpGet("live-result-netto/{courseId}")]
-        public async Task<IActionResult> LiveResultNetto(int courseId)
-        {
-            try
-            {
-                var result = await resultService.GetLiveResultNettoTime(courseId);
-                return Ok(result);
-            }
-            catch (NotFoundException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ApplicationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }

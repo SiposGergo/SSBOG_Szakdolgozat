@@ -21,12 +21,12 @@ html {
 @import './common/buttons';
 @import './common/links';
 @import './common/card-green';
+@import './common/filter';
 
 @import './components/redux-notifications';
 @import './result-table';
 @import './components/Header/sidenav';
 @import './components/Header/menu';
-@import './components/HikeListFilter';
 @import './components/HikeDetails/comment-box';
 @import './components/HikeDetails/semantic-tab-green';
 @import './components/HikeDetails/HikeDetailsComponent';
@@ -39,6 +39,11 @@ html {
  
 .help-block {
     color: $danger-red;
+}
+
+.check-box-label{
+    margin-right: 10px;
+    margin-top: 25px;
 }
 
 ::selection {

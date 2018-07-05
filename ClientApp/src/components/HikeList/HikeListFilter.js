@@ -9,7 +9,6 @@ import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import Slider, { Range } from 'rc-slider';
 import {config} from "../../helpers/config.js";
-import { relative } from "upath";
 
 const rangeMarks = {
     0: { label: "0 km" },
@@ -67,7 +66,7 @@ export class HikeListFilter extends React.Component {
 
     render() {
         return (
-            <div className="hike-list-filter">
+            <div className="filter">
             <button className="btn btn-close" onClick={this.onClearFilters}>x</button>
                 <div className="row">
                     <div className="col-md-3">
@@ -112,7 +111,7 @@ export class HikeListFilter extends React.Component {
                 </div>
 
 
-                <label htmlFor="oldHikes">
+                <label htmlFor="oldHikes" className="check-box-label">
                     Már megrendezett túrák mutatása:
                     </label>
                 <input type="checkbox" id="oldHikes" name="oldHikes"

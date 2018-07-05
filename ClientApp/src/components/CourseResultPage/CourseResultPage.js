@@ -1,12 +1,12 @@
 import React from "react"
 import { connect } from "react-redux";
-import { getCourseResult, getCourseLiveResult, getCourseLiveResultNetto } from "../../actions/ResultActions";
+import { getCourseResult, getCourseLiveResult } from "../../actions/ResultActions";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 import { config } from "../../helpers/config";
 import LoadSpinner from "../LoadSpinner";
 import ResultFilters from "./ResultFilters";
-
+import getVisibleRegistrations from "../../selectors/ResultSelector";
 
 const refreshRateMs = 10000;
 const refreshRateSec = refreshRateMs / 1000;
@@ -17,7 +17,6 @@ class CourseResultPage extends React.Component {
         super(props);
         this.state = {
             counter: refreshRateSec,
-            time: "brutto"
         }
     }
 
@@ -29,11 +28,7 @@ class CourseResultPage extends React.Component {
     }
 
     update = () => {
-        if (this.state.time == "brutto") {
-            this.props.dispatch(getCourseLiveResult(this.props.match.params.id));
-        } else {
-            this.props.dispatch(getCourseLiveResultNetto(this.props.match.params.id));
-        }
+        this.props.dispatch(getCourseLiveResult(this.props.match.params.id));
         this.setState({ counter: refreshRateSec });
     }
 
@@ -42,44 +37,22 @@ class CourseResultPage extends React.Component {
         clearInterval(this.stopUpdate);
     }
 
-    handleSelectTime = (e) => {
-        this.setState({ time: e.target.value });
-        if (e.target.value == "netto") {
-            this.props.dispatch(getCourseLiveResultNetto(this.props.match.params.id));
-        }
-        else {
-            this.props.dispatch(getCourseLiveResult(this.props.match.params.id));
-        }
-    }
-
     render() {
         if (this.props.hasErrored) return (<div>Hiba!</div>)
         if (this.props.isLoading) return (<LoadSpinner />)
 
 
-        if (this.props.checkpoints && this.props.registrations) {
+        if (this.props.checkpoints && this.props.visibleRegistrations) {
             return (
-
 
                 <div>
                     Az adatok {this.state.counter} másodperc múlva frissülnek.
-
-
                     <ResultFilters />
-                <form>
-                        <select name="time" value={this.state.time}
-                            onChange={this.handleSelectTime}>
-                            <option value="brutto">abszolút idő</option>
-                            <option value="netto">versenyidő</option>
-                        </select>
-                    </form>
-
-
                     <div className="table-responsive">
                         <table className="minimalistBlack ">
                             <thead>
                                 <tr>
-                                    <th>Hely</th>
+                                    <th>#</th>
                                     <th>Rajtszám</th>
                                     <th>Túrázó</th>
                                     <th>Eredmény</th>
@@ -89,10 +62,10 @@ class CourseResultPage extends React.Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.props.registrations.map((reg) => {
+                                    this.props.visibleRegistrations.map((reg) => {
                                         return (
                                             <tr key={reg.id} className={reg.hiker.gender.toLowerCase()}>
-                                                <td>{this.props.registrations.indexOf(reg) + 1}</td>
+                                                <td>{this.props.visibleRegistrations.indexOf(reg) + 1}</td>
                                                 <td>{reg.startNumber}</td>
                                                 <td>{reg.hiker.name}</td>
                                                 <td>
@@ -106,8 +79,8 @@ class CourseResultPage extends React.Component {
                                                     this.props.checkpoints.map(cp => {
                                                         const pass = reg.passes.find((reg) => reg.checkPointId == cp.id);
                                                         return (<td key={cp.id}>
-                                                            {this.state.time == "brutto" && pass ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
-                                                            {this.state.time == "netto" && pass ? moment.duration(pass.nettoTime).format(config.timeFormatLong, { trim: false }) : ""}
+                                                            {this.props.time == "brutto" && pass ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
+                                                            {this.props.time == "netto" && pass ? moment.duration(pass.nettoTime).format(config.timeFormatLong, { trim: false }) : ""}
                                                         </td>)
                                                     })
                                                 }
@@ -126,9 +99,10 @@ class CourseResultPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         checkpoints: state.resultReducer.checkpoints,
-        registrations: state.resultReducer.registrations,
-        hasErrored: state.resultReducer.isLoading,
-        isLoading: state.resultReducer.hasErrored
+        visibleRegistrations: getVisibleRegistrations(state.resultReducer),
+        hasErrored: state.resultReducer.hasErrored,
+        isLoading: state.resultReducer.isLoading,
+        time: state.resultReducer.time
     }
 }
 

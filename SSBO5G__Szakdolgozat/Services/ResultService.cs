@@ -15,7 +15,6 @@ namespace SSBO5G__Szakdolgozat.Services
     {
         Task<ResultDto> GetResults(int courseId);
         Task<IEnumerable<RegistrationWithPassesDto>> GetLiveResult(int courseId);
-        Task<IEnumerable<RegistrationWithPassesDto>> GetLiveResultNettoTime(int courseId);
     }
     public class ResultService : IResultService
     {
@@ -25,37 +24,6 @@ namespace SSBO5G__Szakdolgozat.Services
         {
             this.context = context;
             this.mapper = mapper;
-        }
-
-        public async Task<IEnumerable<RegistrationWithPassesDto>> GetLiveResultNettoTime(int courseId)
-        {
-            HikeCourse course = await context.Courses
-                .Where(x => x.Id == courseId)
-                .Include(x => x.Registrations)
-                .ThenInclude(x => x.Passes)
-                .Include(x => x.Registrations)
-                .ThenInclude(x => x.Hiker)
-                .SingleOrDefaultAsync();
-
-            if (course == null)
-            {
-                throw new NotFoundException("táv");
-            }
-
-            if (course.BeginningOfStart > DateTime.Now)
-            {
-                throw new ApplicationException("Ez a túra még nem rajtolt el!");
-            }
-
-
-
-            var registrations = course.Registrations
-                .OrderByDescending(x => x.Passes.Count(p => p.TimeStamp != null))
-                .ThenBy(x => x.Passes.Count(p => p.TimeStamp != null) >= 2 ?
-                    x.Passes.Last(p => p.TimeStamp != null).TimeStamp - x.Passes.First(p => p.TimeStamp != null).TimeStamp :
-                    new TimeSpan(100, 0, 0, 0, 0));
-
-            return mapper.Map<IEnumerable<RegistrationWithPassesDto>>(registrations);
         }
 
         public async Task<IEnumerable<RegistrationWithPassesDto>> GetLiveResult(int courseId)
