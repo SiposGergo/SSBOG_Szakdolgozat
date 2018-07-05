@@ -19,9 +19,11 @@ namespace SSBO5G__Szakdolgozat.Services
     public class AdminServices : IAdminService
     {
         ApplicationContext context;
-        public AdminServices(ApplicationContext context)
+        IEmailSender emailSender;
+        public AdminServices(ApplicationContext context, IEmailSender emailSender)
         {
             this.context = context;
+            this.emailSender = emailSender;
         }
 
         public async Task<string> RecordCheckpointPass(int loggedInUserId, RecordDto recordDto)
@@ -106,7 +108,19 @@ namespace SSBO5G__Szakdolgozat.Services
                     throw new ApplicationException("Érvénytelen idő!");
                 }
             }
+
             await context.SaveChangesAsync();
+
+            if (checkpoint.Id == max)
+            {
+                emailSender.SendEmail(
+                    registration.Hiker.Email,
+                     $"Gratulálunk a {checkpoint.Course.Name} túra sikeres teljesítéséhez!",
+                     "Túra teljesítés",
+                     PdfGenerator.GetDiploma(registration, checkpoint.Course),
+                     "oklevél.pdf");
+            }
+
             if (cpId == 0)
             {
                 return $"Túrázó elindítva: {registration.Hiker.Name}";

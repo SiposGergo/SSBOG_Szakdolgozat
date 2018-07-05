@@ -83,7 +83,6 @@ class CourseDetails extends React.Component {
                     </button>
                 }
 
-                {console.log(moment(course.beginningOfStart).toDate() < moment().toDate())}
                 {
                     (moment(course.beginningOfStart).toDate() < moment().toDate()) &&
                     <Link to={"/course/live/" + this.props.course.id}>

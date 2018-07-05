@@ -1,6 +1,7 @@
 ﻿using iText.IO.Font.Constants;
 using iText.IO.Image;
 using iText.Kernel.Font;
+using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -22,6 +23,46 @@ namespace SSBO5G__Szakdolgozat.Services
                 return ms.ToArray();
             }
         }
+
+        public static byte[] GetDiploma(Registration registration, HikeCourse course)
+        {
+            bool isInLimitTime = registration.Passes[registration.Passes.Count - 1].NettoTime < course.LimitTime;
+            PdfFont normalFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA, "CP1250");
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (PdfWriter writer = new PdfWriter(ms))
+                {
+                    PdfDocument pdfDocument = new PdfDocument(writer);
+                    Document document = new Document(pdfDocument, PageSize.A4.Rotate());
+                    pdfDocument.SetCloseWriter(false);
+                    Paragraph header = new Paragraph();
+                    header.AddTabStops(new TabStop(PageSize.A4.GetHeight() / 2, iText.Layout.Properties.TabAlignment.CENTER));
+                    header.SetFont(normalFont);
+                    header.SetFontSize(80);
+                    header.Add(new Tab());
+                    header.Add(isInLimitTime ? "Oklevél" : "Emléklap");
+                    document.Add(header);
+                    Paragraph body = new Paragraph();
+                    body.AddTabStops(new TabStop(PageSize.A4.GetHeight() / 2, iText.Layout.Properties.TabAlignment.CENTER));
+                    body.Add(new Tab());
+                    body.SetFont(normalFont);
+                    body.SetFontSize(32);
+                    body.Add($"{registration.Hiker.Name} számára, aki " +
+                        $"{(isInLimitTime ? "szintidőn belül" : "")} teljesítette a " +
+                        $"{course.Name} túrát!" +
+                        $"\n(idő: {registration.Passes[registration.Passes.Count - 1].NettoTime.Value.ToString("hh\\:mm\\:ss")})");
+                    document.Add(body);
+                    document.Close();
+                    pdfDocument.Close();
+                    writer.Flush();
+                    ms.Flush();
+                    ms.Position = 0;
+                    return ms.ToArray();
+
+                }
+            }
+        }
+
         public static byte[] GetCourseInfoPdf(HikeCourse course)
         {
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -42,7 +83,7 @@ namespace SSBO5G__Szakdolgozat.Services
                     {
                         Paragraph p = new Paragraph();
                         p.SetFont(normalFont);
-                        
+
                         QRCodeData qrCodeData = qrGenerator.CreateQrCode(reg.StartNumber, QRCodeGenerator.ECCLevel.Q);
                         QRCode qrCode = new QRCode(qrCodeData);
                         p.Add($"Név: {reg.Hiker.Name}\n");

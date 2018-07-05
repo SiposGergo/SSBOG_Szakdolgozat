@@ -11,7 +11,7 @@ namespace SSBO5G__Szakdolgozat.Services
 {
     public interface IEmailSender
     {
-        Task SendEmail(string address, string text, string subject);
+        Task SendEmail(string address, string text, string subject, byte[] pdfFile = null, string fileName = null);
     }
     public class EmailSender : IEmailSender
     {
@@ -22,23 +22,26 @@ namespace SSBO5G__Szakdolgozat.Services
             this.userName = userName;
             this.passWord = passWord;
         }
-        public async Task SendEmail(string address, string text, string subject)
+        public async Task SendEmail(string address, string text, string subject, byte[] pdfFile = null, string fileName = null)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("HikeX Rendszer", "hikex.system@gmail.com"));
             message.To.Add(new MailboxAddress(address));
             message.Subject = subject;
 
-            message.Body = new TextPart("plain")
+            var builder = new BodyBuilder();
+            builder.TextBody = text;
+            if (pdfFile != null)
             {
-                Text = text
-            };
+                builder.Attachments.Add(fileName ?? "attachment.pdf", pdfFile);
+            }
+            message.Body = builder.ToMessageBody();
 
             using (var client = new SmtpClient())
             {
                 client.ServerCertificateValidationCallback = (s, c, ch, e) => true;
                 await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
-                await client.AuthenticateAsync(userName,passWord);
+                await client.AuthenticateAsync(userName, passWord);
 
                 await client.SendAsync(message);
 
