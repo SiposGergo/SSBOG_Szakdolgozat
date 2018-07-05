@@ -6,10 +6,8 @@ export const userService = {
     login,
     logout,
     register,
-    getAll,
     getById,
     update,
-    delete: _delete,
     postChangePasswordService,
     postForgottenPasswordService
 };
@@ -36,14 +34,6 @@ function login(username, password) {
 function logout() {
     // ha kitöröljük kivan jelentkezve
     localStorage.removeItem('user');
-}
-
-function getAll() {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-    return fetch(config.apiUrl + '/users/all/', requestOptions).then(handleResponse, handleError);
 }
 
 function getById(id) {
@@ -73,16 +63,6 @@ function update(user) {
     };
 
     return fetch(config.apiUrl + '/users/edit/' + user.id, requestOptions).then(handleResponse, handleError);
-}
-
-// prefixum mert foglalt kifejezés a delete
-function _delete(id) {
-    const requestOptions = {
-        method: 'DELETE',
-        headers: authHeader()
-    };
-
-    return fetch(config.apiUrl + '/users/delete/' + id, requestOptions).then(handleResponse, handleError);
 }
 
 function postChangePasswordService(dto) {

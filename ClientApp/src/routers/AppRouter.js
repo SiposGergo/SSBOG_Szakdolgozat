@@ -5,7 +5,6 @@ import { Switch, Router, Route } from 'react-router-dom';
 import HikeListPage from "../components/HikeList/HikeListPage.js";
 import Header from "../components/Header.js";
 import HikeDetailsPage from "../components/HikeDetails/HikeDetailsPage.js"
-import { HomePage } from '../components/HomePage';
 import { LoginPage } from '../components/LoginPage';
 import { UserDetailsPage } from "../components/UserDetailsaPage";
 import ErrorPage from "../components/404Page";
@@ -36,7 +35,6 @@ const AppRouter = () => (
                 <PrivateRoute exact={true} path="/course/edit/:hikeId/:courseId" component={EditCoursePage} />
                 <Route exact={true} path="/course/live/:id" component={CourseResultPage} />
                 <Route exact={true} path="/hike/:id" component={HikeDetailsPage} />
-                <PrivateRoute exact={true} path="/home" component={HomePage} />
                 <PrivateRoute exact={true} path="/me" component={UserDetailsPage} />
                 <Route exact={true} path="/login" component={LoginPage} />
                 <Route exact={true} path="/register" component={RegisteringPage} />
