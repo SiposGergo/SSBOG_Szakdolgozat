@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import { postRegister, postUnRegister } from "../../actions/HikeDetailsActions"
 import Card from "../Card";
 import CourseDetailsFirstCard from "./CourseDetailsFirstCard";
+import { Link } from "react-router-dom";
 
 class CourseDetails extends React.Component {
 
@@ -80,6 +81,14 @@ class CourseDetails extends React.Component {
                     <button className="btn btn-danger" onClick={this.onUnRegisterClick}>
                         Előnevezés visszavonása
                     </button>
+                }
+
+                {console.log(moment(course.beginningOfStart).toDate() < moment().toDate())}
+                {
+                    (moment(course.beginningOfStart).toDate() < moment().toDate()) &&
+                    <Link to={"/course/live/" + this.props.course.id}>
+                        <button className="btn btn-green">Eredmények</button>
+                    </Link>
                 }
             </div>
         )

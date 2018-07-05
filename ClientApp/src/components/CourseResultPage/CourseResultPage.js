@@ -7,6 +7,7 @@ import { config } from "../../helpers/config";
 import LoadSpinner from "../LoadSpinner";
 import ResultFilters from "./ResultFilters";
 import getVisibleRegistrations from "../../selectors/ResultSelector";
+import { Link } from "react-router-dom";
 
 const refreshRateMs = 10000;
 const refreshRateSec = refreshRateMs / 1000;
@@ -67,7 +68,11 @@ class CourseResultPage extends React.Component {
                                             <tr key={reg.id} className={reg.hiker.gender.toLowerCase()}>
                                                 <td>{this.props.visibleRegistrations.indexOf(reg) + 1}</td>
                                                 <td>{reg.startNumber}</td>
-                                                <td>{reg.hiker.name}</td>
+                                                <td>
+                                                    <Link className="link" to={"/user/" + reg.hiker.id}>
+                                                        {reg.hiker.name}
+                                                    </Link>
+                                                </td>
                                                 <td>
                                                     {reg.passes[0] && reg.passes[reg.passes.length - 1].nettoTime ?
                                                         moment.duration(reg.passes[reg.passes.length - 1].nettoTime).format(config.timeFormatLong, { trim: false })
