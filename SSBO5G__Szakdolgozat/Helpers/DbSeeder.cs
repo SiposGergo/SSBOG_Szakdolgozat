@@ -626,7 +626,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Price = 1000,
                 // Ez Valójában nem lehetne
                 RegisterDeadline = new DateTime(year, month, day, 0, 00, 00),
-                LimitTime = new TimeSpan(3, 00, 00),
+                LimitTime = new TimeSpan(0, 1, 00),
                 NumOfRegisteredHikers = 2,
                 StartnumInc = 3
             });
@@ -780,7 +780,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Price = 1500,
                 // Ez Valójában nem lehetne
                 RegisterDeadline = new DateTime(year, month, day, 0, 00, 00),
-                LimitTime = new TimeSpan(4, 00, 00),
+                LimitTime = new TimeSpan(4,00, 00),
                 NumOfRegisteredHikers = 2,
                 StartnumInc = 3
             });

@@ -26,7 +26,7 @@ class ResultFilters extends React.Component {
     }
 
     onTimeChange = (value) => {
-        if (value == "brutto") {
+        if (value.target.value == "brutto") {
             this.props.dispatch(setTimeBrutto())
         } else {
             this.props.dispatch(setTimeNetto())
@@ -107,12 +107,12 @@ class ResultFilters extends React.Component {
 
                         <label htmlFor="justFinishers" className="check-box-label">
                             Csak célba érkezettek:
-                        </label>
+                        </label> {console.log(this.props.justFinishers)}
                         <input type="checkbox"
                             id="justFinishers"
                             name="justFinishers"
                             onChange={x => this.props.dispatch(setJustFinishers(x.target.checked))}
-                            value={this.props.justFinishers}
+                            checked={this.props.justFinishers}
                         />
                     </div>
                 </div>

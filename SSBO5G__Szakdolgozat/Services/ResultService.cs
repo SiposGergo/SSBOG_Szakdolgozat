@@ -83,7 +83,8 @@ namespace SSBO5G__Szakdolgozat.Services
             return new ResultDto
             {
                 Checkpoints = mapper.Map<ICollection<CheckPointDto>>(course.CheckPoints),
-                Registrations = mapper.Map<ICollection<RegistrationWithPassesDto>>(registrations)
+                Registrations = mapper.Map<ICollection<RegistrationWithPassesDto>>(registrations),
+                LimitTime = course.LimitTime
             };
         }
     }

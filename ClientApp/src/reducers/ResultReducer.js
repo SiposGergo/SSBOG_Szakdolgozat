@@ -1,6 +1,7 @@
 const defaultState = {
     checkpoints: [],
     registrations: [],
+    limitTime : null,
     hasErrored: false,
     isLoading: true,
 
@@ -26,6 +27,7 @@ export const resultReducer = (state = defaultState, action) => {
                 ...state,
                 checkpoints: action.data.checkpoints,
                 registrations: action.data.registrations,
+                limitTime : action.data.limitTime,
                 isLoading: false
             }
 

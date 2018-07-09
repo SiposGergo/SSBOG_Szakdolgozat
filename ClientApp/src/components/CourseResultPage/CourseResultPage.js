@@ -56,6 +56,7 @@ class CourseResultPage extends React.Component {
                                     <th>#</th>
                                     <th>Rajtszám</th>
                                     <th>Túrázó</th>
+                                    <th>Státusz</th>
                                     <th>Eredmény</th>
                                     <th>Átlagsebesség</th>
                                     {this.props.checkpoints.map(cp => (<th key={cp.id}> {cp.name}({(cp.distanceFromStart / 1000)}km) </th>))}
@@ -64,6 +65,11 @@ class CourseResultPage extends React.Component {
                             <tbody>
                                 {
                                     this.props.visibleRegistrations.map((reg) => {
+                                        let fullTime = null;
+                                        if (reg.passes[0] && reg.passes[reg.passes.length - 1].nettoTime) {
+                                            fullTime = moment.duration(reg.passes[reg.passes.length - 1].nettoTime);
+                                        }
+
                                         return (
                                             <tr key={reg.id} className={reg.hiker.gender.toLowerCase()}>
                                                 <td>{this.props.visibleRegistrations.indexOf(reg) + 1}</td>
@@ -74,10 +80,12 @@ class CourseResultPage extends React.Component {
                                                     </Link>
                                                 </td>
                                                 <td>
-                                                    {reg.passes[0] && reg.passes[reg.passes.length - 1].nettoTime ?
-                                                        moment.duration(reg.passes[reg.passes.length - 1].nettoTime).format(config.timeFormatLong, { trim: false })
-                                                        : "-"
-                                                    }
+                                                    {!fullTime && "Nem ért célba"}
+                                                    {fullTime && fullTime < this.props.limitTime && "Szintidőn belül beért"}
+                                                    {fullTime && fullTime > this.props.limitTime && "Szintidőn kívül ért be"}
+                                                </td>
+                                                <td>
+                                                    {fullTime ? fullTime.format(config.timeFormatLong, { trim: false }) : "-"}
                                                 </td>
                                                 <td>{reg.avgSpeed ? reg.avgSpeed + "km/h" : "-"}</td>
                                                 {
@@ -107,7 +115,8 @@ const mapStateToProps = (state) => {
         visibleRegistrations: getVisibleRegistrations(state.resultReducer),
         hasErrored: state.resultReducer.hasErrored,
         isLoading: state.resultReducer.isLoading,
-        time: state.resultReducer.time
+        time: state.resultReducer.time,
+        limitTime: moment.duration(state.resultReducer.limitTime)
     }
 }
 

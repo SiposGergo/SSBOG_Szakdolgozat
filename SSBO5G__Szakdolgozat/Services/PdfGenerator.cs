@@ -36,21 +36,19 @@ namespace SSBO5G__Szakdolgozat.Services
                     Document document = new Document(pdfDocument, PageSize.A4.Rotate());
                     pdfDocument.SetCloseWriter(false);
                     Paragraph header = new Paragraph();
-                    header.AddTabStops(new TabStop(PageSize.A4.GetHeight() / 2, iText.Layout.Properties.TabAlignment.CENTER));
+                    header.AddTabStops(new TabStop((PageSize.A4.GetHeight() - document.GetLeftMargin() - document.GetRightMargin()) / 2, iText.Layout.Properties.TabAlignment.CENTER));
                     header.SetFont(normalFont);
                     header.SetFontSize(80);
                     header.Add(new Tab());
                     header.Add(isInLimitTime ? "Oklevél" : "Emléklap");
                     document.Add(header);
                     Paragraph body = new Paragraph();
-                    body.AddTabStops(new TabStop(PageSize.A4.GetHeight() / 2, iText.Layout.Properties.TabAlignment.CENTER));
-                    body.Add(new Tab());
                     body.SetFont(normalFont);
                     body.SetFontSize(32);
                     body.Add($"{registration.Hiker.Name} számára, aki " +
                         $"{(isInLimitTime ? "szintidőn belül" : "")} teljesítette a " +
-                        $"{course.Name} túrát!" +
-                        $"\n(idő: {registration.Passes[registration.Passes.Count - 1].NettoTime.Value.ToString("hh\\:mm\\:ss")})");
+                        $"{course.Name} túrát! " +
+                        $"(idő: {registration.Passes[registration.Passes.Count - 1].NettoTime.Value.ToString("hh\\:mm\\:ss")})");
                     document.Add(body);
                     document.Close();
                     pdfDocument.Close();

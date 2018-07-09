@@ -10,5 +10,6 @@ namespace SSBO5G__Szakdolgozat.Dtos
     {
         public ICollection<CheckPointDto> Checkpoints { get; set; }
         public ICollection<RegistrationWithPassesDto> Registrations { get; set; }
+        public TimeSpan LimitTime { get; set; }
     }
 }
