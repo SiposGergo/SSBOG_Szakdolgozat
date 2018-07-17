@@ -51,7 +51,7 @@ const validate = (values, props) => {
         && typeof (values.beginningOfStart) != "string") {
         const begginingDate = values.beginningOfStart.toDate();
         const endDate = values.endOfStart.toDate();
-        if (begginingDate > endDate) {
+        if (begginingDate >= endDate) {
             errors.endOfStart = 'Nem lehet vége a rajtnak mielőtt elkezdődött volna!!';
         }
     }
@@ -66,8 +66,7 @@ const validate = (values, props) => {
 
     if (values.registerDeadline && typeof (values.registerDeadline) != "string") {
         const baseDateInDate = moment(props.baseDate).toDate();
-        const newMoment = moment(values.registerDeadline.format());
-        const registerDeadlineInDate = newMoment.add(1, "days").toDate();
+        const registerDeadlineInDate = moment(values.registerDeadline.format());
         if (baseDateInDate < registerDeadlineInDate) {
             errors.registerDeadline = 'A nevezés határideje csak a túra napja előtt lehet!';
         }

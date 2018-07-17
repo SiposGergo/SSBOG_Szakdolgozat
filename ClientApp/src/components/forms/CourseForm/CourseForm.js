@@ -14,17 +14,19 @@ const CourseForm = props => {
       <CourseDataFieldsCard
         change={change}
         baseDate={baseDate}
-        title={props.title} />
+        title={props.title}
+        initialValues={props.initialValues}
+      />
 
       <FieldArray change={change}
         name="checkPoints"
         baseDate={baseDate}
         component={renderCheckpoints}
         initialValues={props.initialValues}
-        submitting = {submitting} />
+        submitting={submitting} />
 
       <div>
-        
+
       </div>
     </form>
   );

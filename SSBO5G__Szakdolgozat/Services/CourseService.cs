@@ -60,6 +60,10 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("túra");
             }
+            if (hike.Date <= DateTime.Now)
+            {
+                throw new ApplicationException("Ehhez a túrához már nem adhatsz új távot!");
+            }
             if (hike.Courses.Any(x=>x.Distance ==hikeCourse.Distance))
             {
                 throw new ApplicationException("Egy túrán belül nem lehet két azonos táv!");

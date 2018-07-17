@@ -8,7 +8,7 @@ export const renderCheckpoints = ({ baseDate, submitting, initialValues, change,
     <div style={{ margin: "15px" }}>
         <button type="button" className="btn btn-green" onClick={() => fields.push({})}>Új ellenőrzőpont</button>
         <button type="submit" className="btn btn-green" disabled={submitting}>Elküld</button>
-        {(touched || submitFailed) && error && <span>{error}</span>}
+        {(touched || submitFailed) && error && <span className="help-block">{error}</span>}
         <div className="row">
             {fields.map((course, index) =>
                 <div className="card card-green checkpoint-card" key={index} style={{ minWidth: "370px" }}>

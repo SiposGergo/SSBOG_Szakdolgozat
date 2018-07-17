@@ -89,7 +89,7 @@ namespace SSBO5G__Szakdolgozat.Services
             }
             if (hike.Date < DateTime.Now)
             {
-                throw new ApplicationException("A múltba nem szervezünk túrát!");
+                throw new ApplicationException("Nem adhatsz meg múltbeli vagy mai dátumot!");
             }
             await context.Hikes.AddAsync(hike);
             await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId});
@@ -114,7 +114,11 @@ namespace SSBO5G__Szakdolgozat.Services
             }
             if (hike.Date < DateTime.Now)
             {
-                throw new ApplicationException("Nem módosíthatd a túra dátumát a mai napnál régebbre!!");
+                throw new ApplicationException("Nem módosíthatd a túra dátumát a mai napra vagy régebbre!!");
+            }
+            if (hikeFromDb.Date < DateTime.Now)
+            {
+                throw new ApplicationException("Már elkezdődött túrát nem módosíthatsz!");
             }
             hikeFromDb.Name = hike.Name;
             hikeFromDb.Description = hike.Description;
