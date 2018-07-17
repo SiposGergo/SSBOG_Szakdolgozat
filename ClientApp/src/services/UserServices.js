@@ -9,7 +9,8 @@ export const userService = {
     getById,
     update,
     postChangePasswordService,
-    postForgottenPasswordService
+    postForgottenPasswordService,
+    getAuthTestService
 };
 
 function login(username, password) {
@@ -81,4 +82,12 @@ function postForgottenPasswordService(dto) {
         body : JSON.stringify(dto)
     };
     return fetch(config.apiUrl + '/users/forgotten-password/', requestOptions).then(handleResponse, handleError);
+}
+
+function getAuthTestService() {
+    const requestOptions = {
+        method: 'GET',
+        headers: {...authHeader()},
+    };
+    return fetch(config.apiUrl + '/users/test/', requestOptions).then(handleResponse, handleError);
 }

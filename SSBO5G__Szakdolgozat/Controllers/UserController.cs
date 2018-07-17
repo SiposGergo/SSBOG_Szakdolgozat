@@ -36,6 +36,12 @@ namespace SSBO5G__Szakdolgozat.Controllers
             this.appSettings = appSettings.Value;
         }
 
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok();
+        }
+
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]HikerDto hikerDto)
@@ -53,7 +59,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

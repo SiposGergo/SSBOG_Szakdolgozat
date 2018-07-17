@@ -68,11 +68,12 @@ namespace SSBO5G__Szakdolgozat
             // Configure CORS
             services.AddCors(options =>
             {
-                options.AddPolicy("x",
-                    builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+            options.AddPolicy("x",
+                builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithExposedHeaders("WWW-Authenticate")
+                .AllowCredentials());
             });
 
             // Auth & JWT
@@ -102,7 +103,8 @@ namespace SSBO5G__Szakdolgozat
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    ClockSkew = new TimeSpan(0, 0, 0)
                 };
             });
         }
@@ -121,11 +123,7 @@ namespace SSBO5G__Szakdolgozat
 
             app.UseStaticFiles();
 
-            app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0.1:8080")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials());
+            app.UseCors("x");
 
             app.UseMvc();
             app.UseAuthentication();

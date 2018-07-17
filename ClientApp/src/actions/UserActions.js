@@ -45,8 +45,9 @@ function login(username, password) {
 function logout() {
     userService.logout();
     history.push("/login");
-    return { type: 'USERS_LOGOUT' };
+    return { type: 'USERS_LOGOUT' };   
 }
+
 
 // regisztráció
 function register(user, history) {

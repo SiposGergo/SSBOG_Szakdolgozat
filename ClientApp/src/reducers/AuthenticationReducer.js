@@ -1,4 +1,7 @@
+import {userService} from "../services/UserServices";
+
 let user = JSON.parse(localStorage.getItem('user'));
+userService.getAuthTestService();
 const initialState = user ? { loggedIn: true, user } : {};
 
 export const authentication = (state = initialState, action) => {
