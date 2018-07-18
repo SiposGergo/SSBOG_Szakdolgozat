@@ -22,7 +22,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
                 UserName = "prosipinho",
-                PhoneNumber = "06309119162",
+                PhoneNumber = "+36309119162",
                 mustChangePassword = false
             };
             Hiker h2 = new Hiker
@@ -43,7 +43,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
                 UserName = "gyuri",
-                PhoneNumber = "06303084317",
+                PhoneNumber = "+36303084317",
                 mustChangePassword = false
             };
             Hiker h4 = new Hiker
@@ -54,7 +54,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "Nagyréde",
                 UserName = "laci02",
-                PhoneNumber = "06303084417",
+                PhoneNumber = "+36303084417",
                 mustChangePassword = false
             };
             Hiker h5 = new Hiker
@@ -65,7 +65,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Male,
                 Town = "BörzsönyValami",
                 UserName = "peti1",
-                PhoneNumber = "063077111012",
+                PhoneNumber = "+363077111012",
                 mustChangePassword = false
             };
             Hiker h6 = new Hiker
@@ -76,7 +76,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 Gender = GenderTypes.Female,
                 Town = "Szeged",
                 UserName = "pralexa",
-                PhoneNumber = "063077111012",
+                PhoneNumber = "+363077111012",
                 mustChangePassword = false
             };
 
@@ -508,91 +508,6 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 }
                 );
             context.SaveChanges();
-
-            ////////////Teljesítések//////////
-            //context.Participations.AddRange(
-            //    new Participation { CourseId = 1, HikerId = 1 },
-            //    new Participation { CourseId = 1, HikerId = 2 }
-            //    );
-            //context.SaveChanges();
-
-
-            ////////////áthaladások//////////
-            //context.CheckPointPasses.AddRange(
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 1,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 7, 10, 0)
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 2,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 8, 10, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 3,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 8, 50, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 4,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 9, 40, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 5,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 10, 25, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 6,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 11, 0, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 7,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 11, 46, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 8,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 12, 40, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 9,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 13, 40, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 10,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 14, 40, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 11,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 15, 25, 0),
-            //    },
-            //    new CheckPointPass
-            //    {
-            //        CheckPointId = 12,
-            //        ParticipationId = 1,
-            //        TimeStamp = new DateTime(2018, 03, 09, 16, 10, 0),
-            //    }
-            //        );
-            //context.SaveChanges();
         }
 
         public static void Fil2(ApplicationContext context)
@@ -701,66 +616,6 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      HikerId = 4,
                      StartNumber = "89405"
                  }
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 1,
-                //     StartNumber = "89406"
-                // },
-                //new Registration
-                //{
-                //    HikeCourseId = 5,
-                //    HikerId = 3,
-                //    StartNumber = "89407"
-                //},
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 6,
-                //     StartNumber = "89408"
-                // },
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 2,
-                //     StartNumber = "89409"
-                // },
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 4,
-                //     StartNumber = "894010"
-                // },
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 1,
-                //     StartNumber = "894011"
-                // },
-                //new Registration
-                //{
-                //    HikeCourseId = 5,
-                //    HikerId = 3,
-                //    StartNumber = "894012"
-                //},
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 6,
-                //     StartNumber = "894013"
-                // },
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 2,
-                //     StartNumber = "894014"
-                // },
-                // new Registration
-                // {
-                //     HikeCourseId = 5,
-                //     HikerId = 4,
-                //     StartNumber = "894015"
-                // }
                 );
             context.SaveChanges();
 

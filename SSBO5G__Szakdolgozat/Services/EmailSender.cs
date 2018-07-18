@@ -15,8 +15,8 @@ namespace SSBO5G__Szakdolgozat.Services
     }
     public class EmailSender : IEmailSender
     {
-        string passWord;
-        string userName;
+        private readonly string passWord;
+        private readonly string userName;
         public EmailSender(string userName, string passWord)
         {
             this.userName = userName;

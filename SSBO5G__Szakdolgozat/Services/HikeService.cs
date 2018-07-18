@@ -21,7 +21,8 @@ namespace SSBO5G__Szakdolgozat.Services
     }
     public class HikeService : IHikeService
     {
-        ApplicationContext context;
+        private readonly ApplicationContext context;
+
         public HikeService(ApplicationContext context)
         {
             this.context = context;

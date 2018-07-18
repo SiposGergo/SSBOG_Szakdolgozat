@@ -16,7 +16,7 @@ namespace SSBO5G__Szakdolgozat.Services
     }
     public class RegistrationService: IRegistrationService
     {
-        private ApplicationContext context;
+        private readonly ApplicationContext context;
         public RegistrationService(ApplicationContext context)
         {
             this.context = context;

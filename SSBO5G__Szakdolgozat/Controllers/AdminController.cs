@@ -13,14 +13,15 @@ namespace SSBO5G__Szakdolgozat.Controllers
     [Route("[Controller]/")]
     public class AdminController : MyController
     {
+        private readonly IMapper mapper;
+        private readonly IAdminService adminService;
+
         public AdminController(IMapper mapper, IAdminService adminService)
         {
             this.mapper = mapper;
             this.adminService = adminService;
         }
-        IMapper mapper;
-        IAdminService adminService;
-
+        
         [HttpPost("record-checkpoint-pass")]
         public async Task<IActionResult> Record([FromBody] RecordDto recordDto)
         {

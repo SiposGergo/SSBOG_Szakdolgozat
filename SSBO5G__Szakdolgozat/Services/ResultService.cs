@@ -18,12 +18,35 @@ namespace SSBO5G__Szakdolgozat.Services
     }
     public class ResultService : IResultService
     {
-        ApplicationContext context;
-        IMapper mapper;
+        private readonly ApplicationContext context;
+        private readonly IMapper mapper;
+
         public ResultService(ApplicationContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
+        }
+
+        private void CheckCourse(HikeCourse course)
+        {
+            if (course == null)
+            {
+                throw new NotFoundException("táv");
+            }
+            if (course.BeginningOfStart > DateTime.Now)
+            {
+                throw new ApplicationException("Ez a túra még nem rajtolt el!");
+            }
+        }
+
+        private IOrderedEnumerable<Registration> OrderResults(ICollection<Registration> registrations)
+        {
+            return
+                 registrations
+                .OrderByDescending(x => x.Passes.Count(p => p.TimeStamp != null))
+                .ThenBy(x => x.Passes.Any(p => p.TimeStamp != null) ?
+                    x.Passes.LastOrDefault(p => p.TimeStamp != null).TimeStamp :
+                    new DateTime(1970, 01, 01));
         }
 
         public async Task<IEnumerable<RegistrationWithPassesDto>> GetLiveResult(int courseId)
@@ -36,20 +59,8 @@ namespace SSBO5G__Szakdolgozat.Services
                 .ThenInclude(x => x.Hiker)
                 .SingleOrDefaultAsync();
 
-            if (course == null)
-            {
-                throw new NotFoundException("táv");
-            }
-            if (course.BeginningOfStart > DateTime.Now)
-            {
-                throw new ApplicationException("Ez a túra még nem rajtolt el!");
-            }
-
-            var registrations = course.Registrations
-                .OrderByDescending(x => x.Passes.Count(p => p.TimeStamp != null))
-                .ThenBy(x => x.Passes.Any(p => p.TimeStamp != null) ?
-                    x.Passes.LastOrDefault(p => p.TimeStamp != null).TimeStamp :
-                    new DateTime(1970, 01, 01));
+            CheckCourse(course);
+            var registrations = OrderResults(course.Registrations);
 
             return mapper.Map<IEnumerable<RegistrationWithPassesDto>>(registrations);
         }
@@ -65,20 +76,8 @@ namespace SSBO5G__Szakdolgozat.Services
                 .Include(x => x.CheckPoints)
                 .SingleOrDefaultAsync();
 
-            if (course == null)
-            {
-                throw new NotFoundException("táv");
-            }
-            if (course.BeginningOfStart > DateTime.Now)
-            {
-                throw new ApplicationException("Ez a túra még nem rajtolt el!");
-            }
-
-            var registrations = course.Registrations
-                .OrderByDescending(x => x.Passes.Count(p => p.TimeStamp != null))
-                .ThenBy(x => x.Passes.Any(p => p.TimeStamp != null) ?
-                    x.Passes.LastOrDefault(p => p.TimeStamp != null).TimeStamp :
-                    new DateTime(1970, 01, 01));
+            CheckCourse(course);
+            var registrations = OrderResults(course.Registrations);
 
             return new ResultDto
             {

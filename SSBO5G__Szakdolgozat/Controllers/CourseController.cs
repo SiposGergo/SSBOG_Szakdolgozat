@@ -14,14 +14,15 @@ namespace SSBO5G__Szakdolgozat.Controllers
     [Route("[Controller]/")]
     public class CourseController : MyController
     {
+        private readonly IMapper mapper;
+        private readonly ICourseService courseService;
+
         public CourseController(IMapper mapper, ICourseService courseService)
         {
             this.mapper = mapper;
             this.courseService = courseService;
         }
-        IMapper mapper;
-        ICourseService courseService;
-
+        
         [HttpPut("add/{hikeId}")]
         public async Task<IActionResult> AddCourse(int hikeId, [FromBody] HikeCourseDto hikeCourseDto)
         {

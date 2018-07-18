@@ -13,7 +13,8 @@ namespace SSBO5G__Szakdolgozat.Controllers
     [Route("[Controller]/")]
     public class ResultController : Controller
     {
-        IResultService resultService;
+        private readonly IResultService resultService;
+
         public ResultController(IResultService resultService)
         {
             this.resultService = resultService;

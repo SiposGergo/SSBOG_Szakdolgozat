@@ -25,8 +25,8 @@ namespace SSBO5G__Szakdolgozat.Services
 
     public class UserService : IUserService
     {
-        private ApplicationContext context;
-        private IEmailSender emailSender;
+        private readonly ApplicationContext context;
+        private readonly IEmailSender emailSender;
 
         public UserService(ApplicationContext context, IEmailSender emailSender)
         {
@@ -83,8 +83,7 @@ namespace SSBO5G__Szakdolgozat.Services
             if (context.Hikers.Any(x => x.UserName == user.UserName))
                 throw new ApplicationException("A '" + user.UserName + "' felhasználónév már foglalt.");
 
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
@@ -165,7 +164,7 @@ namespace SSBO5G__Szakdolgozat.Services
             hiker.mustChangePassword = true;
 
             string emailText = $"Kedves {hiker.Name}, a HikeX rendszerben a jelszavad megváltoztatásást kérted.\n" +
-                $"Az új jelszavad: {password}";
+                $"Az új jelszavad: {password}.\n Biztonsági okokból az első belépést követően meg kell változattnod ezt a jelszót!";
 
             await emailSender.SendEmail(hiker.Email,emailText,"Elfelejtett jelszó!");
             await context.SaveChangesAsync();
@@ -196,7 +195,7 @@ namespace SSBO5G__Szakdolgozat.Services
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Az érték nem lehet üres vagy egyetlen szóköz.", "password");
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
@@ -208,7 +207,7 @@ namespace SSBO5G__Szakdolgozat.Services
         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
             if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Az érték nem lehet üres vagy egyetlen szóköz.", "password");
             if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
             if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
 

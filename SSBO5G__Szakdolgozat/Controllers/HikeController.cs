@@ -20,13 +20,11 @@ namespace SSBO5G__Szakdolgozat.Controllers
     [Route("[Controller]/")]
     public class HikeController : MyController
     {
-        private ApplicationContext context;
-        private IMapper mapper;
-        IHikeService hikeService;
+        private readonly IMapper mapper;
+        private readonly IHikeService hikeService;
 
         public HikeController(ApplicationContext context, IHikeService service, IMapper mapper)
         {
-            this.context = context;
             hikeService = service;
             this.mapper = mapper;
         }

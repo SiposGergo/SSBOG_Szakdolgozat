@@ -17,8 +17,8 @@ namespace SSBO5G__Szakdolgozat.Controllers
     public class RegisterController : Controller
     {
 
-        IRegistrationService registrationService;
-        IMapper mapper;
+        private readonly IRegistrationService registrationService;
+        private readonly IMapper mapper;
 
         public RegisterController(IMapper mapper, IRegistrationService registrationService)
         {
@@ -32,8 +32,8 @@ namespace SSBO5G__Szakdolgozat.Controllers
             try
             {
                 Registration reg = await registrationService.RegisterToHike(registration);
-                RegistrationDto registrationDto1 = mapper.Map<RegistrationDto>(reg);
-                return Ok(registrationDto1);
+                RegistrationDto registrationDto = mapper.Map<RegistrationDto>(reg);
+                return Ok(registrationDto);
             }
             catch (NotFoundException ex)
             {

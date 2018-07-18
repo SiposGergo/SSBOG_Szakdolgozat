@@ -18,8 +18,8 @@ namespace SSBO5G__Szakdolgozat.Services
 
     public class AdminServices : IAdminService
     {
-        ApplicationContext context;
-        IEmailSender emailSender;
+        private readonly ApplicationContext context;
+        private readonly IEmailSender emailSender;
         public AdminServices(ApplicationContext context, IEmailSender emailSender)
         {
             this.context = context;
@@ -40,7 +40,6 @@ namespace SSBO5G__Szakdolgozat.Services
                 throw new NotFoundException("ellenőrzőpont");
             }
 
-            // if logged in user no helper of the hike
             if (!checkpoint.Course.Hike.Staff.Any(x => x.HikerId == loggedInUserId))
             {
                 throw new UnauthorizedException();
@@ -64,7 +63,7 @@ namespace SSBO5G__Szakdolgozat.Services
             Registration registration = await context.Registrations
                 .Where(x => x.StartNumber == recordDto.StartNumber)
                 .Include(x => x.Passes)
-                .Include(x=>x.Hiker)
+                .Include(x => x.Hiker)
                 .SingleOrDefaultAsync();
 
             int min = checkpoint.Course.CheckPoints.ToList().Min(x => x.Id);
@@ -82,7 +81,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 registration.Passes = new List<CheckPointPass>(size);
                 for (int i = 0; i < size; i++)
                 {
-                    registration.Passes.Add(new CheckPointPass { TimeStamp = null });
+                    registration.Passes.Add(new CheckPointPass { TimeStamp = null, NettoTime = null });
                 }
             }
 
@@ -96,10 +95,10 @@ namespace SSBO5G__Szakdolgozat.Services
                 CheckPointId = recordDto.CheckpointId,
                 RegistrationId = registration.Id,
                 TimeStamp = recordDto.TimeStamp,
-                NettoTime = cpId == 0 ? new TimeSpan(0,0,0) : recordDto.TimeStamp - registration.Passes[0].TimeStamp,
+                NettoTime = cpId == 0 ? new TimeSpan(0, 0, 0) : recordDto.TimeStamp - registration.Passes[0].TimeStamp,
             };
 
-            registration.AvgSpeed = cpId == 0 ? 0 : Math.Round((checkpoint.DistanceFromStart / 1000) / registration.Passes[cpId].NettoTime.Value.TotalHours,2);        
+            registration.AvgSpeed = cpId == 0 ? 0 : Math.Round((checkpoint.DistanceFromStart / 1000) / registration.Passes[cpId].NettoTime.Value.TotalHours, 2);
 
             for (int i = 1; i < registration.Passes.Count; i++)
             {
@@ -113,7 +112,7 @@ namespace SSBO5G__Szakdolgozat.Services
 
             if (checkpoint.Id == max)
             {
-                emailSender.SendEmail(
+                await emailSender.SendEmail(
                     registration.Hiker.Email,
                      $"Gratulálunk a {checkpoint.Course.Name} túra sikeres teljesítéséhez!",
                      "Túra teljesítés",

@@ -22,8 +22,8 @@ namespace SSBO5G__Szakdolgozat.Controllers
     [Route("[controller]")]
     public class UsersController : MyController
     {
-        private IUserService userService;
-        private IMapper mapper;
+        private readonly IUserService userService;
+        private readonly IMapper mapper;
         private readonly AppSettings appSettings;
 
         public UsersController(
@@ -50,7 +50,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
 
             if (user == null)
                 return BadRequest("A felahsználónév vagy jelszó helytelen.");
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -64,7 +64,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-            
+
             return Ok(new
             {
                 Id = user.Id,
@@ -86,7 +86,6 @@ namespace SSBO5G__Szakdolgozat.Controllers
         public IActionResult Register([FromBody]HikerDto hikerDto)
         {
             var user = mapper.Map<Hiker>(hikerDto);
-
             try
             {
                 userService.Create(user, hikerDto.Password);
@@ -141,7 +140,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
         }
 
         [HttpGet("user/{id}")]
-        public async Task <IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
@@ -153,7 +152,7 @@ namespace SSBO5G__Szakdolgozat.Controllers
             {
                 return NotFound(ex.Message);
             }
-            
+
         }
 
         [HttpPut("edit/{id}")]
@@ -166,7 +165,6 @@ namespace SSBO5G__Szakdolgozat.Controllers
                 return Forbid();
             }
             user.Id = id;
-
             try
             {
                 userService.Update(user, userDto.Password);
