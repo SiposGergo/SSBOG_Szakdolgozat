@@ -131,7 +131,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("túrázó");
             }
-            if (String.IsNullOrWhiteSpace(dto.CurrentPassword) || String.IsNullOrWhiteSpace(dto.NewPassword))
+            if (dto == null || String.IsNullOrWhiteSpace(dto.CurrentPassword) || String.IsNullOrWhiteSpace(dto.NewPassword))
             {
                 throw new ApplicationException("Helytelenül megadott adatok");
             }

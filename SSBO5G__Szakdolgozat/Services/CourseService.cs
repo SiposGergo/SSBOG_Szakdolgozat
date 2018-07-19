@@ -40,7 +40,7 @@ namespace SSBO5G__Szakdolgozat.Services
                     throw new ApplicationException("Az ellenőrzőpontok távolság adatai helytelenek!");
                 }
                 else
-                {
+                { 
                     dist = cp.DistanceFromStart;
                 }
             }
@@ -81,6 +81,10 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("A start távolsága a starttól 0 méter!");
             }
+            if (hikeCourse.CheckPoints.Last().DistanceFromStart != hikeCourse.Distance)
+            {
+                throw new ApplicationException("A cél távolsága a rajttól megegyezik a távval!");
+            }
             CheckCheckPoints(hikeCourse.CheckPoints);
             hikeCourse.BeginningOfStart = RemoveSecondsFromDateTime(hikeCourse.BeginningOfStart);
             hikeCourse.EndOfStart = RemoveSecondsFromDateTime(hikeCourse.EndOfStart);
@@ -92,18 +96,6 @@ namespace SSBO5G__Szakdolgozat.Services
             hikeCourse.HikeId = hike.Id;
             hike.Courses.Add(hikeCourse);
             await context.SaveChangesAsync();
-        }
-
-        public async Task<HikeCourse> GetCourse(int courseId)
-        {
-            HikeCourse course = await context.Courses
-                .Include(x => x.CheckPoints)
-                .SingleOrDefaultAsync(x => x.Id == courseId);
-            if (course == null)
-            {
-                throw new NotFoundException("táv!");
-            }
-            return course;
         }
 
         public async Task UpdateCourse(int userId, int courseId, HikeCourse courseParam )
@@ -132,9 +124,13 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("A rajt után már nem lehet változtatni!");
             }
-            if (course.CheckPoints.ElementAt(0).DistanceFromStart != 0)
+            if (courseParam.CheckPoints.ElementAt(0).DistanceFromStart != 0)
             {
                 throw new ApplicationException("A start távolsága a starttól 0 méter!");
+            }
+            if (courseParam.CheckPoints.Last().DistanceFromStart != courseParam.Distance)
+            {
+                throw new ApplicationException("A cél távolsága a rajttól megegyezik a távval!");
             }
             CheckCheckPoints(courseParam.CheckPoints);
             context.CheckPoints.RemoveRange(course.CheckPoints);
@@ -158,6 +154,18 @@ namespace SSBO5G__Szakdolgozat.Services
             course.EndOfStart = courseParam.EndOfStart;
             course.CheckPoints = courseParam.CheckPoints;
             await context.SaveChangesAsync();
+        }
+
+        public async Task<HikeCourse> GetCourse(int courseId)
+        {
+            HikeCourse course = await context.Courses
+                .Include(x => x.CheckPoints)
+                .SingleOrDefaultAsync(x => x.Id == courseId);
+            if (course == null)
+            {
+                throw new NotFoundException("táv!");
+            }
+            return course;
         }
 
         public async Task<byte[]> GetPdfCourseInfo(int courseId, int loggedInUserId)

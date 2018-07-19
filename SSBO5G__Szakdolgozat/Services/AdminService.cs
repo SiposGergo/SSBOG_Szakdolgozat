@@ -16,11 +16,11 @@ namespace SSBO5G__Szakdolgozat.Services
         Task<string> RecordCheckpointPass(int loggedInUserId, RecordDto recordDto);
     }
 
-    public class AdminServices : IAdminService
+    public class AdminService : IAdminService
     {
         private readonly ApplicationContext context;
         private readonly IEmailSender emailSender;
-        public AdminServices(ApplicationContext context, IEmailSender emailSender)
+        public AdminService(ApplicationContext context, IEmailSender emailSender)
         {
             this.context = context;
             this.emailSender = emailSender;

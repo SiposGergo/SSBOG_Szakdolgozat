@@ -76,7 +76,10 @@ namespace SSBO5G__Szakdolgozat.Controllers
             {
                 return NotFound(ex.Message);
             }
-
+            catch (ApplicationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("add")]

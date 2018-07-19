@@ -41,6 +41,14 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("túra");
             }
+            if (String.IsNullOrWhiteSpace(comment.CommentText))
+            {
+                throw new ApplicationException("Üres komment szöveg!");
+            }
+            if (comment.TimeStamp == null)
+            {
+                throw new ApplicationException("Nincs időbélyeg!");
+            }
             comment.Author = hiker;
             comment.Hike = hike;
             await context.Comments.AddAsync(comment);
@@ -88,9 +96,9 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("felhasználó");
             }
-            if (hike.Date < DateTime.Now)
+            if (hike.Date == null ||hike.Date < DateTime.Now)
             {
-                throw new ApplicationException("Nem adhatsz meg múltbeli vagy mai dátumot!");
+                throw new ApplicationException("Nem megfelelő dátum!");
             }
             await context.Hikes.AddAsync(hike);
             await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId});
