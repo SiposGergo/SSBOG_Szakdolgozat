@@ -6,11 +6,9 @@ import HikeListFilter from "./HikeListFilter.js";
 import LoadSpinner from "../LoadSpinner";
 import { itemsFetchData, reset } from "../../actions/HikeListActions"
 
-const API = "http://localhost:4242/Hike/all";
-
 export class HikeListPage extends React.Component {
     componentDidMount() {
-        this.props.fetchData(API);
+        this.props.fetchData();
     }
 
     componentWillUnmount() {
@@ -52,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(itemsFetchData(url)),
+        fetchData: () => dispatch(itemsFetchData()),
         reset: () => dispatch(reset())
     };
 };

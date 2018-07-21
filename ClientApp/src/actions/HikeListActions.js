@@ -1,4 +1,4 @@
-import {getTodayHikesService} from "../services/HikeService"
+import {getTodayHikesService, getHikeListService} from "../services/HikeService"
 
 export const setTextFilter = (text = "") => ({
     type: "SET_TEXT_FILTER",
@@ -60,20 +60,14 @@ export function reset() {
     };
 }
 
-export function itemsFetchData(url) {
+export function itemsFetchData() {
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
-        fetch(url)
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
-                dispatch(itemsIsLoading(false));
-                return response;
-            })
-            .then((response) => response.json())
-            .then((items) => dispatch(itemsFetchDataSuccess(items)))
-            .catch(() => dispatch(itemsHasErrored(true)));
+        getHikeListService()
+            .then(
+                items => {dispatch(itemsFetchDataSuccess(items)); dispatch(itemsIsLoading(false));},
+                error => {dispatch(itemsHasErrored(true))}
+            );
     };
 }
 

@@ -261,7 +261,9 @@ __pycache__/
 *.pyc
 
 # babel kimenet
-
 ClientApp/public/dist
+
 SSBO5G__Szakdolgozat/appsettings.json
+
+SSBO5G__Szakdolgozat/Migrations
 

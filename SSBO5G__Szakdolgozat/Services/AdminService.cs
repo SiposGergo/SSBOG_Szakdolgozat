@@ -81,7 +81,13 @@ namespace SSBO5G__Szakdolgozat.Services
                 registration.Passes = new List<CheckPointPass>(size);
                 for (int i = 0; i < size; i++)
                 {
-                    registration.Passes.Add(new CheckPointPass { TimeStamp = null, NettoTime = null });
+                    registration.Passes.Add(new CheckPointPass
+                    {
+                        TimeStamp = null,
+                        NettoTime = null,
+                        RegistrationId = registration.Id,
+                        CheckPointId = min + i
+                    });
                 }
             }
 
@@ -90,13 +96,11 @@ namespace SSBO5G__Szakdolgozat.Services
                 throw new ApplicationException("Egy cél idő már rögzítésre került korábban!");
             }
 
-            registration.Passes[cpId] = new CheckPointPass
-            {
-                CheckPointId = recordDto.CheckpointId,
-                RegistrationId = registration.Id,
-                TimeStamp = recordDto.TimeStamp,
-                NettoTime = cpId == 0 ? new TimeSpan(0, 0, 0) : recordDto.TimeStamp - registration.Passes[0].TimeStamp,
-            };
+            CheckPointPass pass = registration.Passes[cpId];
+            //pass.CheckPointId = recordDto.CheckpointId;
+            pass.TimeStamp = recordDto.TimeStamp;
+            pass.NettoTime = cpId == 0 ? new TimeSpan(0, 0, 0) : recordDto.TimeStamp - registration.Passes[0].TimeStamp;
+
 
             registration.AvgSpeed = cpId == 0 ? 0 : Math.Round((checkpoint.DistanceFromStart / 1000) / registration.Passes[cpId].NettoTime.Value.TotalHours, 2);
 

@@ -16,14 +16,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using System.Data.Common;
 
 namespace SSBO5G__Szakdolgozat
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        public IHostingEnvironment Environment { get; }
+
+        public Startup(IHostingEnvironment environment, IConfiguration configuration)
         {
+            Environment = environment;
             Configuration = configuration;
         }
 
@@ -61,19 +65,27 @@ namespace SSBO5G__Szakdolgozat
                     x.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 });
 
-            // Database context
-            services.AddDbContext<ApplicationContext>(
-                options => options.UseInMemoryDatabase("myDatabse"));
+
+            if (Environment.IsDevelopment())
+            {
+                services.AddDbContext<ApplicationContext>(
+                options => options.UseInMemoryDatabase("MyDb"));
+            }
+            //else
+            {
+                services.AddDbContext<ApplicationContext>(
+                options => options.UseSqlServer("Data Source=tcp:hikexdbserver.database.windows.net,1433;Initial Catalog=hikex_sys_db;User Id=prosipinho@hikexdbserver;Password=hike1855X"));
+            }
 
             // Configure CORS
             services.AddCors(options =>
             {
-            options.AddPolicy("x",
-                builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .WithExposedHeaders("WWW-Authenticate")
-                .AllowCredentials());
+                options.AddPolicy("x",
+                    builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithExposedHeaders("WWW-Authenticate")
+                    .AllowCredentials());
             });
 
             // Auth & JWT
@@ -128,9 +140,12 @@ namespace SSBO5G__Szakdolgozat
             app.UseMvc();
             app.UseAuthentication();
 
-            DbSeeder.FillWithTestData(context);
-            DbSeeder.Fil2(context);
 
+            if (env.IsDevelopment())
+            {
+                DbSeeder.FillWithTestData(context);
+                DbSeeder.Fil2(context);
+            }
         }
     }
 }

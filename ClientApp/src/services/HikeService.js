@@ -85,3 +85,12 @@ export function getTodayHikesService() {
     return fetch(config.apiUrl + '/Hike/today/', requestOptions)
         .then(handleResponse, handleError, );
 }
+
+export function getHikeListService() {
+    const requestOptions = {
+        method: 'GET'
+    };
+
+    return fetch(config.apiUrl + '/Hike/all/', requestOptions)
+        .then(handleResponse, handleError, );
+}

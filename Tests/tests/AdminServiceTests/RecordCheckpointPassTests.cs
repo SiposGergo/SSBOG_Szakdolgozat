@@ -174,16 +174,17 @@ namespace Tests.tests.AdminServiceTests
         {
             var dbOptions = new DbContextOptionsBuilder<ApplicationContext>()
                    .UseInMemoryDatabase("RecordCheckpointPassFinish")
+                   .EnableSensitiveDataLogging()
                    .Options;
             AdminServiceTestData.GetTestData(dbOptions);
 
             using (var db = new ApplicationContext(dbOptions))
             {
                 db.Registrations.Find(1).Passes = new List<CheckPointPass> {
-                    new CheckPointPass { CheckPointId = 1, TimeStamp = DateTime.Now},
-                    new CheckPointPass(),
-                    new CheckPointPass(),
-                    new CheckPointPass()
+                    new CheckPointPass {RegistrationId = 1, CheckPointId = 1, TimeStamp = DateTime.Now},
+                    new CheckPointPass(){ },
+                    new CheckPointPass(){ },
+                    new CheckPointPass(){}
                 };
                 db.SaveChanges();
             }

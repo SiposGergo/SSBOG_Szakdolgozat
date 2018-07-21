@@ -11,7 +11,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
         public AutoMapperProfile()
         {
             CreateMap<Hiker, HikerDto>();
-            CreateMap<HikerDto, Hiker>();
+            CreateMap<HikerDto, Hiker>()
+                .ForMember(x=> x.Registrations, opt => opt.Ignore());
 
             CreateMap<CommentDto, Comment>().ForMember(x => x.Hike, opt => opt.Ignore());
 
