@@ -92,8 +92,8 @@ class CourseResultPage extends React.Component {
                                                     this.props.checkpoints.map(cp => {
                                                         const pass = reg.passes.find((reg) => reg.checkPointId == cp.id);
                                                         return (<td key={cp.id}>
-                                                            {this.props.time == "brutto" && pass ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
-                                                            {this.props.time == "netto" && pass ? moment.duration(pass.nettoTime).format(config.timeFormatLong, { trim: false }) : ""}
+                                                            {this.props.time == "brutto" && pass && pass.timeStamp ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
+                                                            {this.props.time == "netto" && pass && pass.nettoTime ? moment.duration(pass.nettoTime).format(config.timeFormatLong, { trim: false }) : ""}
                                                         </td>)
                                                     })
                                                 }
