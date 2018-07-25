@@ -61,7 +61,7 @@ namespace SSBO5G__Szakdolgozat.Services
             }
 
             Registration registration = await context.Registrations
-                .Where(x => x.StartNumber == recordDto.StartNumber)
+                .Where(x => x.StartNumber == recordDto.StartNumber && x.HikeCourseId == checkpoint.CourseId)
                 .Include(x => x.Passes)
                 .Include(x => x.Hiker)
                 .SingleOrDefaultAsync();

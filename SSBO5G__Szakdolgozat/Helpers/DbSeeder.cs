@@ -686,13 +686,13 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 {
                     HikeCourseId = 6,
                     HikerId = 1,
-                    StartNumber = "100001"
+                    StartNumber = "89401"
                 },
                 new Registration
                 {
                     HikeCourseId = 6,
                     HikerId = 3,
-                    StartNumber = "100002"
+                    StartNumber = "89402"
                 }
                 );
             context.SaveChanges();
