@@ -81,7 +81,7 @@ namespace SSBO5G__Szakdolgozat
             services.AddCors(options =>
             {
                 options.AddPolicy("x",
-                    builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080")
+                    builder => builder.WithOrigins("http://localhost:4242", "http://127.0.0:4242", "http://localhost:8080", "http://127.0.0:8080", "https://hikex-frontend.azurewebsites.net")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .WithExposedHeaders("WWW-Authenticate")

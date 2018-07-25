@@ -85,6 +85,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("A cél távolsága a rajttól megegyezik a távval!");
             }
+            hikeCourse.RegisterDeadline = new DateTime(hikeCourse.RegisterDeadline.Year, hikeCourse.RegisterDeadline.Month, hikeCourse.RegisterDeadline.Day, 23, 59, 59);
             CheckCheckPoints(hikeCourse.CheckPoints);
             hikeCourse.BeginningOfStart = RemoveSecondsFromDateTime(hikeCourse.BeginningOfStart);
             hikeCourse.EndOfStart = RemoveSecondsFromDateTime(hikeCourse.EndOfStart);
@@ -141,6 +142,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 checkPoint.Open = RemoveSecondsFromDateTime(checkPoint.Open);
                 checkPoint.Close = RemoveSecondsFromDateTime(checkPoint.Close);
             }
+            course.RegisterDeadline = new DateTime(course.RegisterDeadline.Year, course.RegisterDeadline.Month, course.RegisterDeadline.Day, 23, 59, 59);
             course.Name = courseParam.Name;
             course.Distance = courseParam.Distance;
             course.Elevation = courseParam.Distance;
