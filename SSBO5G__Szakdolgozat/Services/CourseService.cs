@@ -61,7 +61,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("túra");
             }
-            if (hike.Date <= DateTime.Now)
+            if (hike.Date <= DateTime.UtcNow)
             {
                 throw new ApplicationException("Ehhez a túrához már nem adhatsz új távot!");
             }
@@ -121,7 +121,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Nem lehetséges a már nevezettek száma alá vinni a létszámkorlátot!");
             }
-            if (DateTime.Now > course.BeginningOfStart)
+            if (DateTime.UtcNow > course.BeginningOfStart)
             {
                 throw new ApplicationException("A rajt után már nem lehet változtatni!");
             }

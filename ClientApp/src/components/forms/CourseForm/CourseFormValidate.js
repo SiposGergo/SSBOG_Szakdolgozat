@@ -2,7 +2,6 @@ import validator from "validator";
 import moment from "moment";
 
 const validate = (values, props) => {
-    console.log(values)
     const errors = {};
     if (!values.name) {
         errors.name = 'A táv nevét kötelező megadni!';
@@ -59,6 +58,10 @@ const validate = (values, props) => {
     if (!values.limitTime) {
         errors.limitTime = 'A szintidőt kötelező megadni!';
     }
+    else if (values.limitTime > 24){
+        errors.limitTime = 'A szintidő nem lehet 24 óránál több!';
+    }
+
 
     if (!values.registerDeadline) {
         errors.registerDeadline = 'A nevezés határidejét kötelező megadni!';

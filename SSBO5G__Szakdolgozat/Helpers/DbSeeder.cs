@@ -132,28 +132,28 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     AuthorId = 1,
                     HikeId = 1,
                     CommentText = "slalalalalalaaa",
-                    TimeStamp = DateTime.Now
+                    TimeStamp = DateTime.UtcNow
                 },
                 new Comment
                 {
                     AuthorId = 2,
                     HikeId = 1,
                     CommentText = "lollooll",
-                    TimeStamp = DateTime.Now
+                    TimeStamp = DateTime.UtcNow
                 },
                 new Comment
                 {
                     AuthorId = 3,
                     HikeId = 1,
                     CommentText = ":DDD",
-                    TimeStamp = DateTime.Now
+                    TimeStamp = DateTime.UtcNow
                 },
                 new Comment
                 {
                     AuthorId = 2,
                     HikeId = 2,
                     CommentText = "trolololoolo",
-                    TimeStamp = DateTime.Now
+                    TimeStamp = DateTime.UtcNow
                 });
             context.SaveChanges();
 

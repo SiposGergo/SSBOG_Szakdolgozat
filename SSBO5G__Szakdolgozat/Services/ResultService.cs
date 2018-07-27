@@ -33,7 +33,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("táv");
             }
-            if (course.BeginningOfStart > DateTime.Now)
+            if (course.BeginningOfStart > DateTime.UtcNow)
             {
                 throw new ApplicationException("Ez a túra még nem rajtolt el!");
             }

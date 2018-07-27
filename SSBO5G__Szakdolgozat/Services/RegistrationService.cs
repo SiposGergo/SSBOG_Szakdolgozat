@@ -43,7 +43,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Ez a regisztráció már létezik!");
             }
-            if (course.RegisterDeadline < DateTime.Now )
+            if (course.RegisterDeadline < DateTime.UtcNow )
             {
                 throw new ApplicationException("Lejárt a nevezési határidő!");
             }
@@ -83,7 +83,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Ez a regisztráció nem létezik!");
             }
-            if (DateTime.Now > course.RegisterDeadline)
+            if (DateTime.UtcNow > course.RegisterDeadline)
             {
                 throw new ApplicationException("Az előnevezési határidő után már nem lehetséges a nevezés lemondása!");
             }

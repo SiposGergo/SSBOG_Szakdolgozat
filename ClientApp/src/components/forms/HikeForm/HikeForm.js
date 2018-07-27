@@ -36,7 +36,7 @@ const HikeForm = props => {
           label="Dátum"
           component={Datepicker}
           change={change}
-          initDate={props.initialValues ? moment(props.initialValues.date) : moment()}
+          initDate={props.initialValues ? moment(props.initialValues.date) : moment.utc()}
         />
         <div>
           <button type="submit" disabled={submitting} className="btn btn-green">Elküld</button>

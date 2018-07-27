@@ -15,7 +15,6 @@ class AddCoursePage extends React.Component {
     }
 
     onSubmit = (values) => {
-        console.log(values);
         this.props.dispatch(AddCourseToHike(values, this.props.match.params.id));
     }
 

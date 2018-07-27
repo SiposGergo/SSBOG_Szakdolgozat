@@ -5,7 +5,6 @@ import TimePicker from "../../FormInputs/TimePicker.js"
 import moment from "moment";
 import { Field } from "redux-form";
 
-
 const CourseDataFields = (props) => (
     <div className="row">
         <div className="col-md">
@@ -68,24 +67,25 @@ const CourseDataFields = (props) => (
 
         </div>
         <div className="col-md">
-            <Field name="beginningOfStart"
+            
+        <Field name="beginningOfStart"
                 label="A rajt kezdete"
                 component={TimePicker}
                 change={props.change}
-                initTime={props.initialValues ? moment(props.initialValues.beginningOfStart) : moment(props.baseDate)}
+                initTime={props.initialValues ? moment.utc(props.initialValues.beginningOfStart) : moment.utc(props.baseDate)}
             />
 
             <Field name="endOfStart"
                 label="A rajt vége"
                 component={TimePicker}
                 change={props.change}
-                initTime={props.initialValues ? moment(props.initialValues.endOfStart) : moment(props.baseDate)}
+                initTime={props.initialValues ? moment.utc(props.initialValues.endOfStart) : moment.utc(props.baseDate)}
             />
             <Field name="registerDeadline"
                 label="Nevezési határidő"
                 component={Datepicker}
                 change={props.change}
-                initDate={props.initialValues ? moment(props.initialValues.registerDeadline) : moment(props.baseDate)}
+                initDate={props.initialValues ? moment.utc(props.initialValues.registerDeadline) : moment.utc(props.baseDate)}
             />
 
         </div>

@@ -20,7 +20,7 @@ import RcTimePicker from 'rc-time-picker';
             }
         }
 
-        handleChange = time => {
+        handleChange = time => { 
             this.setState(() => { return { sent: true, time } })
             this.props.change(this.props.input.name, time)
         }

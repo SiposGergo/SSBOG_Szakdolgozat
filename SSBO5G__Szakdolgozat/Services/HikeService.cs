@@ -30,7 +30,7 @@ namespace SSBO5G__Szakdolgozat.Services
 
         public async Task<Comment> AddCommentToHike(Comment comment)
         {
-            comment.TimeStamp = DateTime.Now;
+            comment.TimeStamp = DateTime.UtcNow;
             Hiker hiker = await context.Hikers.FindAsync(comment.AuthorId);
             if (hiker == null)
             {
@@ -96,10 +96,11 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("felhasználó");
             }
-            if (hike.Date == null ||hike.Date < DateTime.Now)
+            if (hike.Date == null ||hike.Date < DateTime.UtcNow)
             {
                 throw new ApplicationException("Nem megfelelő dátum!");
             }
+            hike.Date = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day);
             await context.Hikes.AddAsync(hike);
             await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId});
             await context.SaveChangesAsync();
@@ -121,11 +122,11 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new UnauthorizedException();
             }
-            if (hike.Date < DateTime.Now)
+            if (hike.Date < DateTime.UtcNow)
             {
                 throw new ApplicationException("Nem módosíthatd a túra dátumát a mai napra vagy régebbre!!");
             }
-            if (hikeFromDb.Date < DateTime.Now)
+            if (hikeFromDb.Date < DateTime.UtcNow)
             {
                 throw new ApplicationException("Már elkezdődött túrát nem módosíthatsz!");
             }

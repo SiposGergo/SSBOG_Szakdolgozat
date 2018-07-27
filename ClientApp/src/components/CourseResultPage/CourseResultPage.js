@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux";
-import { getCourseResult, getCourseLiveResult } from "../../actions/ResultActions";
+import { getCourseResult, getCourseLiveResult, deleteData } from "../../actions/ResultActions";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 import { config } from "../../helpers/config";
@@ -36,10 +36,11 @@ class CourseResultPage extends React.Component {
     componentWillUnmount() {
         clearInterval(this.stopBackCount);
         clearInterval(this.stopUpdate);
+        this.props.dispatch(deleteData());
     }
 
     render() {
-        if (this.props.hasErrored) return (<div>Hiba!</div>)
+        if (this.props.hasErrored) return (<div>Hiba! {this.props.error}</div>)
         if (this.props.isLoading) return (<LoadSpinner />)
 
 
@@ -92,7 +93,7 @@ class CourseResultPage extends React.Component {
                                                     this.props.checkpoints.map(cp => {
                                                         const pass = reg.passes.find((reg) => reg.checkPointId == cp.id);
                                                         return (<td key={cp.id}>
-                                                            {this.props.time == "brutto" && pass && pass.timeStamp ? moment(pass.timeStamp).format(config.timeFormatLong) : ""}
+                                                            {this.props.time == "brutto" && pass && pass.timeStamp ? moment.utc(pass.timeStamp).format(config.timeFormatLong) : ""}
                                                             {this.props.time == "netto" && pass && pass.nettoTime ? moment.duration(pass.nettoTime).format(config.timeFormatLong, { trim: false }) : ""}
                                                         </td>)
                                                     })
@@ -114,6 +115,7 @@ const mapStateToProps = (state) => {
         checkpoints: state.resultReducer.checkpoints,
         visibleRegistrations: getVisibleRegistrations(state.resultReducer),
         hasErrored: state.resultReducer.hasErrored,
+        error: state.resultReducer.error,
         isLoading: state.resultReducer.isLoading,
         time: state.resultReducer.time,
         limitTime: moment.duration(state.resultReducer.limitTime)

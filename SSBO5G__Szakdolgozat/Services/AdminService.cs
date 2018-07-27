@@ -50,12 +50,12 @@ namespace SSBO5G__Szakdolgozat.Services
                 throw new ApplicationException($"A {checkpoint.Course.Name} távra nincs nevezés {recordDto.StartNumber} rajtszámmal!");
             }
 
-            if (checkpoint.Open > DateTime.Now)
+            if (checkpoint.Open > DateTime.UtcNow)
             {
                 throw new ApplicationException($"Az ellenőrzőpont csak {checkpoint.Open.ToShortTimeString()} időpontban nyit ki!");
             }
 
-            if (checkpoint.Close < DateTime.Now)
+            if (checkpoint.Close < DateTime.UtcNow)
             {
                 throw new ApplicationException($"Az ellenőrzőpont már bezárt {checkpoint.Close.ToShortTimeString()} időpontban!");
             }

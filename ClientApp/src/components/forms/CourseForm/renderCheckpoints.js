@@ -54,7 +54,7 @@ export const renderCheckpoints = ({ baseDate, submitting, initialValues, change,
                             label="Nyitás"
                             component={TimePicker}
                             change={change}
-                            initTime={(initialValues && initialValues.checkPoints[index]) ? moment(initialValues.checkPoints[index].open) : moment(baseDate)}
+                            initTime={(initialValues && initialValues.checkPoints[index]) ? moment.utc(initialValues.checkPoints[index].open) : moment.utc(baseDate)}
                         />
 
                         <Field
@@ -62,7 +62,7 @@ export const renderCheckpoints = ({ baseDate, submitting, initialValues, change,
                             label="Zárás"
                             component={TimePicker}
                             change={change}
-                            initTime={(initialValues && initialValues.checkPoints[index]) ? moment(initialValues.checkPoints[index].close) : moment(baseDate)}
+                            initTime={(initialValues && initialValues.checkPoints[index]) ? moment.utc(initialValues.checkPoints[index].close) : moment.utc(baseDate)}
                         />
 
                     </div>
