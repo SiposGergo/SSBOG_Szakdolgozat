@@ -22,7 +22,7 @@ class AdminPage extends React.Component {
         const dto = {
             startNumber: this.state.startNumber,
             checkpointId: this.state.checkpoint,
-            timestamp: moment()
+            timestamp: moment.utc()
         }
         this.props.dispatch(postCheckpointPass(dto));
         this.setState({ startNumber: "" });

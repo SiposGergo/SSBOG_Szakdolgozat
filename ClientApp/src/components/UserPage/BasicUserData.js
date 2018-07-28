@@ -7,7 +7,7 @@ import moment from "moment";
         <p>Név: {props.user.name}</p>
         <p>Felhasználónév: {props.user.userName}</p>
         <p>E-mail cím: {props.user.email}</p>
-        <p>Születési dátum: {moment(props.user.dateOfBirth).format(config.dateFormat)}</p>
+        <p>Születési dátum: {moment.utc(props.user.dateOfBirth).local().format(config.dateFormat)}</p>
     </div>
  )
 

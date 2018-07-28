@@ -22,7 +22,7 @@ class CourseDetails extends React.Component {
             })
         }
         const deadline = moment(this.props.course.registerDeadline);
-        const now = moment();
+        const now = moment.utc();
         if (now > deadline) {
             value = false;
         }
@@ -42,7 +42,7 @@ class CourseDetails extends React.Component {
             })
         }
         const deadline = moment(this.props.course.registerDeadline);
-        const now = moment();
+        const now = moment.utc();
         if (now > deadline) { value1 = false }
         return value1
     }
@@ -84,7 +84,7 @@ class CourseDetails extends React.Component {
                 }
 
                 {
-                    (moment(course.beginningOfStart).toDate() < moment().toDate()) &&
+                    (moment(course.beginningOfStart).toDate() < moment.utc().toDate()) &&
                     <Link to={"/course/live/" + this.props.course.id}>
                         <button className="btn btn-green">Eredmények</button>
                     </Link>

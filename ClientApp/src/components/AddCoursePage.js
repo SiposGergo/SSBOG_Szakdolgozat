@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import CourseForm from "./forms/CourseForm/CourseForm";
 import { AddCourseToHike } from "../actions/AddHikeCourseActions";
 import { getHikeDetails, deleteData } from "../actions/EditHikeActions";
-import moment from "moment";
-import { convertTimeZone } from "../helpers/convertTimeZone";
 
 class AddCoursePage extends React.Component {
   componentWillMount() {
@@ -16,8 +14,7 @@ class AddCoursePage extends React.Component {
   }
 
   onSubmit = values => {
-    const val = convertTimeZone(values);
-    this.props.dispatch(AddCourseToHike(val, this.props.match.params.id));
+    this.props.dispatch(AddCourseToHike(values, this.props.match.params.id));
   };
 
   render() {

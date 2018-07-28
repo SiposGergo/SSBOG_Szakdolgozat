@@ -7,11 +7,7 @@ import ChangePasswordForm from "./forms/ChangePasswordForm/ChangePasswordForm";
 class UserDetailsPAge extends React.Component {
   handleSubmit = values => {
     const { dispatch } = this.props;
-    const val = { ...values };
-    val.dateOfBirth = new Date(
-      val.dateOfBirth.getTime() - val.dateOfBirth.getTimezoneOffset() * 60000
-    );
-    dispatch(userActions.update(val));
+    dispatch(userActions.update(values));
   };
 
   handlePasswordChange = values => {

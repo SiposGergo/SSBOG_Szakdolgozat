@@ -6,8 +6,6 @@ import {
   deleteData as deleteHikeData
 } from "../actions/EditHikeActions";
 import CourseForm from "./forms/CourseForm/CourseForm";
-import moment from "moment";
-import { convertTimeZone } from "../helpers/convertTimeZone";
 
 class EditCoursePage extends React.Component {
   componentWillMount() {
@@ -19,8 +17,7 @@ class EditCoursePage extends React.Component {
   }
 
   handleSubmit = values => {
-    const val = convertTimeZone(values);
-    this.props.dispatch(postEditCourse(val, this.props.match.params.courseId));
+    this.props.dispatch(postEditCourse(values, this.props.match.params.courseId));
   };
 
   render() {

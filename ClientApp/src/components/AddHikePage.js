@@ -5,9 +5,7 @@ import { connect } from "react-redux";
 
 export class AddHikePage extends React.Component {
   onSubmit = values => {
-    const val = {...values};
-    val.date = new Date(val.date.getTime() - val.date.getTimezoneOffset()*60000)
-    this.props.dispatch(AddHike(val));
+    this.props.dispatch(AddHike(values));
   };
 
   render() {

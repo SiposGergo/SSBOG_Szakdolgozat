@@ -15,9 +15,7 @@ class EditHikePage extends React.Component {
     }
 
     handleSubmit = (values) => {
-        const val = {...values};
-        val.date = new Date(val.date.getTime() - val.date.getTimezoneOffset()*60000)
-        this.props.dispatch(postEditHike(val));
+        this.props.dispatch(postEditHike(values));
     }
 
     render() {

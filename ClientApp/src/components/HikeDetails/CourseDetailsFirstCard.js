@@ -34,8 +34,8 @@ class CourseDetailsFirstCard extends React.Component {
                         </tr>
                         <tr>
                             <td>Rajt ideje</td>
-                            <td> {moment(props.course.beginningOfStart).format(config.timeFormat)}
-                                - {moment(props.course.endOfStart).format(config.timeFormat)}</td>
+                            <td> {moment.utc(props.course.beginningOfStart).local().format(config.timeFormat)}
+                                - {moment.utc(props.course.endOfStart).local().format(config.timeFormat)}</td>
                         </tr>
                         <tr>
                             <td>Szintidő</td>
@@ -51,7 +51,7 @@ class CourseDetailsFirstCard extends React.Component {
                         </tr>
                         <tr>
                             <td>Nevezési határidő</td>
-                            <td>{moment(props.course.registerDeadline).format(config.dateTimeFormat)}</td>
+                            <td>{moment.utc(props.course.registerDeadline).local().format(config.dateTimeFormat)}</td>
                         </tr>
                     </tbody>
                 </table>

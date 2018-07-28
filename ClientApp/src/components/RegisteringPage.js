@@ -6,9 +6,7 @@ import { bindActionCreators } from "redux";
 
 class RegisterPage extends React.Component {
   handleSubmit = values => {
-    const val = {...values};
-    val.dateOfBirth = new Date(val.dateOfBirth.getTime() - val.dateOfBirth.getTimezoneOffset()*60000); console.log(val);
-    this.props.register({ val, history: this.props.history });
+    this.props.register({ values, history: this.props.history });
   };
 
   render() {
@@ -28,7 +26,7 @@ class RegisterPage extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     register: params => {
-      dispatch(userActions.register(params.val, params.history));
+      dispatch(userActions.register(params.values, params.history));
     }
   };
 };

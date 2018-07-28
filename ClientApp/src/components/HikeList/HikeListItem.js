@@ -13,7 +13,7 @@ class HikeListItem extends React.Component {
                 <tbody>
                     <tr>
                         <td>Időpont:</td>
-                        <td>{new moment(props.hike.date).format('YYYY. MM. DD.')}</td>
+                        <td>{moment.utc(props.hike.date).local().format('YYYY. MM. DD.')}</td>
                     </tr>
                     <tr>
                         <td>Távok: </td>

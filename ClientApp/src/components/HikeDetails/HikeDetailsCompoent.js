@@ -8,7 +8,7 @@ class HikeDetailsCompoent extends React.Component {
         const hike = this.props.hike; console.log(this.props.hike)
         return (
             <div className="col-md details-box">
-                <h3 className="flo">{moment(hike.date).format(config.dateFormat)}</h3>
+                <h3 className="flo">{moment.utc(hike.date).local().format(config.dateFormat)}</h3>
                 <h3>{hike.name}</h3>
                 <div>{hike.description}</div>
                 <a href={hike.website} target="_blank"><button className="btn btn-green">A Túra oldala</button></a>
