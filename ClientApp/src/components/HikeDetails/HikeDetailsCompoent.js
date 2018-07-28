@@ -5,7 +5,7 @@ import {config} from "../../helpers/config.js";
 
 class HikeDetailsCompoent extends React.Component {
     render() {
-        const hike = this.props.hike;
+        const hike = this.props.hike; console.log(this.props.hike)
         return (
             <div className="col-md details-box">
                 <h3 className="flo">{moment(hike.date).format(config.dateFormat)}</h3>

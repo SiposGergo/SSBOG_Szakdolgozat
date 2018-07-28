@@ -120,11 +120,11 @@ namespace Tests.tests.CourseServiceTests
                 Assert.That(course.Distance, Is.EqualTo(1000));
                 Assert.That(course.CheckPoints, Has.Count.EqualTo(2));
                 Assert.That(course.MaxNumOfHikers, Is.EqualTo(13));
-                Assert.That(course.LimitTime, Is.EqualTo(new TimeSpan(1,0,0)));
+                Assert.That(course.LimitTime, Is.EqualTo(new TimeSpan(1, 0, 0)));
                 Assert.That(course.PlaceOfStart, Is.EqualTo("start"));
                 Assert.That(course.PlaceOfFinish, Is.EqualTo("finish"));
                 Assert.That(course.Price, Is.EqualTo(500));
-                Assert.That(course.RegisterDeadline, Is.EqualTo(DateTime.Today));
+                Assert.That(course.RegisterDeadline, Is.EqualTo(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59)));
                 Assert.That(course.BeginningOfStart, Is.EqualTo(DateTime.Today.AddHours(10)));
                 Assert.That(course.EndOfStart, Is.EqualTo(DateTime.Today.AddHours(12)));
             }

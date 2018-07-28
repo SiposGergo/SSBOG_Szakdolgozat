@@ -142,7 +142,7 @@ namespace SSBO5G__Szakdolgozat.Services
                 checkPoint.Open = RemoveSecondsFromDateTime(checkPoint.Open);
                 checkPoint.Close = RemoveSecondsFromDateTime(checkPoint.Close);
             }
-            course.RegisterDeadline = new DateTime(course.RegisterDeadline.Year, course.RegisterDeadline.Month, course.RegisterDeadline.Day, 23, 59, 59);
+            course.RegisterDeadline = new DateTime(courseParam.RegisterDeadline.Year, courseParam.RegisterDeadline.Month, courseParam.RegisterDeadline.Day, 23, 59, 59);
             course.Name = courseParam.Name;
             course.Distance = courseParam.Distance;
             course.Elevation = courseParam.Distance;
@@ -151,7 +151,6 @@ namespace SSBO5G__Szakdolgozat.Services
             course.PlaceOfFinish = courseParam.PlaceOfFinish;
             course.PlaceOfStart = courseParam.PlaceOfStart;
             course.Price = courseParam.Price;
-            course.RegisterDeadline = courseParam.RegisterDeadline;
             course.BeginningOfStart = courseParam.BeginningOfStart;
             course.EndOfStart = courseParam.EndOfStart;
             course.CheckPoints = courseParam.CheckPoints;

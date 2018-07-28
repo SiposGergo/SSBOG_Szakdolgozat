@@ -554,7 +554,7 @@ namespace SSBO5G__Szakdolgozat.Helpers
                     Name = "Rajt",
                     Description = "",
                     DistanceFromStart = 0,
-                    Open = new DateTime(year, month, day, 07, 00, 00),
+                    Open = new DateTime(year, month, day, 17, 45, 00),
                     Close = new DateTime(year, month, day, 22, 00, 00)
                 },
                  new CheckPoint
@@ -676,8 +676,8 @@ namespace SSBO5G__Szakdolgozat.Helpers
                      Name = "Teszt Cél1",
                      Description = "iskola",
                      DistanceFromStart = 8940,
-                     Open = new DateTime(year, month, day, 8, 00, 00),
-                     Close = new DateTime(year, month, day, 12, 10, 00)
+                     Open = new DateTime(year, month, day, 18, 00, 00),
+                     Close = new DateTime(year, month, day, 19, 10, 00)
                  });
             context.SaveChanges();
 

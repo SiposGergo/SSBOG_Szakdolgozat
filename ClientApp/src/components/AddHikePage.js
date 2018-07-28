@@ -1,19 +1,26 @@
 import React from "react";
-import HikeForm from "./forms/HikeForm/HikeForm"
-import {AddHike} from "../actions/AddHikeActions"
-import {connect} from "react-redux"
+import HikeForm from "./forms/HikeForm/HikeForm";
+import { AddHike } from "../actions/AddHikeActions";
+import { connect } from "react-redux";
 
 export class AddHikePage extends React.Component {
+  onSubmit = values => {
+    const val = {...values};
+    val.date = new Date(val.date.getTime() - val.date.getTimezoneOffset()*60000)
+    this.props.dispatch(AddHike(val));
+  };
 
-    onSubmit = (values) => {
-        console.log(values)
-        this.props.dispatch(AddHike(values));
-        }
-
-    render()
-    {
-        return(<div><HikeForm onSubmit={this.onSubmit} title="Új túra felvitele"/></div>)
-    }
+  render() {
+    return (
+      <div>
+        <HikeForm
+          onSubmit={this.onSubmit}
+          title="Új túra felvitele"
+          initialValues={{ date: new Date() }}
+        />
+      </div>
+    );
+  }
 }
 
-export default connect()(AddHikePage)
+export default connect()(AddHikePage);

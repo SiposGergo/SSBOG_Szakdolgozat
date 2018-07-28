@@ -66,32 +66,32 @@ namespace Tests.TestData
                         Id = 1,
                         CourseId = 1,
                         DistanceFromStart = 10,
-                        Open = DateTime.Now.AddMinutes(-2),
-                        Close = DateTime.Now.AddMinutes(2)
+                        Open = DateTime.UtcNow.AddMinutes(-2),
+                        Close = DateTime.UtcNow.AddMinutes(2)
                     },
                     new CheckPoint
                     {
                         Id = 2,
                         CourseId = 1,
                         DistanceFromStart = 20,
-                        Open = DateTime.Now.AddMinutes(2),
-                        Close = DateTime.Now.AddMinutes(3)
+                        Open = DateTime.UtcNow.AddMinutes(2),
+                        Close = DateTime.UtcNow.AddMinutes(3)
                     },
                     new CheckPoint
                     {
                         Id = 3,
                         CourseId = 1,
                         DistanceFromStart = 30,
-                        Open = DateTime.Now.AddMinutes(-2),
-                        Close = DateTime.Now.AddMinutes(-1)
+                        Open = DateTime.UtcNow.AddMinutes(-2),
+                        Close = DateTime.UtcNow.AddMinutes(-1)
                     },
                      new CheckPoint
                      {
                          Id = 4,
                          CourseId = 1,
                          DistanceFromStart = 40,
-                         Open = DateTime.Now.AddMinutes(-2),
-                         Close = DateTime.Now.AddMinutes(1)
+                         Open = DateTime.UtcNow.AddMinutes(-2),
+                         Close = DateTime.UtcNow.AddMinutes(1)
                      }
                     );
 

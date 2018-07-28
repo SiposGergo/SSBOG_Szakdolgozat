@@ -97,7 +97,6 @@ namespace SSBO5G__Szakdolgozat.Services
             }
 
             CheckPointPass pass = registration.Passes[cpId];
-            //pass.CheckPointId = recordDto.CheckpointId;
             pass.TimeStamp = recordDto.TimeStamp;
             pass.NettoTime = cpId == 0 ? new TimeSpan(0, 0, 0) : recordDto.TimeStamp - registration.Passes[0].TimeStamp;
 

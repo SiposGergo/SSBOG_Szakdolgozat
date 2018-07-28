@@ -1,9 +1,9 @@
 export const config = {
-    apiUrl: 'https://hikex.azurewebsites.net',
+    apiUrl: 'http://localhost:4242',
     dateTimeFormat: "YYYY. MM. DD. HH:mm",
     "timeFormat": "HH:mm",
     "timeFormatLong" : "HH:mm:ss",
     "dateFormat": 'YYYY.MM.DD.'
 };
 
-//http://localhost:4242
+//https://hikex.azurewebsites.net

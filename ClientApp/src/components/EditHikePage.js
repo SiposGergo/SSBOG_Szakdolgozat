@@ -15,7 +15,9 @@ class EditHikePage extends React.Component {
     }
 
     handleSubmit = (values) => {
-        this.props.dispatch(postEditHike(values));
+        const val = {...values};
+        val.date = new Date(val.date.getTime() - val.date.getTimezoneOffset()*60000)
+        this.props.dispatch(postEditHike(val));
     }
 
     render() {
@@ -28,13 +30,15 @@ class EditHikePage extends React.Component {
         }
         else{
             
+            const hike = {...this.props.hike};
+            hike.date = new Date(hike.date);
             return (
                 <div>
                     <HikeForm 
                         onSubmit={this.handleSubmit} 
                         buttonText="Elküld"
                         title="Túra adatai" 
-                        initialValues = {this.props.hike}
+                        initialValues = {hike}
                          />
                 </div>
             )

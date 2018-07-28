@@ -112,7 +112,7 @@ namespace SSBO5G__Szakdolgozat.Services
             user.PhoneNumber = userParam.PhoneNumber;
             user.Town = userParam.Town;
             user.UserName = userParam.UserName;
-            user.DateOfBirth = userParam.DateOfBirth;
+            user.DateOfBirth = new DateTime(userParam.DateOfBirth.Year, userParam.DateOfBirth.Month, userParam.DateOfBirth.Day);
             user.Gender = userParam.Gender;
             
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))

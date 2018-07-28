@@ -48,9 +48,7 @@ const validate = (values, props) => {
         && values.endOfStart 
         && typeof (values.endOfStart) != "string"
         && typeof (values.beginningOfStart) != "string") {
-        const begginingDate = values.beginningOfStart.toDate();
-        const endDate = values.endOfStart.toDate();
-        if (begginingDate >= endDate) {
+        if (values.beginningOfStart >= values.endOfStart) {
             errors.endOfStart = 'Nem lehet vége a rajtnak mielőtt elkezdődött volna!!';
         }
     }
@@ -69,8 +67,7 @@ const validate = (values, props) => {
 
     if (values.registerDeadline && typeof (values.registerDeadline) != "string") {
         const baseDateInDate = moment(props.baseDate).toDate();
-        const registerDeadlineInDate = moment(values.registerDeadline.format());
-        if (baseDateInDate < registerDeadlineInDate) {
+        if (baseDateInDate < values.registerDeadline) {
             errors.registerDeadline = 'A nevezés határideje csak a túra napja előtt lehet!';
         }
     }
@@ -110,7 +107,7 @@ const validate = (values, props) => {
             }
 
             if (checkpoint && checkpoint.open && checkpoint.close && typeof (checkpoint.open) != "string") {
-                if (checkpoint.open.toDate() >= checkpoint.close.toDate()) {
+                if (checkpoint.open >= checkpoint.close) {
                     checkPointErrors.close = 'Nem megfelelő sorrend!'
                     checkPointArrayErrors[index] = checkPointErrors
                 }
