@@ -100,7 +100,6 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Nem megfelelő dátum!");
             }
-            hike.Date = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day);
             await context.Hikes.AddAsync(hike);
             await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId});
             await context.SaveChangesAsync();
@@ -167,7 +166,7 @@ namespace SSBO5G__Szakdolgozat.Services
         public async Task<IEnumerable<Hike>> GetTodayHikes()
         {
             var ids = context.Hikes
-                .Where(x => x.Date.Date == DateTime.Today)
+                .Where(x => x.Date.AddHours(2).Date == DateTime.UtcNow.Date)
                 .Select(x => x.Id);
             List<Hike> todayHikes = new List<Hike>();
             foreach (int id in ids)
