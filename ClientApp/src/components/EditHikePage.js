@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { getHikeDetails, postEditHike ,deleteData} from '../actions/EditHikeActions';
 import HikeForm from "./forms/HikeForm/HikeForm"
 
-
 class EditHikePage extends React.Component {
 
     componentWillMount() {

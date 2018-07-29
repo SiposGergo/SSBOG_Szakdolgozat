@@ -1,6 +1,5 @@
 import React from "react";
-//import moment from "moment";
-import moment from "moment-timezone"
+import moment from "moment";
 import { Link } from "react-router-dom";
 import { config } from "../../helpers/config.js";
 

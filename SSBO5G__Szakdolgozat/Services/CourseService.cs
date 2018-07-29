@@ -85,7 +85,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("A cél távolsága a rajttól megegyezik a távval!");
             }
-            hikeCourse.RegisterDeadline = new DateTime(hikeCourse.RegisterDeadline.Year, hikeCourse.RegisterDeadline.Month, hikeCourse.RegisterDeadline.Day, 23, 59, 59);
+            hikeCourse.RegisterDeadline = new DateTime(hikeCourse.RegisterDeadline.Year, hikeCourse.RegisterDeadline.Month, hikeCourse.RegisterDeadline.Day, 21, 59, 59);
             CheckCheckPoints(hikeCourse.CheckPoints);
             hikeCourse.BeginningOfStart = RemoveSecondsFromDateTime(hikeCourse.BeginningOfStart);
             hikeCourse.EndOfStart = RemoveSecondsFromDateTime(hikeCourse.EndOfStart);

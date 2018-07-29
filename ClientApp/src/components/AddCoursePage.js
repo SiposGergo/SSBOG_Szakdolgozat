@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import CourseForm from "./forms/CourseForm/CourseForm";
 import { AddCourseToHike } from "../actions/AddHikeCourseActions";
 import { getHikeDetails, deleteData } from "../actions/EditHikeActions";
+import moment from "moment";
 
 class AddCoursePage extends React.Component {
   componentWillMount() {
@@ -33,11 +34,11 @@ class AddCoursePage extends React.Component {
           <CourseForm
             onSubmit={this.onSubmit}
             title="Új táv hozzáadása!"
-            baseDate={this.props.hike.date}
+            baseDate={new Date(moment.utc(this.props.hike.date).local().toString())}
             initialValues={{
-              registerDeadline: new Date(this.props.hike.date),
-              beginningOfStart: new Date(this.props.hike.date),
-              endOfStart: new Date(this.props.hike.date)
+              registerDeadline: new Date(moment.utc(this.props.hike.date).local().toString()),
+              beginningOfStart: new Date(moment.utc(this.props.hike.date).local().toString()),
+              endOfStart: new Date(moment.utc(this.props.hike.date).local().toString())
             }}
           />
         </div>

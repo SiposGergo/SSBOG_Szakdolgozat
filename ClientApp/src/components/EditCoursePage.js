@@ -57,7 +57,7 @@ class EditCoursePage extends React.Component {
               onSubmit={this.handleSubmit}
               title="Túra adatai"
               initialValues={filtered[0]}
-              baseDate={this.props.hike.date}
+              baseDate={new Date(moment.utc(this.props.hike.date).local().toString())}
             />
           </div>
         );
