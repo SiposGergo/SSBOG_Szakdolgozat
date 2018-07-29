@@ -66,7 +66,7 @@ const validate = (values, props) => {
     }
 
     if (values.registerDeadline && typeof (values.registerDeadline) != "string") {
-        const baseDateInDate = moment(props.baseDate).toDate();
+        const baseDateInDate = moment(props.baseDate).add(-1,"days").toDate();
         if (baseDateInDate < values.registerDeadline) {
             errors.registerDeadline = 'A nevezés határideje csak a túra napja előtt lehet!';
         }

@@ -44,12 +44,12 @@ class EditCoursePage extends React.Component {
       if (!filtered.length) {
         return <div>Nincs ilyen táv!</div>;
       } else {
-        filtered[0].beginningOfStart = new Date(filtered[0].beginningOfStart);
-        filtered[0].endOfStart = new Date(filtered[0].endOfStart);
-        filtered[0].registerDeadline = new Date(filtered[0].registerDeadline);
+        filtered[0].beginningOfStart = new Date(moment.utc(filtered[0].beginningOfStart).local().toString());
+        filtered[0].endOfStart = new Date(moment.utc(filtered[0].endOfStart).local().toString());
+        filtered[0].registerDeadline = new Date(moment.utc(filtered[0].registerDeadline).local().toString());
         filtered[0].checkPoints.forEach(x => {
-          x.close = new Date(x.close);
-          x.open = new Date(x.open);
+          x.close = new Date(moment.utc(x.close).local().toString());
+          x.open = new Date(moment.utc(x.open).local().toString());
         });
 
         return (

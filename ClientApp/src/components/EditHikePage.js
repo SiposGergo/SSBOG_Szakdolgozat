@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getHikeDetails, postEditHike ,deleteData} from '../actions/EditHikeActions';
 import HikeForm from "./forms/HikeForm/HikeForm"
+import moment from "moment";
 
 class EditHikePage extends React.Component {
 

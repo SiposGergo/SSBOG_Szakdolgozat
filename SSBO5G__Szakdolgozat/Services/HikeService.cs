@@ -17,7 +17,7 @@ namespace SSBO5G__Szakdolgozat.Services
         Task AddHike(Hike hike);
         Task EditHike(Hike hike, int loggedInUserId);
         Task AddHelper(int hikeId, int loggedInUserId, string userName);
-        Task<IEnumerable<Hike>>  GetTodayHikes();
+        Task<IEnumerable<Hike>> GetTodayHikes();
     }
     public class HikeService : IHikeService
     {
@@ -96,12 +96,12 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("felhasználó");
             }
-            if (hike.Date == null ||hike.Date < DateTime.UtcNow)
+            if (hike.Date == null || hike.Date < DateTime.UtcNow)
             {
                 throw new ApplicationException("Nem megfelelő dátum!");
             }
             await context.Hikes.AddAsync(hike);
-            await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId});
+            await context.HikeHelpers.AddAsync(new HikeHelper { HikeId = hike.Id, HikerId = hike.OrganizerId });
             await context.SaveChangesAsync();
         }
 
@@ -112,7 +112,10 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new NotFoundException("A felhasználó nem található!");
             }
-            var hikeFromDb = await context.Hikes.FindAsync(hike.Id);
+            var hikeFromDb = await context.Hikes.
+                Include(x => x.Courses)
+                .ThenInclude(y => y.CheckPoints)
+                .SingleOrDefaultAsync(x => x.Id == hike.Id);
             if (hikeFromDb == null)
             {
                 throw new NotFoundException("túra");
@@ -129,11 +132,28 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Már elkezdődött túrát nem módosíthatsz!");
             }
+            if (hikeFromDb.Date != hike.Date)
+            {
+                hikeFromDb.Date = hike.Date;
+                foreach (HikeCourse course in hikeFromDb.Courses)
+                {
+                    course.EndOfStart = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day, course.EndOfStart.Hour, course.EndOfStart.Minute, 0).AddDays(1);
+                    course.BeginningOfStart = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day, course.BeginningOfStart.Hour, course.BeginningOfStart.Minute, 0).AddDays(1);
+                    foreach (CheckPoint cp in course.CheckPoints)
+                    {
+                        cp.Close = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day, cp.Close.Hour, cp.Close.Minute, 0).AddDays(1);
+                        cp.Open = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day, cp.Open.Hour, cp.Open.Minute, 0).AddDays(1);
+                    }
+                    if (course.RegisterDeadline > hike.Date)
+                    {
+                        course.RegisterDeadline = new DateTime(hike.Date.Year, hike.Date.Month, hike.Date.Day, 21, 59, 59);
+                    }
+                }
+            }
             hikeFromDb.Name = hike.Name;
             hikeFromDb.Description = hike.Description;
-            hikeFromDb.Date = hike.Date;
             hikeFromDb.Website = hike.Website;
-            await context.SaveChangesAsync();            
+            await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Hike>> GetAllHike()
@@ -154,7 +174,7 @@ namespace SSBO5G__Szakdolgozat.Services
                     .ThenInclude(course => course.Registrations)
                 .Include(hike => hike.Comments)
                 .ThenInclude(comments => comments.Author).
-                Include(x=>x.Staff)
+                Include(x => x.Staff)
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (selectedHike == null)
             {
@@ -166,7 +186,7 @@ namespace SSBO5G__Szakdolgozat.Services
         public async Task<IEnumerable<Hike>> GetTodayHikes()
         {
             var ids = context.Hikes
-                .Where(x => x.Date.AddHours(2).Date == DateTime.UtcNow.Date)
+                .Where(x => x.Date.Date == DateTime.Today)
                 .Select(x => x.Id);
             List<Hike> todayHikes = new List<Hike>();
             foreach (int id in ids)
