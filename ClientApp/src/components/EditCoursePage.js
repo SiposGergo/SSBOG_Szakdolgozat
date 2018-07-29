@@ -6,6 +6,7 @@ import {
   deleteData as deleteHikeData
 } from "../actions/EditHikeActions";
 import CourseForm from "./forms/CourseForm/CourseForm";
+import moment from "moment";
 
 class EditCoursePage extends React.Component {
   componentWillMount() {

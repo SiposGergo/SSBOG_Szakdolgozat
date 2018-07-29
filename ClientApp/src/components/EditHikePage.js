@@ -28,7 +28,7 @@ class EditHikePage extends React.Component {
         else{
             
             const hike = {...this.props.hike};
-            hike.date = new Date(hike.date);
+            hike.date = new Date(moment.utc(hike.date).local().toString())
             return (
                 <div>
                     <HikeForm 
