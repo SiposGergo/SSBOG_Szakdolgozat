@@ -186,7 +186,7 @@ namespace SSBO5G__Szakdolgozat.Services
         public async Task<IEnumerable<Hike>> GetTodayHikes()
         {
             var ids = context.Hikes
-                .Where(x => x.Date.Date == DateTime.Today)
+                .Where(x => x.Date.AddHours(3).Date == DateTime.UtcNow.Date)
                 .Select(x => x.Id);
             List<Hike> todayHikes = new List<Hike>();
             foreach (int id in ids)

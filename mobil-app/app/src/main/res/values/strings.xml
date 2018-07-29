@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Hikex-smarphone-app</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Felhasználónév</string>
+    <string name="prompt_password">Jelszó</string>
+    <string name="action_sign_in">Bejelentkezés</string>
+    <string name="action_sign_in_short">Bejelentkezés</string>
+    <string name="error_invalid_email">---</string>
+    <string name="error_invalid_password">---</string>
+    <string name="error_incorrect_password">--</string>
+    <string name="error_field_required">Kötelező kitöteni!</string>
+</resources>
