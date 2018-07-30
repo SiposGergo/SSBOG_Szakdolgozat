@@ -31,7 +31,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:src="@mipmap/ic_launcher"
+                    />
 
                 <EditText
                     android:id="@+id/email"
@@ -66,7 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#FFF"/>
 
         </LinearLayout>
     </ScrollView>
