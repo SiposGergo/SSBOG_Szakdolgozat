@@ -7,4 +7,7 @@
     <string name="action_sign_in">Bejelentkezés</string>
     <string name="action_sign_in_short">Bejelentkezés</string>
     <string name="error_field_required">Kötelező kitöteni!</string>
+
+    <string name="preference_file_key">hike1855x</string>
+    <string name="api_url">https://hikex.azurewebsites.net/</string>
 </resources>

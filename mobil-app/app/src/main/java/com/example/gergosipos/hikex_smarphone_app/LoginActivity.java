@@ -3,55 +3,49 @@ package com.example.gergosipos.hikex_smarphone_app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.support.annotation.NonNull;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
-
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
+import POJO.User;
 
 public class LoginActivity extends AppCompatActivity  {
-
+    private VolleySingleton volleySingleton;
+    private SharedPreferences sharedPreferences;
     private Boolean isLoginInProgress = false;
+
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        volleySingleton = VolleySingleton.getInstance(getApplicationContext());
+        sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         setContentView(R.layout.activity_login);
         mUsernameView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -66,7 +60,15 @@ public class LoginActivity extends AppCompatActivity  {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        if (sharedPreferences.contains("user")){
+            Intent myIntent = new Intent(getBaseContext(),TodayHikesActivity.class);
+            startActivity(myIntent);
+            finish();
+        }
     }
+
+
 
     private void attemptLogin() {
         if (isLoginInProgress) {
@@ -106,9 +108,8 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
     private void sendRequest(String userName, String password) {
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String API_URL = "https://hikex.azurewebsites.net/Users/authenticate";
 
+        String url = getString(R.string.api_url)+"Users/authenticate";
         JSONObject jsonBody = null;
         try {
             jsonBody = new JSONObject()
@@ -118,20 +119,19 @@ public class LoginActivity extends AppCompatActivity  {
             e.printStackTrace();
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API_URL, jsonBody,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String s="";
-                        try {
-                            s = response.getString("name");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                        String json = response.toString();
+                        User u = new Gson().fromJson(json,User.class);
+                        Toast.makeText(getApplicationContext(),"Üdv, "+u.getUserNam(),Toast.LENGTH_LONG).show();
+                        SharedPreferences.Editor editor = sharedPreferences.edit().putString("user",json);
+                        editor.apply();
                         isLoginInProgress = false;
                         showProgress(false);
-                        finish();
+                        Intent myIntent = new Intent(getBaseContext(),TodayHikesActivity.class);
+                        startActivity(myIntent);
                     }
                 },
 
@@ -145,8 +145,8 @@ public class LoginActivity extends AppCompatActivity  {
                     }
 
                 });
-        queue.add(request);
-        queue.start();
+        volleySingleton.getRequestQueue().add(request);
+        volleySingleton.getRequestQueue().start();
     }
 
     /**
