@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class HikeCourse implements Serializable{
     CheckPoint[] checkPoints;
     int id;
-    String Name;
+    String name;
 
     public CheckPoint[] getCheckPoints() {
         return checkPoints;
@@ -16,6 +16,6 @@ public class HikeCourse implements Serializable{
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 }

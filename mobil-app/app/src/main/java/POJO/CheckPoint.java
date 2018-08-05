@@ -1,6 +1,8 @@
 package POJO;
 
-public class CheckPoint {
+import java.io.Serializable;
+
+public class CheckPoint implements Serializable{
     public int getId() {
         return id;
     }

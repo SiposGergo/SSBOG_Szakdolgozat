@@ -18,6 +18,12 @@ public class Hike implements Serializable{
         return staff;
     }
 
+    public List<HikeCourse> getCourses() {
+        return courses;
+    }
+
+    private List<HikeCourse> courses;
+
     private String id;
     private String name;
     List<HikeHelper> staff;
