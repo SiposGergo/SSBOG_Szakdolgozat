@@ -17,14 +17,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import POJO.User;
 
@@ -62,9 +67,38 @@ public class LoginActivity extends AppCompatActivity  {
         mProgressView = findViewById(R.id.login_progress);
 
         if (sharedPreferences.contains("user")){
-            Intent myIntent = new Intent(getBaseContext(),TodayHikesActivity.class);
-            startActivity(myIntent);
-            finish();
+            final User user = new Gson().fromJson(sharedPreferences.getString("user", ""), User.class);
+            StringRequest request = new StringRequest(Request.Method.GET,"https://hikex.azurewebsites.net/Users/test",
+             new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Intent myIntent = new Intent(getBaseContext(),TodayHikesActivity.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+            },
+
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (error.networkResponse.statusCode == 401) {
+                                Toast.makeText(getApplicationContext(),"Lejárt a bejelentkezésed",Toast.LENGTH_LONG).show();
+                                SharedPreferences.Editor edit = sharedPreferences.edit();
+                                edit.remove("user");
+                                edit.apply();
+                            }
+
+                        }}){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", "Bearer "+user.getToken());
+                    return params;
+                }
+            };
+
+            volleySingleton.getRequestQueue().add(request);
+            volleySingleton.getRequestQueue().start();
         }
     }
 
@@ -157,6 +191,7 @@ public class LoginActivity extends AppCompatActivity  {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
