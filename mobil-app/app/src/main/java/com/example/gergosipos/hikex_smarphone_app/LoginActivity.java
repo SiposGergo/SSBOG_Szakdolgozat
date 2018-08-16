@@ -63,12 +63,12 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
+        mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
 
         if (sharedPreferences.contains("user")){
             final User user = new Gson().fromJson(sharedPreferences.getString("user", ""), User.class);
-            StringRequest request = new StringRequest(Request.Method.GET,"https://hikex.azurewebsites.net/Users/test",
+            StringRequest request = new StringRequest(Request.Method.GET,getString(R.string.api_url)+"Users/test",
              new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity  {
                         showProgress(false);
                         Intent myIntent = new Intent(getBaseContext(),TodayHikesActivity.class);
                         startActivity(myIntent);
+                        finish();
                     }
                 },
 
@@ -188,11 +189,6 @@ public class LoginActivity extends AppCompatActivity  {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
@@ -212,12 +208,6 @@ public class LoginActivity extends AppCompatActivity  {
                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
     }
 }
 

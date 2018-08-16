@@ -75,7 +75,7 @@ public class AdminActivity extends AppCompatActivity {
     VolleySingleton volleySingleton;
     User user;
     private SharedPreferences sharedPreferences;
-
+    Hike hike;
     private NfcAdapter mNfcAdapter;
 
     @Override
@@ -87,7 +87,9 @@ public class AdminActivity extends AppCompatActivity {
     @Override
         protected void onResume() {
             super.onResume();
-            setupForegroundDispatch(this, mNfcAdapter);
+            if (mNfcAdapter != null) {
+                setupForegroundDispatch(this, mNfcAdapter);
+            }
         }
 
     private void setupForegroundDispatch(final AdminActivity activity, NfcAdapter mNfcAdapter) {
@@ -107,7 +109,6 @@ public class AdminActivity extends AppCompatActivity {
         } catch (IntentFilter.MalformedMimeTypeException e) {
             throw new RuntimeException("Check your mime type.");
         }
-
         mNfcAdapter.enableForegroundDispatch(activity, pendingIntent, filters, techList);
     }
 
@@ -120,7 +121,7 @@ public class AdminActivity extends AppCompatActivity {
                     Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                     ReadData(tag);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Rossz NFC tag", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.nfc_error), Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -130,11 +131,9 @@ public class AdminActivity extends AppCompatActivity {
         if (ndef == null) {
             return;
         }
-
         NdefMessage ndefMessage = ndef.getCachedNdefMessage();
-
         NdefRecord[] records = ndefMessage.getRecords();
-        for (NdefRecord ndefRecord : records) {
+        NdefRecord ndefRecord = records[0];
             if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
                 try {
                     byte[] payload = ndefRecord.getPayload();
@@ -142,18 +141,19 @@ public class AdminActivity extends AppCompatActivity {
                     int languageCodeLength = payload[0] & 0063;
                     String s = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
                     startNumberText.setText(s);
+                    sendPass();
                 } catch (UnsupportedEncodingException e) {
-
+                    throw new RuntimeException();
                 }
             }
         }
 
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
-        mNfcAdapter.disableForegroundDispatch(this);
+        if (mNfcAdapter != null) {
+            mNfcAdapter.disableForegroundDispatch(this);
+        }
     }
 
     @Override
@@ -165,15 +165,15 @@ public class AdminActivity extends AppCompatActivity {
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         user = new Gson().fromJson(sharedPreferences.getString("user", ""), User.class);
-
         volleySingleton = VolleySingleton.getInstance(getApplicationContext());
+
         courseSpinner = findViewById(R.id.courseSpinner);
         checkPointSpinner = findViewById(R.id.checkPointSpinner);
         sendButton = findViewById(R.id.sendButton);
         startNumberText = findViewById(R.id.startNumEditText);
         readQrButton = findViewById(R.id.readQrButton);
 
-        final Hike hike = (Hike)getIntent().getSerializableExtra("hike");
+        hike = (Hike)getIntent().getSerializableExtra("hike");
 
         List<String> courseNames = new ArrayList<>();
         for(HikeCourse course : hike.getCourses()) {
@@ -219,51 +219,52 @@ public class AdminActivity extends AppCompatActivity {
         });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
-
-            String url = "https://hikex.azurewebsites.net/Admin/record-checkpoint-pass";
             @Override
             public void onClick(View view) {
-                JSONObject jsonBody = null;
-                try {
-                    jsonBody = new JSONObject()
-                            .put("startNumber",startNumberText.getText())
-                            .put("checkpointId", hike.getCourses().get((int)courseSpinner.getSelectedItemId()).getCheckPoints()[(int)checkPointSpinner.getSelectedItemId()].getId())
-                            .put("timeStamp", new DateTime(DateTimeZone.UTC).toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        },
-
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                String errorString = new String(error.networkResponse.data);
-                                Toast.makeText(getApplicationContext(),errorString,Toast.LENGTH_LONG).show();
-                            }
-
-                        }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("Authorization", "Bearer "+user.getToken());
-                        params.put("content-type", "application/json");
-                        return params;
-                    }
-                };
-                volleySingleton.getRequestQueue().add(request);
+                sendPass();
             }
         });
 
+    }
+
+    void sendPass(){
+        String url = getString(R.string.api_url)+"Admin/record-checkpoint-pass";
+        JSONObject jsonBody = null;
+        try {
+            jsonBody = new JSONObject()
+                    .put("startNumber",startNumberText.getText())
+                    .put("checkpointId", hike.getCourses().get((int)courseSpinner.getSelectedItemId()).getCheckPoints()[(int)checkPointSpinner.getSelectedItemId()].getId())
+                    .put("timeStamp", new DateTime(DateTimeZone.UTC).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String errorString = new String(error.networkResponse.data);
+                        Toast.makeText(getApplicationContext(),errorString,Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "Bearer "+user.getToken());
+                params.put("content-type", "application/json");
+                return params;
+            }
+        };
+        volleySingleton.getRequestQueue().add(request);
     }
 
     @Override
@@ -276,6 +277,7 @@ public class AdminActivity extends AppCompatActivity {
             SparseArray<Barcode> barcodes = barcodeDetector.detect(myFrame);
             if( barcodes.size() != 0){
                 startNumberText.setText(barcodes.valueAt(0).displayValue);
+                sendPass();
             }
         }
     }

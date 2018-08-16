@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Táv"/>
+        android:text="@string/course_label"/>
 
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/courseSpinner"
@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ellenőrzőpont"
+        android:text="@string/check_point_label"
         android:layout_margin="10dp"/>
 
     <android.support.v7.widget.AppCompatSpinner
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rajtszám"
+        android:text="@string/start_number_label"
         android:layout_margin="10dp"/>
 
     <android.support.v7.widget.AppCompatEditText
@@ -48,12 +48,20 @@
         android:id="@+id/readQrButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Qr kód beolvasás"/>
+        android:text="@string/action_read_qr_code"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#FFF"
+        android:padding="10dp"
+        android:layout_margin="10dp"/>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Elküld"/>
+        android:text="@string/action_send"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#FFF"
+        android:padding="10dp"
+        android:layout_margin="10dp"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

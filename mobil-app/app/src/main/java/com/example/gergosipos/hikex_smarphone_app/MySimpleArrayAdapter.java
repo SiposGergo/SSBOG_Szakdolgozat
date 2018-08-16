@@ -20,8 +20,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<Hike> {
     public MySimpleArrayAdapter(Context context, List<Hike> hikes) {
         super(context, -1, hikes);
         this.context = context;
-        this.hikes = hikes
-        ;
+        this.hikes = hikes;
     }
 
     @Override

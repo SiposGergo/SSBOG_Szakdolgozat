@@ -25,7 +25,11 @@
                 android:id="@+id/exitBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kilépés" />
+                android:text="@string/action_sign_out"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#FFF"
+                android:padding="10dp"
+                android:layout_margin="10dp"/>
         </LinearLayout>
 
 

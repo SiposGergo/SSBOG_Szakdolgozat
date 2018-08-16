@@ -61,7 +61,7 @@ public class TodayHikesActivity extends AppCompatActivity {
                     startActivity(myIntent);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Nincs jogod teljesítési adatokat felvinni!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_permission_to_admin),Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -83,8 +83,7 @@ public class TodayHikesActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Type listType = new TypeToken<List<Hike>>(){}.getType();
-                List<Hike> responseHikes = new Gson().fromJson(response, listType);
-                hikes = responseHikes;
+                hikes = new Gson().fromJson(response, listType);
                 hikeListView.setAdapter(new MySimpleArrayAdapter(getApplicationContext(), hikes));
             }
 

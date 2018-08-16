@@ -44,21 +44,17 @@
                     android:singleLine="true" />
 
 
-
-
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
                     android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionLabel="@string/action_sign_in"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
-
-
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/email_sign_in_button"
