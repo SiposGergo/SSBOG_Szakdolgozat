@@ -78,7 +78,7 @@ public class TodayHikesActivity extends AppCompatActivity {
         });
 
 
-        String url = "https://api.myjson.com/bins/vzas8";
+        String url = getString(R.string.api_url) + "Hike/today";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -71,11 +71,13 @@ namespace SSBO5G__Szakdolgozat
                 services.AddDbContext<ApplicationContext>(
                 options => options.UseInMemoryDatabase("MyDb"));
             }
-            //else
+            else
             {
                 services.AddDbContext<ApplicationContext>(
-                options => options.UseSqlServer("Data Source=tcp:hikexdbserver.database.windows.net,1433;Initial Catalog=hikex_sys_db;User Id=prosipinho@hikexdbserver;Password=hike1855X"));
+                options => options.UseSqlServer("Server=tcp:hikexdbserver.database.windows.net,1433;Initial Catalog=hikex_sys_db;Persist Security Info=False;User ID=prosipinho;Password=hike1855X;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             }
+
+
 
             // Configure CORS
             services.AddCors(options =>
@@ -141,7 +143,7 @@ namespace SSBO5G__Szakdolgozat
             app.UseAuthentication();
 
 
-            if (env.IsDevelopment())
+           if (env.IsDevelopment())
             {
                 DbSeeder.FillWithTestData(context);
                 DbSeeder.Fil2(context);

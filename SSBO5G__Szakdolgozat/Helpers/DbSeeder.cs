@@ -81,12 +81,12 @@ namespace SSBO5G__Szakdolgozat.Helpers
             };
 
             // Hozzá is adja
-            Hiker h11 = userService.Create(h1, "abc1");
-            Hiker h21 = userService.Create(h2, "abc2");
-            Hiker h31 = userService.Create(h3, "abc3");
-            Hiker h41 = userService.Create(h4, "abc4");
-            Hiker h51 = userService.Create(h5, "abc5");
-            Hiker h61 = userService.Create(h6, "abc6");
+            Hiker h11 = userService.Create(h1, "abc1abc");
+            Hiker h21 = userService.Create(h2, "abc2abc");
+            Hiker h31 = userService.Create(h3, "abc3abc");
+            Hiker h41 = userService.Create(h4, "abc4abc");
+            Hiker h51 = userService.Create(h5, "abc5abc");
+            Hiker h61 = userService.Create(h6, "abc6abc");
 
             //////////TÚRÁK//////////
             context.Hikes.AddRange(
@@ -131,28 +131,28 @@ namespace SSBO5G__Szakdolgozat.Helpers
                 {
                     AuthorId = 1,
                     HikeId = 1,
-                    CommentText = "slalalalalalaaa",
+                    CommentText = "test coment ",
                     TimeStamp = DateTime.UtcNow
                 },
                 new Comment
                 {
                     AuthorId = 2,
                     HikeId = 1,
-                    CommentText = "lollooll",
+                    CommentText = "sziasztok!",
                     TimeStamp = DateTime.UtcNow
                 },
                 new Comment
                 {
                     AuthorId = 3,
                     HikeId = 1,
-                    CommentText = ":DDD",
+                    CommentText = ":D",
                     TimeStamp = DateTime.UtcNow
                 },
                 new Comment
                 {
                     AuthorId = 2,
                     HikeId = 2,
-                    CommentText = "trolololoolo",
+                    CommentText = "Teszt #N",
                     TimeStamp = DateTime.UtcNow
                 });
             context.SaveChanges();

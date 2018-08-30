@@ -52,12 +52,12 @@ namespace SSBO5G__Szakdolgozat.Services
 
             if (checkpoint.Open > DateTime.UtcNow)
             {
-                throw new ApplicationException($"Az ellenőrzőpont csak {checkpoint.Open.ToShortTimeString()} időpontban nyit ki!");
+                throw new ApplicationException($"Az ellenőrzőpont csak {checkpoint.Open.ToShortTimeString()} UTC időpontban nyit ki!");
             }
 
             if (checkpoint.Close < DateTime.UtcNow)
             {
-                throw new ApplicationException($"Az ellenőrzőpont már bezárt {checkpoint.Close.ToShortTimeString()} időpontban!");
+                throw new ApplicationException($"Az ellenőrzőpont már bezárt {checkpoint.Close.ToShortTimeString()} UTC időpontban!");
             }
 
             Registration registration = await context.Registrations

@@ -83,6 +83,7 @@ namespace SSBO5G__Szakdolgozat.Services
             if (context.Hikers.Any(x => x.UserName == user.UserName))
                 throw new ApplicationException("A '" + user.UserName + "' felhasználónév már foglalt.");
 
+            CheckPasswordLength(password, 6);
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.PasswordHash = passwordHash;
@@ -139,6 +140,7 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 throw new ApplicationException("Nem megfelő jelszó!");
             }
+            CheckPasswordLength(dto.NewPassword, 6);
             CreatePasswordHash(dto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
             hiker.PasswordHash = passwordHash;
             hiker.PasswordSalt = passwordSalt;
@@ -201,6 +203,14 @@ namespace SSBO5G__Szakdolgozat.Services
             {
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private void CheckPasswordLength(string passWord, int length)
+        {
+            if (passWord.Length < length)
+            {
+                throw new ApplicationException($"A minmum jelszó hossz {length} karakter!");
             }
         }
 
