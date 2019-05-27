@@ -38,7 +38,7 @@ namespace Tests.tests.CourseServiceTests
             }
         }
 
-        [Test]
+        /* [Test]
         public void GetPdfCourseInfoCourseWithNoOrganizer()
         {
             var dbOptions = new DbContextOptionsBuilder<ApplicationContext>()
@@ -114,6 +114,6 @@ namespace Tests.tests.CourseServiceTests
                 CourseService courseService = new CourseService(db);
                 await courseService.GetPdfCourseInfo(1, 1);
             }
-        }
+        } */
     }
 }

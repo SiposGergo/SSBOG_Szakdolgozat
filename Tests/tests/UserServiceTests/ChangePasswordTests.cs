@@ -89,7 +89,7 @@ namespace Tests.tests.UserServiceTests
                 UserService userService = new UserService(db, null);
                 await userService.ChangePassword(1,
                     new SSBO5G__Szakdolgozat.Dtos.ChangePasswordDto
-                    { CurrentPassword = "reallySecurePassword", NewPassword = "new" });
+                    { CurrentPassword = "reallySecurePassword", NewPassword = "newnewnew" });
             }
             using (var db = new ApplicationContext(dbOptions))
             {
@@ -97,7 +97,7 @@ namespace Tests.tests.UserServiceTests
                 var user = userService.Authenticate("telek1", "reallySecurePassword");
                 Assert.That(user, Is.Null);
 
-                user = userService.Authenticate("telek1", "new");
+                user = userService.Authenticate("telek1", "newnewnew");
                 Assert.That(user, Is.Not.Null);
             }
 

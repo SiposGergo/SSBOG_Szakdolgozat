@@ -124,7 +124,7 @@ namespace Tests.tests.CourseServiceTests
                 Assert.That(course.PlaceOfStart, Is.EqualTo("start"));
                 Assert.That(course.PlaceOfFinish, Is.EqualTo("finish"));
                 Assert.That(course.Price, Is.EqualTo(500));
-                Assert.That(course.RegisterDeadline, Is.EqualTo(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 21, 59, 59)));
+                Assert.That(course.RegisterDeadline, Is.EqualTo(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.AddDays(1).Day, 21, 59, 59)));
                 Assert.That(course.BeginningOfStart, Is.EqualTo(DateTime.Today.AddHours(10)));
                 Assert.That(course.EndOfStart, Is.EqualTo(DateTime.Today.AddHours(12)));
             }
