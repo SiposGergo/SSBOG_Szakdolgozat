@@ -6,7 +6,7 @@ COPY . ./
 RUN dotnet restore
 
 # Build app and tests
-Run dotnet publish -c Release -o out
+Run dotnet publish -c Release -o out -r linux-x64
 
 # Run tests when start container
 ENTRYPOINT ["dotnet","test"]
